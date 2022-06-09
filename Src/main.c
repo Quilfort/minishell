@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:39:04 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:50:57 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,3 @@ int	main(int argc, char *argv[])
 	// open_folder(argv);
 	return (0);
 }
-
-// Dit is de Branche van Rolf
