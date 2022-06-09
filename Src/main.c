@@ -3,16 +3,13 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/06/09 16:50:57 by qfrederi      ########   odam.nl         */
-=======
-/*   Updated: 2022/06/09 16:47:14 by rharing       ########   odam.nl         */
->>>>>>> b2c119f93346b1236c968fb98c981c8ab262bbed
+/*   Created: 2022/06/09 16:58:09 by qfrederi      #+#    #+#                 */
+/*   Updated: 2022/06/09 16:58:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -43,8 +40,8 @@ void	open_folder(char *argv[])
 void	parser()
 {
 	char			*input;
+	char			**cmd;
 
-	i = 0;
 	while (1)
 	{
 		input = readline("Q-Shell: ");

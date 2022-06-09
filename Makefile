@@ -21,6 +21,7 @@ $(LIBFT):
 clean:
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -rf $(NAME)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)
