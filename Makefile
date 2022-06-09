@@ -4,7 +4,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SRC = ./Src/main.c \
-	./Src/lexer.c
+	  ./Src/lexer.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
