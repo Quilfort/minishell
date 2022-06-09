@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 15:23:59 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:22:39 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,36 @@ void	open_folder(char *argv[])
 		closedir(dir);
 }
 
-// void	parser()
-// {
-// 	char			*input;
+void	parser()
+{
+	char			*input;
 
-// 	i = 0;
-// 	while (1)
-// 	{
-// 		input = readline("Q-Shell: ");
-// 		add_history(input);
-// 		printf("%s", input);
-// 		printf("\n");
-// 		cmd = ft_split(input, ' ');
-// 		if ((ft_strncmp("pwd", cmd[0], 3) == 0) && (cmd[1] == NULL))
-// 		{
-// 			system("pwd");
-// 		}
-// 		if ((ft_strncmp("env", cmd[0], 3) == 0) && (cmd[1] == NULL))
-// 		{
-// 			system("env");
-// 		}
-// 		if ((ft_strncmp("exit", cmd[0], 4) == 0) && (cmd[1] == NULL))
-// 		{
-// 			exit(0);
-// 		}
-// 	}
-// }
+	i = 0;
+	while (1)
+	{
+		input = readline("Q-Shell: ");
+		add_history(input);
+		printf("%s", input);
+		printf("\n");
+		cmd = ft_split(input, ' ');
+		if ((ft_strncmp("pwd", cmd[0], 3) == 0) && (cmd[1] == NULL))
+		{
+			system("pwd");
+		}
+		if ((ft_strncmp("env", cmd[0], 3) == 0) && (cmd[1] == NULL))
+		{
+			system("env");
+		}
+		if ((ft_strncmp("exit", cmd[0], 4) == 0) && (cmd[1] == NULL))
+		{
+			exit(0);
+		}
+	}
+}
 
 int	main(int argc, char *argv[])
 {
-	// parser();
+	parser();
 	lexer();
 	// write(1, "\n", 2);
 	// open_folder(argv);
