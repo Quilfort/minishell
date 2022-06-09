@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 15:24:02 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/09 17:04:30 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	lexer()
 	int				k;
 
 	i = 0;
-	
+	input = readline("Minishell QR1.0: ");
 	split = ft_split(input, ' ');
 	while (split[i] != '\0')
 	{

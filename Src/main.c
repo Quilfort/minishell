@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 16:58:09 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:58:13 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/09 17:05:03 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	parser()
 // je moederasdf.
 int	main(int argc, char *argv[])
 {
-	parser();
+	// parser();
 	lexer();
 	// write(1, "\n", 2);
 	// open_folder(argv);
