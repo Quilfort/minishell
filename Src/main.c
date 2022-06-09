@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:36:56 by rharing       ########   odam.nl         */
+/*   Updated: 2022/06/09 16:47:14 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	parser()
 		}
 	}
 }
-// dit is je moedr
+// asdfjsdfjawfoj
+
+// je moederasdf.
 int	main(int argc, char *argv[])
 {
 	parser();
