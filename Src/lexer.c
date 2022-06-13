@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/13 14:44:47 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:04:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	list_print(t_node *list)
 {
 	while (list)
 	{
-		printf("%s\n", list->content);
+		printf("%s - ", list->content);
 		printf("%s\n\n", list->token);
 		list = list->next;
 	}
@@ -49,7 +49,10 @@ static char	*find_token(char *split)
 	while (split[i] != '\0')
 	{
 		if (split[0] == '-' && split[1] != '\0')
-			lexer_token = lexer_option(split[i]);
+		{
+			lexer_token = lexer_option(split[1]);
+			break;
+		}
 		if (split[0] == '<' && split[1] == '\0')
 			lexer_token = ft_strdup("LESS");
 		if (split[0] == '>' && split[1] == '\0')
@@ -75,18 +78,18 @@ static char	*find_token(char *split)
 }
 
 
-void	lexer()
+void	lexer(char **split)
 {
-	char			*input;
+	// char			*input;
 	t_node			*list;
 	t_node			*temp;
-	char			**split;
+	// char			**split;
 
 	int				i;
 	int				k;
 
-	input = readline("Minishell QR1.0: ");
-	split = ft_split(input, ' ');
+	// input = readline("Minishell QR1.0: ");
+	// split = ft_split(input, ' ');
 	list = create_list(split[0]);
 	i = 1;
 	while (split[i] != '\0')
