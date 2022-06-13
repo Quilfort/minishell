@@ -6,13 +6,11 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:28:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/13 12:18:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	open_folder(char *argv[])
 {
@@ -65,8 +63,8 @@ void	open_folder(char *argv[])
 
 int	main(int argc, char *argv[])
 {
-	// parser();
 	lexer();
+	// parser();
 	// write(1, "\n", 2);
 	// open_folder(argv);
 	return (0);

@@ -4,7 +4,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SRC = ./Src/main.c \
-	./Src/lexer.c
+	./Src/lexer.c \
+	./Src/list.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
@@ -21,6 +22,7 @@ $(LIBFT):
 clean:
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -rf $(NAME)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 15:04:21 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/13 12:31:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,20 @@ typedef struct command_table
 	char			*errfile;
 }				command_table;
 
+typedef struct s_node
+{
+	char			*content;
+	char			*token;
+
+	struct s_node	*next;
+}	t_node;
 
 void	lexer();
 char	*lexer_option(char c);
 char	*lexer_word(char c);
+
+t_node	*create_list(char *head);
+void	lstadd_back(t_node **lst, char *split);
+
 
 #endif
