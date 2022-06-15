@@ -6,20 +6,20 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/15 12:45:39 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:04:20 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	open_folder(char *argv[])
+void	open_folder(char *split)
 {
 	DIR				*dir;
 	struct dirent	*entry;
 	int				files;
 
 	files = 0;
-	dir = opendir("Src");
+	dir = opendir(split);
 	if (dir == NULL)
 	{
 		printf("Couldn't open dir\n");
@@ -36,6 +36,9 @@ void	open_folder(char *argv[])
 
 void	commands(char **split)
 {
+		int	i;
+
+		i = 2;
 		if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
 		{
 			exit(0);
@@ -44,13 +47,28 @@ void	commands(char **split)
 		{
 			system("pwd");
 		}
-		else if ((ft_strncmp("echo", split[0], 4) == 0) && (ft_strncmp("-n", split[1], 2) == 0))
+		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
 		{
-			ft_putstr_fd(split[2], 1);
+			if(ft_strncmp("-n", split[1], 2) == 0)
+			{
+				while (split[i] != '\0')
+				{
+					ft_putstr_fd(split[i], 1);
+					i++;
+					if (split[i] != '\0')
+						ft_putchar_fd(' ', 1);
+				}
+			}
+			else
+				lexer(split);
 		}
 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			system("env");
+		}
+		else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
+		{
+			open_folder(split[1]);
 		}
 		else
 			lexer(split);

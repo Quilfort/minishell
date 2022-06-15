@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:04:43 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:06:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	list_print(t_node *list)
 {
 	while (list)
 	{
-		printf("%s - ", list->content);
+		printf("\n%s - ", list->content);
 		printf("%s\n\n", list->token);
 		list = list->next;
 	}
@@ -88,8 +88,6 @@ void	lexer(char **split)
 	int				i;
 	int				k;
 
-	// input = readline("Minishell QR1.0: ");
-	// split = ft_split(input, ' ');
 	list = create_list(split[0]);
 	i = 1;
 	while (split[i] != '\0')
@@ -102,7 +100,6 @@ void	lexer(char **split)
 	while (temp != NULL)
 	{
 		temp->token = find_token(split[i]);
-		// temp->token =  ft_strdup("HALLO");
 		temp = temp->next;
 		i++;
 	}
