@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:16:36 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/15 12:45:39 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ void	open_folder(char *argv[])
 
 void	commands(char **split)
 {
-		if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
+		if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
+		{
+			exit(0);
+		}
+		else if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			system("pwd");
+		}
+		else if ((ft_strncmp("echo", split[0], 4) == 0) && (ft_strncmp("-n", split[1], 2) == 0))
+		{
+			ft_putstr_fd(split[2], 1);
 		}
 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			system("env");
-		}
-		else if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
-		{
-			exit(0);
 		}
 		else
 			lexer(split);
