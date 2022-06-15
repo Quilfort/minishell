@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:04:20 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:27:41 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	open_folder(char *split)
 	}
 	if (dir != NULL)
 		closedir(dir);
+	chdir(split);
+	
 }
 
 void	commands(char **split)
