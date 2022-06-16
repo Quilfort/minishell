@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void error_exit(char *error_msg, int exit_code)
+{
+	perror(error_msg);
+	exit(exit_code);
+}
+
 void	open_folder(char *split)
 {
 	DIR				*dir;
@@ -22,19 +28,46 @@ void	open_folder(char *split)
 	dir = opendir(split);
 	if (dir == NULL)
 	{
-		printf("Couldn't open dir\n");
-		exit (1);
-	}
-	while((entry = readdir(dir)))
-	{
-		files++;
-		printf("File %3d: %s\n", files, entry->d_name);
+		ft_putstr_fd("shell: cd: ", 2);
+		perror(split); // als cd niet kan, dan doet bash dit, bv bash: cd: minishell: Not a directory, zonder exit
 	}
 	if (dir != NULL)
 		closedir(dir);
 	chdir(split);
-	
+	// while((entry = readdir(dir)))
+	// {
+	// 	files++;
+	// 	printf("File %3d: %s\n", files, entry->d_name);
+	// }    dit segfault als je iets invoerd wat geen dir is. 
 }
+
+// echo appart in functie gezet
+void	echo(char **split, int i)
+{
+	if(ft_strncmp("-n", split[1], 2) == 0)
+	{
+		while (split[i] != '\0')
+		{
+			ft_putstr_fd(split[i], 1);
+			i++;
+			if (split[i] != '\0')
+				ft_putchar_fd(' ', 1);
+		}
+	}
+	else
+	{
+		i = 1;
+		while (split[i] != '\0')
+		{
+			ft_putstr_fd(split[i], 1);
+			i++;
+			if (split[i] != '\0')
+				ft_putchar_fd(' ', 1);
+		}
+		ft_putchar_fd('\n', 1);
+	}
+}
+
 
 void	commands(char **split)
 {
@@ -47,23 +80,15 @@ void	commands(char **split)
 		}
 		else if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
 		{
-			system("pwd");
+			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
+			char string[2000];
+			getcwd(string, sizeof(string));
+			ft_putendl_fd(string, 1);
 		}
 		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
-		{
-			if(ft_strncmp("-n", split[1], 2) == 0)
-			{
-				while (split[i] != '\0')
-				{
-					ft_putstr_fd(split[i], 1);
-					i++;
-					if (split[i] != '\0')
-						ft_putchar_fd(' ', 1);
-				}
-			}
-			else
-				lexer(split);
-		}
+			echo(split, i);
+			// else
+			// 	lexer(split);
 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			system("env");
