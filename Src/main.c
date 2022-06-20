@@ -6,39 +6,66 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:27:41 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:36:05 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void error_exit(char *error_msg, int exit_code)
+{
+	perror(error_msg);
+	exit(exit_code);
+}
+
 void	open_folder(char *split)
 {
 	DIR				*dir;
 	struct dirent	*entry;
-	int				files;
 
-	files = 0;
 	dir = opendir(split);
 	if (dir == NULL)
 	{
-		printf("Couldn't open dir\n");
-		exit (1);
-	}
-	while((entry = readdir(dir)))
-	{
-		files++;
-		printf("File %3d: %s\n", files, entry->d_name);
+		ft_putstr_fd("shell: cd: ", 2);
+		perror(split); // als cd niet kan, dan doet bash dit, bv bash: cd: minishell: Not a directory, zonder exit
 	}
 	if (dir != NULL)
 		closedir(dir);
 	chdir(split);
-	
 }
 
-void	commands(char **split)
+// echo appart in functie gezet
+void	echo(char **split, int i)
+{
+	if(ft_strncmp("-n", split[1], 2) == 0)
+	{
+		while (split[i] != '\0')
+		{
+			ft_putstr_fd(split[i], 1);
+			i++;
+			if (split[i] != '\0')
+				ft_putchar_fd(' ', 1);
+		}
+	}
+	else
+	{
+		i = 1;
+		while (split[i] != '\0')
+		{
+			ft_putstr_fd(split[i], 1);
+			i++;
+			if (split[i] != '\0')
+				ft_putchar_fd(' ', 1);
+		}
+		ft_putchar_fd('\n', 1);
+	}
+}
+
+
+void	commands(char **split, char **envp)
 {
 		int	i;
+		int k;
 
 		i = 2;
 		if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
@@ -47,26 +74,23 @@ void	commands(char **split)
 		}
 		else if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
 		{
-			system("pwd");
+			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
+			char string[2000];
+			getcwd(string, sizeof(string));
+			ft_putendl_fd(string, 1);
 		}
 		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
-		{
-			if(ft_strncmp("-n", split[1], 2) == 0)
-			{
-				while (split[i] != '\0')
-				{
-					ft_putstr_fd(split[i], 1);
-					i++;
-					if (split[i] != '\0')
-						ft_putchar_fd(' ', 1);
-				}
-			}
-			else
-				lexer(split);
-		}
+			echo(split, i);
+			// else
+			// 	lexer(split);
 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
 		{
-			system("env");
+			k = 0;
+			while(envp[k] != '\0')
+			{
+				ft_putendl_fd(envp[k], 1);
+				k++;
+			}
 		}
 		else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
 		{
@@ -76,7 +100,7 @@ void	commands(char **split)
 			lexer(split);
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char **envp)
 {
 	char			*input;
 	char			**split;
@@ -86,7 +110,7 @@ int	main(int argc, char *argv[])
 		input = readline("Minishell QR1.0: ");
 		add_history(input);
 		split = ft_split(input, ' ');
-		commands(split);
+		commands(split, envp);
 	}
 	return (0);
 }
