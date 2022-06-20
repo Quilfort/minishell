@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:01:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:18:22 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ void	commands(char **split, char **envp)
 		else if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
-			char string[2000];
+			char string[PATH_MAX];
 			getcwd(string, sizeof(string));
 			ft_putendl_fd(string, 1);
 		}
 		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
+		{
 			echo(split, i);
-			// else
-			// 	lexer(split);
+		}
 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			k = 0;
