@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/09 15:24:02 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:14:06 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,46 +29,79 @@ char	*lexer_word(char c)
 		return("WORD");
 }
 
-void	lexer()
+void	list_print(t_node *list)
 {
-	char			*input;
-	char			**split;
+	while (list)
+	{
+		printf("\n%s - ", list->content);
+		printf("%s\n\n", list->token);
+		list = list->next;
+	}
+}
+
+
+static char	*find_token(char *split)
+{
+	int 			i;
 	char			*lexer_token;
+
+	i = 0;
+	while (split[i] != '\0')
+	{
+		if (split[0] == '-' && split[1] != '\0')
+		{
+			lexer_token = lexer_option(split[1]);
+			break;
+		}
+		if (split[0] == '<' && split[1] == '\0')
+			lexer_token = ft_strdup("LESS");
+		if (split[0] == '>' && split[1] == '\0')
+			lexer_token = ft_strdup("GREAT");
+		if (split[0] == '|' && split[1] == '\0')
+			lexer_token = ft_strdup("PIPE");
+		if (split[0] == '&' && split[1] == '\0')
+			lexer_token = ft_strdup("AMPERSAND");
+		if (split[0] == 92 && split[1] == 'n' && split[2] == '\0')
+		{
+			lexer_token = ft_strdup("NEWLINE");
+			break;
+		}
+		if (split[0] == '>' && split[1] == '>' && split[2] == '\0')
+			lexer_token = ft_strdup("GREATGREAT");
+		if (split[0] == '>' && split[1] == '&' && split[2] == '\0')
+			lexer_token = ft_strdup("GREATAMPERSAND");
+		else
+			lexer_token = lexer_word(split[i]);
+		i++;
+	}
+	return(lexer_token);
+}
+
+
+void	lexer(char **split)
+{
+	// char			*input;
+	t_node			*list;
+	t_node			*temp;
+	// char			**split;
+
 	int				i;
 	int				k;
 
-	i = 0;
-	
-	split = ft_split(input, ' ');
+	list = create_list(split[0]);
+	i = 1;
 	while (split[i] != '\0')
 	{
-		k = 0;
-		while(split[i][k] != '\0')
-		{
-			if (split[i][0] == '-' && split[i][1] != '\0')
-				lexer_token = lexer_option(split[i][k]);
-			if (split[i][0] == '<' && split[i][1] == '\0')
-				lexer_token = ft_strdup("LESS");
-			if (split[i][0] == '>' && split[i][1] == '\0')
-				lexer_token = ft_strdup("GREAT");
-			if (split[i][0] == '|' && split[i][1] == '\0')
-				lexer_token = ft_strdup("PIPE");
-			if (split[i][0] == '&' && split[i][1] == '\0')
-				lexer_token = ft_strdup("AMPERSAND");
-			if (split[i][0] == 92 && split[i][1] == 'n' && split[i][2] == '\0')
-			{
-				lexer_token = ft_strdup("NEWLINE");
-				break;
-			}
-			if (split[i][0] == '>' && split[i][1] == '>' && split[i][2] == '\0')
-				lexer_token = ft_strdup("GREATGREAT");
-			if (split[i][0] == '>' && split[i][1] == '&' && split[i][2] == '\0')
-				lexer_token = ft_strdup("GREATAMPERSAND");
-			else
-				lexer_token = lexer_word(split[i][k]);
-			k++;
-		}
-		i++;		
+		lstadd_back(&list,split[i]);
+		i++;
 	}
-	printf("%s", lexer_token);
+	i = 0;
+	temp = list;
+	while (temp != NULL)
+	{
+		temp->token = find_token(split[i]);
+		temp = temp->next;
+		i++;
+	}
+	list_print(list);
 }

@@ -3,7 +3,7 @@ LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
-SRC = ./Src/main.c \
+SRC = ./Src/main.c ./Src/list.c \
 	./Src/lexer.c
 OBJ = $(SRC:%.c=%.o)
 
@@ -20,7 +20,7 @@ $(LIBFT):
 
 clean:
 	$(MAKE) fclean -C $(LIBFT_DIR)
-	rm -rf $(NAME)
+	rm -rf $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)
