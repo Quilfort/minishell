@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:14:06 by rharing       ########   odam.nl         */
+/*   Updated: 2022/06/20 16:46:28 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	list_print(t_node *list)
 	{
 		printf("\n%s - ", list->content);
 		printf("%s\n\n", list->token);
+		list = list->next;
+	}
+}
+
+void	list_print_command(t_node *list)
+{
+	while (list)
+	{
+		printf("\ncontent: %s ", list->content);
 		list = list->next;
 	}
 }
@@ -77,7 +86,6 @@ static char	*find_token(char *split)
 	return(lexer_token);
 }
 
-
 void	lexer(char **split)
 {
 	// char			*input;
@@ -104,4 +112,5 @@ void	lexer(char **split)
 		i++;
 	}
 	list_print(list);
+	make_command_table(list);
 }

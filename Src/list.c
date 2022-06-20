@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:13:45 by rharing       ########   odam.nl         */
+/*   Updated: 2022/06/20 14:42:14 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	lstadd_back(t_node **lst, char *split)
 	}
 }
 
-static t_node	*create_head(char *first)
+t_node	*create_head(char *first)
 {
 	t_node	*head;
 
@@ -71,7 +71,6 @@ static t_node	*create_head(char *first)
 t_node	*create_list(char *head)
 {
 	t_node	*list;
-	int		argv_index;
 	list = create_head(head);
 	return (list);
 }

@@ -1,10 +1,10 @@
 NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-FLAGS = -Wall -Wextra -Werror -lreadline
+FLAGS = -Wall -Wextra -Werror -lreadline -fsanitize=address
 INC = -I ./Includes
 SRC = ./Src/main.c ./Src/list.c \
-	./Src/lexer.c
+	./Src/lexer.c ./Src/parser.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)

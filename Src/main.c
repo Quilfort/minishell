@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:13:49 by rharing       ########   odam.nl         */
+/*   Updated: 2022/06/20 16:01:53 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void	commands(char **split)
 		else if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
 		{
 			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
-			char string[2000];
+			// char string[2000];
+			char *string;
+			string = malloc(sizeof(char *));
 			getcwd(string, sizeof(string));
 			ft_putendl_fd(string, 1);
 		}
