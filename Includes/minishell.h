@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:33:39 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:00:20 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-void	lexer(char **split);
+void	lexer(char **split, char **envp);
 char	*lexer_option(char c);
 char	*lexer_word(char c);
+
+void	commands(char **split, char **envp);
 
 t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split);

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:42:21 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:01:57 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	echo(char **split, int i)
 	}
 }
 
-
 void	commands(char **split, char **envp)
 {
 		int	i;
@@ -96,8 +95,6 @@ void	commands(char **split, char **envp)
 		{
 			open_folder(split[1]);
 		}
-		else
-			lexer(split);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -110,7 +107,7 @@ int	main(int argc, char *argv[], char **envp)
 		input = readline("Minishell QR1.0: ");
 		add_history(input);
 		split = ft_split(input, ' ');
-		commands(split, envp);
+		lexer(split, envp);
 	}
 	return (0);
 }
