@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:47:43 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:52:08 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	commands(char **split, char **envp);
 
 t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split);
+t_node	*create_head(char *first);
 
 
 #endif

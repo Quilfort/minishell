@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/13 12:33:25 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:52:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	lstadd_back(t_node **lst, char *split)
 	}
 }
 
-static t_node	*create_head(char *first)
+t_node	*create_head(char *first)
 {
 	t_node	*head;
 
@@ -71,7 +71,6 @@ static t_node	*create_head(char *first)
 t_node	*create_list(char *head)
 {
 	t_node	*list;
-	int		argv_index;
 	list = create_head(head);
 	return (list);
 }

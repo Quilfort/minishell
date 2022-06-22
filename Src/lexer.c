@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:48:36 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:57:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,15 @@ void	list_print(t_node *list)
 
 void	list_print_command(t_node *list)
 {
+	int	i;
+
+	i = 0;
 	while (list)
 	{
-		printf("\ncontent: %s ", list->content);
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
 		list = list->next;
+		i++;
 	}
 }
 
@@ -113,5 +118,6 @@ void	lexer(char **split, char **envp)
 	}
 	// list_print(list);
 	commands(split, envp);
+	make_command_table(list);
 }
 	

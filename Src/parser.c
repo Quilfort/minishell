@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/06/22 12:46:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:53:31 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	make_command_table(t_node *list)
     if (list != NULL)
 	{
         string = ft_strdup("");
-        printf("token: %s\n", list->token);
+        // printf("token: %s\n", list->token);
         while (list != NULL)
 		{
             if (ft_strncmp(list->token, "WORD", 4) == 0 || ft_strncmp(list->token, "OPTION", 6) == 0)
@@ -61,6 +61,6 @@ void	make_command_table(t_node *list)
         }
     }
   
-    printf("string:%s\n", string);
+    // printf("string:%s\n", string);
 	list_print_command(command_table);
 }
