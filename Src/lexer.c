@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:12:44 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:48:36 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ void	list_print(t_node *list)
 		list = list->next;
 	}
 }
+
+void	list_print_command(t_node *list)
+{
+	while (list)
+	{
+		printf("\ncontent: %s ", list->content);
+		list = list->next;
+	}
+}
+
 
 
 static char	*find_token(char *split)

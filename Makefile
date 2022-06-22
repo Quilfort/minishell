@@ -5,7 +5,8 @@ FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SRC = ./Src/main.c \
 	./Src/lexer.c \
-	./Src/list.c
+	./Src/list.c \
+	./Src/parser.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
