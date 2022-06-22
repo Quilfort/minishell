@@ -6,7 +6,8 @@ INC = -I ./Includes
 SRC = ./Src/main.c \
 	./Src/lexer.c \
 	./Src/list.c \
-	./Src/parser.c
+	./Src/parser.c \
+	./Src/commands.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)

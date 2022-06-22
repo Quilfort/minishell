@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/06/22 12:53:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/22 14:35:50 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	make_command_table(t_node *list)
+void	make_command_table(t_node *list, char **envp)
 {
 	t_node	*command_table;
     char    *string;
@@ -63,4 +63,5 @@ void	make_command_table(t_node *list)
   
     // printf("string:%s\n", string);
 	list_print_command(command_table);
+	commands_built(command_table, envp);
 }
