@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 14:36:35 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:00:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,42 +60,6 @@ void	echo(char **split, int i)
 		ft_putchar_fd('\n', 1);
 	}
 }
-
-// void	commands(char **split, char **envp)
-// {
-// 		int	i;
-// 		int k;
-
-// 		i = 2;
-// 		if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
-// 		{
-// 			exit(0);
-// 		}
-// 		if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
-// 		{
-// 			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
-// 			char string[PATH_MAX];
-// 			getcwd(string, sizeof(string));
-// 			ft_putendl_fd(string, 1);
-// 		}
-// 		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
-// 		{
-// 			echo(split, i);
-// 		}
-// 		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
-// 		{
-// 			k = 0;
-// 			while(envp[k] != '\0')
-// 			{
-// 				ft_putendl_fd(envp[k], 1);
-// 				k++;
-// 			}
-// 		}
-// 		else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
-// 		{
-// 			open_folder(split[1]);
-// 		}
-// }
 
 void	commands_built(t_node *command_table, char **envp)
 {

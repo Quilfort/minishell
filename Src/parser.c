@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/06/22 14:35:50 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:14:58 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	make_command_table(t_node *list, char **envp)
             string = NULL;
         }
     }
-  
-    // printf("string:%s\n", string);
 	list_print_command(command_table);
-	commands_built(command_table, envp);
+	// commands_built(command_table, envp);
+    pipex_start(command_table, envp);
 }

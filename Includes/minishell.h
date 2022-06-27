@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 14:36:02 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:16:05 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,22 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
 
-typedef struct s_simple_command
-{
-	int		number_of_available_arguments;
-	int		number_of_arguments;
-	char	**arguments;
-}               simple_command;
-
-typedef struct command_table
-{
-	int				number_of_available_simplecommands;
-	int				number_of_simplecommands;
-	simple_command	**simple_commands;
-	char			*outfile;
-	char			*inputfile;
-	char			*errfile;
-}				command_table;
+//pipex
+typedef struct s_vars {
+	int		f1;
+	int		f2;
+	char	**cmd;
+	char	**path;
+	char	*path_cmd;
+	char	*my_path;
+}				t_vars;
 
 typedef struct s_node
 {
@@ -63,6 +57,11 @@ t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split);
 t_node	*create_head(char *first);
 
+//pipex
+void	pipex_start(t_node *command_table, char **envp);
+char	*right_path(t_vars *vars);
+void	find_path(char **envp, t_vars *vars);
+void	print_error(t_vars *vars);
 
 
 
