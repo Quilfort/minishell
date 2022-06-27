@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:40:23 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:22:35 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	list_print_command(t_node *list);
 int		commands_built(t_node *command_table, char **envp);
 
 t_node	*create_list(char *head);
-void	lstadd_back(t_node **lst, char *split);
-t_node	*create_head(char *first);
+void	lstadd_back(t_node **lst, char *split, char *token);
+t_node	*create_head(char *first, char *token);
 
 //pipex
 void	pipex_start(t_node *command_table, char **envp);

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:40:33 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:26:50 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	list_print_command(t_node *list)
 	{
 		printf("\ncontent %d:  ", i);
 		printf("%s", list->content);
+		printf("\ntoken %d:  ", i);
+		printf("%s\n", list->token);
 		list = list->next;
 		i++;
 	}
 }
-
-
 
 static char	*find_token(char *split)
 {
@@ -105,7 +105,7 @@ void	lexer(char **split, char **envp)
 	i = 1;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&list,split[i]);
+		lstadd_back(&list,split[i], NULL);
 		i++;
 	}
 	i = 0;

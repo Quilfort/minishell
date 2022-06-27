@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:52:00 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:22:41 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_node	*lstlast(t_node *lst)
 	return (lst);
 }
 
-static t_node	*lstnew(char *split)
+static t_node	*lstnew(char *split, char *token)
 {
 	t_node	*newcontent;
 
@@ -31,16 +31,17 @@ static t_node	*lstnew(char *split)
 	if (!newcontent)
 		return (NULL);
 	newcontent->content = split;
+	newcontent->token = token;
 	newcontent->next = NULL;
 	return (newcontent);
 }
 
-void	lstadd_back(t_node **lst, char *split)
+void	lstadd_back(t_node **lst, char *split, char *token)
 {
 	t_node	*temp;
 	t_node	*new;
 
-	new = lstnew(split);
+	new = lstnew(split, token);
 	if (!(*lst))
 	{
 		*lst = new;
@@ -53,7 +54,7 @@ void	lstadd_back(t_node **lst, char *split)
 	}
 }
 
-t_node	*create_head(char *first)
+t_node	*create_head(char *first, char *token)
 {
 	t_node	*head;
 
@@ -64,6 +65,7 @@ t_node	*create_head(char *first)
 		exit(1);
 	}
 	head->content = first;
+	head->token = token;
 	head->next = NULL;
 	return (head);
 }
@@ -71,6 +73,6 @@ t_node	*create_head(char *first)
 t_node	*create_list(char *head)
 {
 	t_node	*list;
-	list = create_head(head);
+	list = create_head(head, NULL);
 	return (list);
 }
