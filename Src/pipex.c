@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 12:16:31 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:15:53 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:45:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	fork_proces(t_node *command_table, char**envp, t_vars *vars)
 		close(pipefd[0]);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 			print_error(vars);
+		commands_built(command_table, envp);
 		preform_cmd(command_table, envp, vars);
 	}
 	else
@@ -61,7 +62,10 @@ static void	pipex(t_node *command_table, char **envp, t_vars *vars)
 		fork_proces(command_table, envp, vars);
 		command_table = command_table->next;
 	}
+	commands_built(command_table, envp);
 	preform_cmd(command_table, envp, vars);
+	// if((commands_built(command_table, envp) == 0))	
+	// 		preform_cmd(command_table, envp, vars);
 }
 
 void	pipex_start(t_node *command_table, char **envp)

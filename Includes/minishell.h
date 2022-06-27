@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:16:05 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:40:23 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	make_command_table(t_node *list, char **envp);
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
 
-void	commands(char **split, char **envp);
-void	commands_built(t_node *command_table, char **envp);
+// void	commands_built(t_node *command_table, char **envp);
+int		commands_built(t_node *command_table, char **envp);
 
 t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split);

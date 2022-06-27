@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/22 14:26:28 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:40:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,5 @@ void	lexer(char **split, char **envp)
 	}
 	// list_print(list);
 	make_command_table(list, envp);
-	// commands(split, envp);
 }
 	

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:00:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:46:51 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,44 +61,85 @@ void	echo(char **split, int i)
 	}
 }
 
-void	commands_built(t_node *command_table, char **envp)
+// void	commands_built(t_node *command_table, char **envp)
+// {
+// 	char	**split;
+// 	int	i;
+// 	int k;
+
+// 	i = 2;
+// 	split = ft_split(command_table->content, ' ');
+// 	if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
+// 	{
+// 		exit(0);
+// 	}
+// 	if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
+// 	{
+// 		// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
+// 		char string[PATH_MAX];
+// 		getcwd(string, sizeof(string));
+// 		ft_putendl_fd(string, 1);
+// 	}
+// 	else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
+// 	{
+// 		echo(split, i);
+// 	}
+// 	else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
+// 	{
+// 		k = 0;
+// 		while(envp[k] != '\0')
+// 		{
+// 			ft_putendl_fd(envp[k], 1);
+// 			k++;
+// 		}
+// 	}
+// 	else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
+// 	{
+// 		open_folder(split[1]);
+// 	}
+
+// }
+
+int	commands_built(t_node *command_table, char **envp)
 {
 	char	**split;
 	int	i;
 	int k;
 
 	i = 2;
-	while (command_table != NULL)
+	split = ft_split(command_table->content, ' ');
+	if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
 	{
-		split = ft_split(command_table->content, ' ');
-			if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
-		{
-			exit(0);
-		}
-		if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
-		{
-			// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
-			char string[PATH_MAX];
-			getcwd(string, sizeof(string));
-			ft_putendl_fd(string, 1);
-		}
-		else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
-		{
-			echo(split, i);
-		}
-		else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
-		{
-			k = 0;
-			while(envp[k] != '\0')
-			{
-				ft_putendl_fd(envp[k], 1);
-				k++;
-			}
-		}
-		else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
-		{
-			open_folder(split[1]);
-		}
-		command_table = command_table->next;
+		ft_putendl_fd("exit", 1);
+		exit(0);
 	}
+	if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
+	{
+		// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
+		char string[PATH_MAX];
+		getcwd(string, sizeof(string));
+		ft_putendl_fd(string, 1);
+		return (1);
+	}
+	else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
+	{
+		echo(split, i);
+		return (1);
+	}
+	else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
+	{
+		k = 0;
+		while(envp[k] != '\0')
+		{
+			ft_putendl_fd(envp[k], 1);
+			k++;
+		}
+		return (1);
+	}
+	else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
+	{
+		open_folder(split[1]);
+		return (1);
+	}
+	return (0);
 }
