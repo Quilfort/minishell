@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/08/08 16:39:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/08 17:45:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,29 @@ int is_word_command(t_node *list)
         return (0);
 }
 
-t_node  *create_head_parser(t_node *list, t_node *command_table, int string_token, char *string)
+t_node  *create_head_parser(t_node **list, t_node *command_table, int string_token, char *string)
 {
     if (list == NULL)
         return (NULL);
     string = ft_strdup("");
-    while (list->token == WORD || list->token == OPTION)
-    {
-        string = find_word_option(list, string);
-        string_token = is_word_command(list);
-        list = list->next;
-    }
-    if (list->token == LESS)
+   
+    if ((*list)->token == LESS)
     {
         string_token = INFILE;
-        string = ft_strjoin(string, list->next->content);
+        *list = (*list)->next;
+        string = ft_strjoin(string, (*list)->content);
     }
-    if (list->token == GREAT)
+    if ((*list)->token == GREAT)
     {
         string_token = OUTFILE;
-        string = ft_strjoin(string, list->next->content);
+        *list = (*list)->next;
+        string = ft_strjoin(string, (*list)->content);
+    }
+    while ((*list)->token == WORD || (*list)->token == OPTION)
+    {
+        string = find_word_option(*list, string);
+        string_token = is_word_command(*list);
+        *list = (*list)->next;
     }
     command_table = create_head(string, string_token);
     string = NULL;
@@ -89,10 +92,7 @@ void	make_command_table(t_node *list, char **envp)
 
     string = NULL;
     string_token = 0;
-    command_table = create_head_parser(list, command_table, string_token, string);
-    if (command_table->token == INFILE || command_table->token == OUTFILE)
-        list = list->next;
-    list = list->next;
+    command_table = create_head_parser(&list, command_table, string_token, string);
     while (list != NULL)
     {
         string = ft_strdup("");
@@ -102,11 +102,14 @@ void	make_command_table(t_node *list, char **envp)
         while (list != NULL)
         {
             printf("FILLSTRING: listtoken: %d\n", list->token);
-            while (list->token == WORD|| list->token == OPTION)
+            if (list->token == WORD|| list->token == OPTION)
             {
-                string = find_word_option(list, string);
-                string_token = is_word_command(list);
-                list = list->next;
+                while (list->token == WORD || list->token == OPTION)
+                {
+                    string = find_word_option(list, string);
+                    string_token = is_word_command(list);
+                    list = list->next;
+                }
                 break;
             }
             if (list->token == LESS)
@@ -125,14 +128,13 @@ void	make_command_table(t_node *list, char **envp)
                 list = list->next;
                 break;
             }
-            else 
-                break;
+            break;
         }
         fill_command_table_with_data(command_table, string, string_token);
     }
     printf(".....\n\ncommand: table: \n");
     list_print_command(command_table);
     printf("\n\n..........\n\n");
-	commands_built(command_table, envp);
+	// commands_built(command_table, envp);
     // pipex_start(command_table, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/08 15:37:08 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/08 17:23:54 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	lexer(char **split, char **envp)
 	i = 1;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&list,split[i], NULL);
+		lstadd_back(&list,split[i], 0);
 		i++;
 	}
 	i = 0;
