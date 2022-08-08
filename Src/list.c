@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   list.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:22:41 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/06/28 14:31:30 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

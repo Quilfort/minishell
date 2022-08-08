@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipex.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 12:16:31 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 18:21:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/08 13:58:20 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	preform_cmd(t_node *command_table, char**envp, t_vars *vars)
 {
-	ft_putendl_fd("Q", 2);
 	vars->cmd = ft_split(command_table->content, ' ');
 	if (!vars->cmd)
 		print_error(vars);
@@ -80,22 +79,50 @@ static void	pipex(t_node *command_table, char **envp, t_vars *vars)
 
 }
 
+// returnd de node met token infile om die door te geven aan open
+t_node	*find_token_infile(t_node *command_table)
+{
+	while (command_table)
+	{
+		if (ft_strncmp(command_table->token, "INFILE", 6) == 0)
+			return (command_table);
+		command_table = command_table->next;
+	}
+	return (NULL);
+}
+
+// returnd node met token outfile om die door te geven aan open
+t_node	*find_token_outfile(t_node *command_table)
+{
+	while (command_table)
+	{
+		if (ft_strncmp(command_table->token, "OUTFILE", 7) == 0)
+			return (command_table);
+		command_table = command_table->next;
+	}
+	return (NULL);
+}
+
 void	pipex_start(t_node *command_table, char **envp)
 {
 	t_vars	vars;
-	t_node	*temp;
-
-	temp = command_table;
+	t_node	*infile;
+	t_node	*outfile;
+	char	*string;
 	
-	
-	vars.f1 = open("infile", O_RDONLY, 0644);
-	vars.f2 = open("outfile", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// 
+	infile = find_token_infile(command_table);
+	printf("\n infile %s", infile->content);
+	outfile = find_token_outfile(command_table);
+	printf("\n outfile%s", outfile->content);
+	vars.f1 = open(infile->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	vars.f2 = open(outfile->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (vars.f1 < 0)
 		print_error(&vars);
 	if (vars.f2 < 0)
 		print_error(&vars);
 	find_path(envp, &vars);
 	pipex(command_table, envp, &vars);
-	close(vars.f1);
-	close(vars.f2);
+	// close(vars.f1);
+	// close(vars.f2);
 }

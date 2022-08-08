@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:58:01 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/08 13:45:53 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,87 +18,48 @@ void error_exit(char *error_msg, int exit_code)
 	exit(exit_code);
 }
 
-void	open_folder(char *split)
+void	open_folder(t_node *command_table)
 {
 	DIR				*dir;
 	struct dirent	*entry;
 
-	dir = opendir(split);
+	command_table = command_table->next;
+	dir = opendir(command_table->content);
 	if (dir == NULL)
 	{
 		ft_putstr_fd("shell: cd: ", 2);
-		perror(split); // als cd niet kan, dan doet bash dit, bv bash: cd: minishell: Not a directory, zonder exit
+		perror(command_table->content); // als cd niet kan, dan doet bash dit, bv bash: cd: minishell: Not a directory, zonder exit
 	}
 	if (dir != NULL)
 		closedir(dir);
-	chdir(split);
+	chdir(command_table->content);
 }
 
-// echo appart in functie gezet
-void	echo(char **split, int i)
+void	echo(t_node *command_table)
 {
-	if(ft_strncmp("-n", split[1], 2) == 0)
+	if (ft_strncmp("-n", command_table->next->content, 2) == 0)
 	{
-		while (split[i] != '\0')
+		command_table = command_table->next;
+		command_table = command_table->next;
+		while (command_table != NULL)
 		{
-			ft_putstr_fd(split[i], 1);
-			i++;
-			if (split[i] != '\0')
-				ft_putchar_fd(' ', 1);
+			ft_putstr_fd(command_table->content, 1);
+			ft_putchar_fd(' ', 1);
+			command_table = command_table->next;
 		}
 	}
 	else
 	{
-		i = 1;
-		while (split[i] != '\0')
+		command_table = command_table->next;
+		while (command_table != NULL)
 		{
-			ft_putstr_fd(split[i], 1);
-			i++;
-			if (split[i] != '\0')
-				ft_putchar_fd(' ', 1);
+			ft_putstr_fd(command_table->content, 1);
+			ft_putchar_fd(' ', 1);
+			command_table = command_table->next;
 		}
 		ft_putchar_fd('\n', 1);
 	}
 }
-
-// void	commands_built(t_node *command_table, char **envp)
-// {
-// 	char	**split;
-// 	int	i;
-// 	int k;
-
-// 	i = 2;
-// 	split = ft_split(command_table->content, ' ');
-// 	if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
-// 	{
-// 		exit(0);
-// 	}
-// 	if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))
-// 	{
-// 		// getcwd zet path in string, met groote dus heb maar ff 2000 gemaakt.
-// 		char string[PATH_MAX];
-// 		getcwd(string, sizeof(string));
-// 		ft_putendl_fd(string, 1);
-// 	}
-// 	else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
-// 	{
-// 		echo(split, i);
-// 	}
-// 	else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
-// 	{
-// 		k = 0;
-// 		while(envp[k] != '\0')
-// 		{
-// 			ft_putendl_fd(envp[k], 1);
-// 			k++;
-// 		}
-// 	}
-// 	else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
-// 	{
-// 		open_folder(split[1]);
-// 	}
-
-// }
 
 int	commands_built(t_node *command_table, char **envp)
 {
@@ -121,9 +82,13 @@ int	commands_built(t_node *command_table, char **envp)
 		ft_putendl_fd(string, 1);
 		return (1);
 	}
-	else if ((ft_strncmp("echo", split[0], 4) == 0) && (split[1] != NULL))
+	if ((ft_strncmp("echo", command_table->content, 4) == 0))
 	{
-		echo(split, i);
+		// alles wat na de eerste node van command table komt wordt geprpint?
+		if (command_table->next == NULL)
+			ft_putchar_fd('\n', 1);
+		else
+			echo(command_table);
 		return (1);
 	}
 	else if ((ft_strncmp("env", split[0], 3) == 0) && (split[1] == NULL))
@@ -136,9 +101,9 @@ int	commands_built(t_node *command_table, char **envp)
 		}
 		return (1);
 	}
-	else if ((ft_strncmp("cd", split[0], 2) == 0) && (split[1] != NULL))
+	else if ((ft_strncmp("cd", command_table->content, 2) == 0))
 	{
-		open_folder(split[1]);
+		open_folder(command_table);
 		return (1);
 	}
 	return (0);

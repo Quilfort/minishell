@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:26:50 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/02 16:08:11 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
