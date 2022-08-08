@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/08/08 13:54:16 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/08 14:21:59 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ t_node  *create_head_parser(t_node *list, t_node *command_table, char *string_to
     else if (ft_strncmp(list->token, "LESS", 4) == 0)
     {
         string_token = ft_strdup("INFILE");
-        string = ft_strjoin(string, list->content);
+        string = ft_strjoin(string, list->next->content);
     }
     else if (ft_strncmp(list->token, "GREAT", 5) == 0)
     {
         string_token = ft_strdup("OUTFILE");
-        string = ft_strjoin(string, list->content);
+        string = ft_strjoin(string, list->next->content);
     }
     command_table = create_head(string, string_token);
     string = NULL;
@@ -94,8 +94,9 @@ void	make_command_table(t_node *list, char **envp)
     string_token = NULL;
     command_table = create_head_parser(list, command_table, string_token, string);
     printf("head commandtable:%s\n\n\n.....\n", command_table->content);
-    // if (list->next != NULL)
+    if (ft_strncmp(command_table->token, "INFILE", 6) == 0 || ft_strncmp(command_table->token, "OUTFILE", 7) == 0 )
         list = list->next;
+    list = list->next;
     while (list != NULL)
     {
         string = ft_strdup("");
@@ -136,6 +137,6 @@ void	make_command_table(t_node *list, char **envp)
     printf(".....\n\ncommand: table: \n");
     list_print_command(command_table);
     printf("\n\n..........\n\n");
-	commands_built(command_table, envp);
-    pipex_start(command_table, envp);
+	// commands_built(command_table, envp);
+    // pipex_start(command_table, envp);
 }

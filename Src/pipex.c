@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipex.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 12:16:31 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/08 13:58:20 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/08 14:07:03 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	pipex_start(t_node *command_table, char **envp)
 	printf("\n infile %s", infile->content);
 	outfile = find_token_outfile(command_table);
 	printf("\n outfile%s", outfile->content);
-	vars.f1 = open(infile->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	vars.f1 = open(infile->content, O_RDONLY);
 	vars.f2 = open(outfile->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (vars.f1 < 0)
 		print_error(&vars);
