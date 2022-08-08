@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/08/08 14:21:59 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/08 16:39:14 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,42 @@ static  char    *find_word_option(t_node *list, char *string)
     return (string);
 }
 
-char    *is_word_command(t_node *list)
+int is_word_command(t_node *list)
 {
-    char *string_token;
 
     if (ft_strncmp("echo", list->content, 4) == 0)
-        string_token = ft_strdup("COMMAND");
+        return(COMMAND);
     else
-        string_token = ft_strdup("");
-    return (string_token);
+        return (0);
 }
 
-t_node  *create_head_parser(t_node *list, t_node *command_table, char *string_token, char *string)
+t_node  *create_head_parser(t_node *list, t_node *command_table, int string_token, char *string)
 {
     if (list == NULL)
         return (NULL);
     string = ft_strdup("");
-    string_token = ft_strdup("");
-    if (ft_strncmp(list->token, "WORD", 4) == 0 || ft_strncmp(list->token, "OPTION", 6) == 0)
+    while (list->token == WORD || list->token == OPTION)
     {
         string = find_word_option(list, string);
         string_token = is_word_command(list);
+        list = list->next;
     }
-    else if (ft_strncmp(list->token, "LESS", 4) == 0)
+    if (list->token == LESS)
     {
-        string_token = ft_strdup("INFILE");
+        string_token = INFILE;
         string = ft_strjoin(string, list->next->content);
     }
-    else if (ft_strncmp(list->token, "GREAT", 5) == 0)
+    if (list->token == GREAT)
     {
-        string_token = ft_strdup("OUTFILE");
+        string_token = OUTFILE;
         string = ft_strjoin(string, list->next->content);
     }
     command_table = create_head(string, string_token);
     string = NULL;
-    string_token = NULL;
     return (command_table);
 }
 
-void    fill_command_table_with_data(t_node *command_table, char *string, char *string_token)
+void    fill_command_table_with_data(t_node *command_table, char *string, int string_token)
 {
     if (ft_strncmp(string, "", 1) != 0)
     {
@@ -88,42 +85,41 @@ void	make_command_table(t_node *list, char **envp)
 {
 	t_node	*command_table;
     char    *string;
-    char    *string_token;
+    int     string_token;
 
     string = NULL;
-    string_token = NULL;
+    string_token = 0;
     command_table = create_head_parser(list, command_table, string_token, string);
-    printf("head commandtable:%s\n\n\n.....\n", command_table->content);
-    if (ft_strncmp(command_table->token, "INFILE", 6) == 0 || ft_strncmp(command_table->token, "OUTFILE", 7) == 0 )
+    if (command_table->token == INFILE || command_table->token == OUTFILE)
         list = list->next;
     list = list->next;
     while (list != NULL)
     {
         string = ft_strdup("");
-        string_token = ft_strdup("");
-        if (ft_strncmp(list->token, "PIPE", 4) == 0)
+        string_token = 0;
+        if (list->token == PIPE)
             list = list->next;
         while (list != NULL)
         {
-            printf("FILLSTRING: listtoken: %s\n", list->token);
-            if (ft_strncmp(list->token, "WORD", 4) == 0 || ft_strncmp(list->token, "OPTION", 6) == 0)
+            printf("FILLSTRING: listtoken: %d\n", list->token);
+            while (list->token == WORD|| list->token == OPTION)
             {
                 string = find_word_option(list, string);
                 string_token = is_word_command(list);
                 list = list->next;
                 break;
             }
-            if (ft_strncmp(list->token, "LESS", 4) == 0)
+            if (list->token == LESS)
             {
-                string_token = ft_strdup("INFILE");
+                string_token = INFILE;
                 list = list->next;
                 string = ft_strjoin(string, list->content);
                 list = list->next;
                 break;
             }
-            if (ft_strncmp(list->token, "GREAT", 5) == 0)
+            if (list->token == GREAT)
             {
-                string_token = ft_strdup("OUTFILE");
+                string_token = OUTFILE;
                 list = list->next;
                 string = ft_strjoin(string, list->content);
                 list = list->next;
@@ -137,6 +133,6 @@ void	make_command_table(t_node *list, char **envp)
     printf(".....\n\ncommand: table: \n");
     list_print_command(command_table);
     printf("\n\n..........\n\n");
-	// commands_built(command_table, envp);
+	commands_built(command_table, envp);
     // pipex_start(command_table, envp);
 }

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   list.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/28 14:31:30 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/08 15:58:28 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_node	*lstlast(t_node *lst)
 	return (lst);
 }
 
-static t_node	*lstnew(char *split, char *token)
+static t_node	*lstnew(char *split, int token)
 {
 	t_node	*newcontent;
 
@@ -36,7 +36,7 @@ static t_node	*lstnew(char *split, char *token)
 	return (newcontent);
 }
 
-void	lstadd_back(t_node **lst, char *split, char *token)
+void	lstadd_back(t_node **lst, char *split, int token)
 {
 	t_node	*temp;
 	t_node	*new;
@@ -54,7 +54,7 @@ void	lstadd_back(t_node **lst, char *split, char *token)
 	}
 }
 
-t_node	*create_head(char *first, char *token)
+t_node	*create_head(char *first, int token)
 {
 	t_node	*head;
 

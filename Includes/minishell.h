@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/04 17:18:08 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/08 16:01:29 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@
 # include <dirent.h>
 # include <limits.h>
 
+enum tokens {
+	WORD = 1,
+	OPTION = 2,
+	LESS = 3,
+	GREAT = 4,
+	PIPE = 5,
+	AMPERSAND = 6,
+	NEWLINE = 7,
+	GREATGREAT = 8,
+	GREATAMPERSAND = 9,
+	COMMAND = 10,
+	INFILE = 11,
+	OUTFILE = 12,
+};
+
+
+
+
+
 //pipex
 typedef struct s_vars {
 	int		f1;
@@ -37,14 +56,14 @@ typedef struct s_vars {
 typedef struct s_node
 {
 	char			*content;
-	char			*token;
+	int				token;
 
 	struct s_node	*next;
 }	t_node;
 
 void	lexer(char **split, char **envp);
-char	*lexer_option(char c);
-char	*lexer_word(char c);
+int		lexer_option(char c);
+int		lexer_word(char c);
 
 void	make_command_table(t_node *list, char **envp);
 void	list_print(t_node *list);
@@ -54,8 +73,8 @@ void	list_print_command(t_node *list);
 int		commands_built(t_node *command_table, char **envp);
 
 t_node	*create_list(char *head);
-void	lstadd_back(t_node **lst, char *split, char *token);
-t_node	*create_head(char *first, char *token);
+void	lstadd_back(t_node **lst, char *split, int token);
+t_node	*create_head(char *first, int token);
 
 //pipex
 void	pipex_start(t_node *command_table, char **envp);
