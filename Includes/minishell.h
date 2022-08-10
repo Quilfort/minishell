@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/08 16:01:29 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/10 13:04:29 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	pipex_start(t_node *command_table, char **envp);
 char	*right_path(t_vars *vars);
 void	find_path(char **envp, t_vars *vars);
 void	print_error(t_vars *vars);
+
+
+t_node  *create_head_parser_pipe(t_node **list, t_node *command_table, int string_token, char *string);
+void	make_command_table_pipe(t_node *list, char **envp);
+
 
 
 

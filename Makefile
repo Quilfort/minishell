@@ -7,6 +7,7 @@ SRC = ./Src/main.c \
 	./Src/lexer.c \
 	./Src/list.c \
 	./Src/parser.c \
+	./Src/parser_pipe.c \
 	./Src/commands.c \
 	./Src/pipex.c \
 	./Src/pipex_path.c \
