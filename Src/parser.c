@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 13:59:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/08/08 17:45:00 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/10 12:47:21 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,15 @@ t_node  *create_head_parser(t_node **list, t_node *command_table, int string_tok
     {
         string = find_word_option(*list, string);
         string_token = is_word_command(*list);
-        *list = (*list)->next;
+        if ((*list)->next != NULL)
+             *list = (*list)->next;
+        else
+        {
+             *list = (*list)->next;
+            break;
+        }
+
+
     }
     command_table = create_head(string, string_token);
     string = NULL;
@@ -108,7 +116,13 @@ void	make_command_table(t_node *list, char **envp)
                 {
                     string = find_word_option(list, string);
                     string_token = is_word_command(list);
-                    list = list->next;
+                    if (list->next != NULL)
+                        list = list->next;
+                    else
+                    {
+                        list = list->next;
+                        break;
+                    }
                 }
                 break;
             }
