@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/11 14:39:03 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/11 14:53:29 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	list_print_command(t_node *list)
 	}
 }
 
+static void fill_in(t_node *temp)
+{
+	temp->words = ft_strdup("");
+	temp->infile = ft_strdup("");
+	temp->outfile = ft_strdup("");
+}
+
+
 static char split_pipe(char *split, t_node *temp)
 {
 	char	**pipe_split;
@@ -43,10 +51,7 @@ static char split_pipe(char *split, t_node *temp)
 
 	i = 0;
 	pipe_split = ft_split(split, ' ');
-	temp->words = ft_strdup("");
-	temp->infile = ft_strdup("");
-	temp->outfile = ft_strdup("");
-
+	fill_in(temp);
 	while (pipe_split[i] != NULL)
 	{
 
@@ -76,7 +81,7 @@ static char split_pipe(char *split, t_node *temp)
 	return (0);	
 }
 
-void	lexer(char **split, char **envp)
+void	command_table(char **split, char **envp)
 {
 	t_node			*node;
 	t_node			*temp;
@@ -84,9 +89,7 @@ void	lexer(char **split, char **envp)
 	int				i;
 
 	node = create_list(split[0]);
-
 	i = 1;
-
 	while (split[i] != '\0')
 	{
 		lstadd_back(&node,split[i], 0);
@@ -94,13 +97,12 @@ void	lexer(char **split, char **envp)
 	}
 	i = 0;
 	temp = node;
+
 	while (temp != NULL)
 	{
 		split_pipe(split[i], temp);
 		temp = temp->next;
 		i++;
-		
 	}
 	list_print_command(node);
-
 }
