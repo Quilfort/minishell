@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/11 14:53:29 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/15 14:27:19 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	list_print_command(t_node *list)
 	{
 		printf("\ncontent %d:  ", i);
 		printf("%s", list->content);
-		printf("\ntoken %d:  ", i);
-		printf("%d\n", list->token);
+		// printf("\ntoken %d:  ", i);
+		// printf("%d\n", list->token);
 		printf("\nwords %d:  ", i);
 		printf("%s\n", list->words);
 		printf("\ninfile %d:  ", i);
@@ -56,28 +56,13 @@ static char split_pipe(char *split, t_node *temp)
 	{
 
 		if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
-		{
-			temp->infile = ft_strjoin(temp->infile, pipe_split[i]);
-			i++;
-			temp->infile= ft_strjoin(temp->infile, " ");
-			temp->infile = ft_strjoin(temp->infile, pipe_split[i]);
-		}
+			i = list_infile(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
-		{
-			temp->outfile = ft_strjoin(temp->outfile, pipe_split[i]);
-			i++;
-			temp->outfile= ft_strjoin(temp->outfile, " ");
-			temp->outfile = ft_strjoin(temp->outfile, pipe_split[i]);
-		}
+			i = list_outfile(&temp, pipe_split, i);
 		else
-		{
-			temp->words = ft_strjoin(temp->words, pipe_split[i]);
-			temp->words = ft_strjoin(temp->words, " ");
-		}
-		
+			list_word(&temp, pipe_split[i]);	
 		i++;
 	}
-
 	return (0);	
 }
 
@@ -97,7 +82,6 @@ void	command_table(char **split, char **envp)
 	}
 	i = 0;
 	temp = node;
-
 	while (temp != NULL)
 	{
 		split_pipe(split[i], temp);

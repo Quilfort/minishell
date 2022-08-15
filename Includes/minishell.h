@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/11 14:54:10 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/15 14:33:11 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ typedef struct s_node
 }	t_node;
 
 void	command_table(char **split, char **envp);
-// int		lexer_option(char c);
-// int		lexer_word(char c);
 
-void	make_command_table(t_node *list, char **envp);
+
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
 
@@ -82,9 +80,15 @@ char	*right_path(t_vars *vars);
 void	find_path(char **envp, t_vars *vars);
 void	print_error(t_vars *vars);
 
-
+// void	make_command_table(t_node *list, char **envp);
 // t_node  *create_head_parser_pipe(t_node **list, t_node *command_table, int string_token, char *string);
 // void	make_command_table_pipe(t_node *list, char **envp);
+
+//lexer_utils
+void	list_word(t_node **temp, char *word);
+int		list_outfile(t_node **temp, char **outfile, int i);
+int		list_infile(t_node **temp, char **infile, int i);
+
 
 
 

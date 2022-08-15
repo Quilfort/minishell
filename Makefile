@@ -5,8 +5,8 @@ FLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
 INC = -I ./Includes
 SRC = ./Src/main.c \
 	./Src/lexer.c \
+	./Src/lexer_utils.c \
 	./Src/list.c \
-	./Src/parser.c \
 	./Src/commands.c \
 	./Src/pipex.c \
 	./Src/pipex_path.c \

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/11 14:55:48 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/15 12:36:24 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char *argv[], char **envp)
 	{
 		input = readline("Minishell QR1.0: ");
 		add_history(input);
-
 		split = ft_split(input, '|');
 		if (split[0] != NULL)
 			command_table(split, envp);
