@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/15 14:33:11 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/15 14:55:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
+# include <signal.h>
 
 enum tokens {
 	WORD = 1,
