@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/15 14:55:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/18 12:40:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	print_error(t_vars *vars);
 void	list_word(t_node **temp, char *word);
 int		list_outfile(t_node **temp, char **outfile, int i);
 int		list_infile(t_node **temp, char **infile, int i);
+int 	list_single_quote(t_node **temp, char **pipe_split, int i);
+int 	list_double_quote(t_node **temp, char **pipe_split, int i);
 
 
 

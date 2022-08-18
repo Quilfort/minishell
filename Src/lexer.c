@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/15 14:27:19 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/18 12:35:21 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	list_print_command(t_node *list)
 	{
 		printf("\ncontent %d:  ", i);
 		printf("%s", list->content);
-		// printf("\ntoken %d:  ", i);
-		// printf("%d\n", list->token);
 		printf("\nwords %d:  ", i);
 		printf("%s\n", list->words);
 		printf("\ninfile %d:  ", i);
@@ -43,7 +41,6 @@ static void fill_in(t_node *temp)
 	temp->outfile = ft_strdup("");
 }
 
-
 static char split_pipe(char *split, t_node *temp)
 {
 	char	**pipe_split;
@@ -54,8 +51,11 @@ static char split_pipe(char *split, t_node *temp)
 	fill_in(temp);
 	while (pipe_split[i] != NULL)
 	{
-
-		if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
+		if (pipe_split[i][0] == 39)
+			i = list_single_quote(&temp, pipe_split, i);
+		else if (pipe_split[i][0] == 34)
+			i = list_double_quote(&temp, pipe_split, i);
+		else if  (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
 			i = list_infile(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
 			i = list_outfile(&temp, pipe_split, i);
