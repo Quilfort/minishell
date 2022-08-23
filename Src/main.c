@@ -6,17 +6,16 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/18 11:06:48 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/23 14:20:25 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 static void sigint_handler(int sig)
 {
 	write(STDERR_FILENO, "\nMinishell QR1.0: ", 19);
+	// rl_on_new_line();
 	// write(1, "\nMinishell QR1.0: ", 19);
     // write(STDERR_FILENO, "Caught SIGINT!\n", 15);
 }

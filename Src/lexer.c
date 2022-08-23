@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/18 13:12:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/23 16:12:08 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,27 @@ void	list_print_command(t_node *list)
 }
 
 
-static int list_delimiter(t_node **temp, char **pipe_split, int i)
+static int list_heredoc(t_node **temp, char **pipe_split, int i)
 {
-	printf("Dit is de delimiter");
+	char	*delimiter;
+	char	*input;
+	int a = 0;
+
 	list_word(temp, pipe_split[i]);
 	if (pipe_split[i + 1] != NULL)
 		i++;
+	else
+		return (i);
+	delimiter = pipe_split[i];
+	i++;
+	while (a < 3)
+	{
+		input = readline("> ");
+		a++;
+	}
+		
+	printf("Dit is de delimiter = %s", delimiter);
+	printf("Dit is de input = %s", input);
 	return (i);
 }
 
@@ -66,7 +81,7 @@ static char split_pipe(char *split, t_node *temp)
 		else if (pipe_split[i][0] == 34)
 			i = list_double_quote(&temp, pipe_split, i);
 		else if  (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
-			i = list_delimiter(&temp, pipe_split, i);
+			i = list_heredoc(&temp, pipe_split, i);
 		else if  (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
 			i = list_infile(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
