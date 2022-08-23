@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:12:08 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/23 17:06:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,24 @@ void	list_print_command(t_node *list)
 		printf("%s\n", list->infile);
 		printf("\noutfile %d:  ", i);
 		printf("%s\n", list->outfile);
-
-
+		printf("\nheredoc %d:  ", i);
+		printf("%s\n", list->heredoc);
+		
 		list = list->next;
 		i++;
 	}
 }
 
-
 static int list_heredoc(t_node **temp, char **pipe_split, int i)
 {
 	char	*delimiter;
 	char	*input;
-	int a = 0;
+	int		flag;
+	char	double_quote;
 
+	
+	double_quote = 34;
+	flag = 0;
 	list_word(temp, pipe_split[i]);
 	if (pipe_split[i + 1] != NULL)
 		i++;
@@ -48,14 +52,21 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 		return (i);
 	delimiter = pipe_split[i];
 	i++;
-	while (a < 3)
+	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);
+	while (flag == 0)
 	{
 		input = readline("> ");
-		a++;
+		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0)
+		{
+			flag = 1;
+		}
+		else
+		{
+			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
+			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
+		}
 	}
-		
-	printf("Dit is de delimiter = %s", delimiter);
-	printf("Dit is de input = %s", input);
+	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);	
 	return (i);
 }
 
@@ -64,6 +75,7 @@ static void fill_in(t_node *temp)
 	temp->words = ft_strdup("");
 	temp->infile = ft_strdup("");
 	temp->outfile = ft_strdup("");
+	temp->heredoc = ft_strdup("");
 }
 
 static char split_pipe(char *split, t_node *temp)

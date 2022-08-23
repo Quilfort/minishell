@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/18 12:40:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/23 16:22:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_node
 	char			*words;
 	char			*infile;
 	char			*outfile;
+	char			*heredoc;
 	char			*command;
 	int				token;
 
