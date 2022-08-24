@@ -2,7 +2,7 @@ NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 FLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
-INC = -I ./Includes
+INC = -I ./Includes 
 SRC = ./Src/main.c \
 	./Src/lexer.c \
 	./Src/lexer_utils.c \

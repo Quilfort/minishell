@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/23 14:20:25 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 14:03:17 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 static void sigint_handler(int sig)
 {
-	write(STDERR_FILENO, "\nMinishell QR1.0: ", 19);
-	// rl_on_new_line();
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	// rl_replace_line("", 0);
+	rl_on_new_line();
+	// write(STDERR_FILENO, "\nMinishell QR1.0: ", 19);
 	// write(1, "\nMinishell QR1.0: ", 19);
-    // write(STDERR_FILENO, "Caught SIGINT!\n", 15);
 }
 
 static void sigquit_handler(int sig)
 {
-	// ;
+	ioctl(STDIN_FILENO, TIOCSTI, "");
 	sleep(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/23 17:06:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 14:42:14 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,12 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 	else
 		return (i);
 	delimiter = pipe_split[i];
-	i++;
 	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);
 	while (flag == 0)
 	{
 		input = readline("> ");
-		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0)
-		{
+		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0)
 			flag = 1;
-		}
 		else
 		{
 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
@@ -99,7 +96,7 @@ static char split_pipe(char *split, t_node *temp)
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
 			i = list_outfile(&temp, pipe_split, i);
 		else
-			list_word(&temp, pipe_split[i]);	
+			list_word(&temp, pipe_split[i]);
 		i++;
 	}
 	return (0);	

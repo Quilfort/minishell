@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:22:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 12:28:31 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <libft.h>
 # include <stdio.h>
+# include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -23,7 +24,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
-# include <signal.h>
+
 
 enum tokens {
 	WORD = 1,
