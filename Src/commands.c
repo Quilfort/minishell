@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/08 13:45:53 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/24 18:23:31 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	commands_built(t_node *command_table, char **envp)
 	char	**split;
 	int	i;
 	int k;
-
+	return (1);
 	i = 2;
-	split = ft_split(command_table->content, ' ');
+	split = ft_split(command_table->words, ' ');
 	if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
 	{
 		ft_putendl_fd("exit", 1);

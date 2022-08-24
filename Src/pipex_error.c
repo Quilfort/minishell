@@ -3,14 +3,20 @@
 /*                                                        ::::::::            */
 /*   pipex_error.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 10:49:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 15:03:13 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	pexit(char *str, int exit_code)
+{
+	perror(str);
+	exit(exit_code);
+}
 
 void	print_error(t_vars *vars)
 {

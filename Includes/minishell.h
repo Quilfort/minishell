@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 12:28:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 17:00:48 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,13 @@ typedef struct s_node
 	char			*infile;
 	char			*outfile;
 	char			*heredoc;
-	char			*command;
+	char			**command;
 	int				token;
 
 	struct s_node	*next;
 }	t_node;
 
 void	command_table(char **split, char **envp);
-
 
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
@@ -79,9 +78,10 @@ t_node	*create_head(char *first, int token);
 
 //pipex
 void	pipex_start(t_node *command_table, char **envp);
-char	*right_path(t_vars *vars);
+void	right_path(t_vars *vars, t_node *command_table);
 void	find_path(char **envp, t_vars *vars);
 void	print_error(t_vars *vars);
+void	pexit(char *str, int exit_code);
 
 // void	make_command_table(t_node *list, char **envp);
 // t_node  *create_head_parser_pipe(t_node **list, t_node *command_table, int string_token, char *string);

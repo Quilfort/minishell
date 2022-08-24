@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pipex_path.c                                       :+:    :+:            */
+/*   get_path.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:54:24 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 17:01:40 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	find_path(char **envp, t_vars *vars)
 		print_error(vars);
 }
 
-char	*right_path(t_vars *vars)
+void	right_path(t_vars *vars, t_node *commands_table)
 {
 	char	*slash;
 	char	*pipex_path;
 	int		i;
 
-	if (access(vars->path_cmd, X_OK) == 0)
-		return (vars->my_path = ft_strdup(vars->path_cmd));
+	if (access(commands_table->command[0], X_OK) == 0)
+		vars->my_path = ft_strdup(commands_table->command[0]);
 	i = 0;
 	while (vars->path[i] != '\0')
 	{
 		slash = ft_strjoin(vars->path[i], "/");
 		if (!slash)
 			print_error(vars);
-		pipex_path = ft_strjoin(slash, vars->path_cmd);
+		pipex_path = ft_strjoin(slash, commands_table->command[0]);
 		if (!pipex_path)
 			print_error(vars);
 		if (access(pipex_path, X_OK) == 0)
@@ -50,6 +50,5 @@ char	*right_path(t_vars *vars)
 		i++;
 	}
 	if (!vars->my_path)
-		print_error(vars);
-	return (vars->my_path);
+		pexit("Command not found", 127);
 }

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 14:42:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/24 18:26:57 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,31 @@ void	list_print_command(t_node *list)
 		printf("%s\n", list->outfile);
 		printf("\nheredoc %d:  ", i);
 		printf("%s\n", list->heredoc);
-		
+		printf("\ncommand[0] %d:  ", i);
+		printf("%s\n", list->command[0]);
 		list = list->next;
 		i++;
 	}
 }
+
+// static void add_heredoc(t_node **temp, char *delimiter)
+// {
+// 	int		flag;
+// 	char	*input;
+
+// 	flag = 0;
+// 	while (flag == 0)
+// 	{
+// 		input = readline("> ");
+// 		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0)
+// 			flag = 1;
+// 		else
+// 		{
+// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
+// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
+// 		}
+// 	}	
+// }
 
 static int list_heredoc(t_node **temp, char **pipe_split, int i)
 {
@@ -41,21 +61,28 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 	char	*input;
 	int		flag;
 	char	double_quote;
+	char	*in_operator;
 
-	
 	double_quote = 34;
+	in_operator = "<<";
 	flag = 0;
-	list_word(temp, pipe_split[i]);
-	if (pipe_split[i + 1] != NULL)
+	list_word(temp, in_operator);
+	if (pipe_split[i][2])
+		delimiter = &pipe_split[i][2];
+	else if (pipe_split[i + 1] != NULL)
+	{
 		i++;
+		delimiter = pipe_split[i];
+	}
 	else
 		return (i);
-	delimiter = pipe_split[i];
 	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);
+	// add_heredoc(temp, delimiter);
 	while (flag == 0)
 	{
 		input = readline("> ");
-		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0)
+		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0 \
+			&& ft_strlen(delimiter) == ft_strlen(input))
 			flag = 1;
 		else
 		{
@@ -102,6 +129,16 @@ static char split_pipe(char *split, t_node *temp)
 	return (0);	
 }
 
+void	exec_init(t_node *command_table)
+{
+	command_table->command = ft_split(command_table->words, ' ');
+	while (command_table->next != NULL)
+	{
+		command_table = command_table->next;
+		command_table->command = ft_split(command_table->words, ' ');
+	}
+}
+
 void	command_table(char **split, char **envp)
 {
 	t_node			*node;
@@ -124,5 +161,7 @@ void	command_table(char **split, char **envp)
 		temp = temp->next;
 		i++;
 	}
+	exec_init(node);
+	pipex_start(node, envp);
 	list_print_command(node);
 }

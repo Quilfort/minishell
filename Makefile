@@ -8,8 +8,8 @@ SRC = ./Src/main.c \
 	./Src/lexer_utils.c \
 	./Src/list.c \
 	./Src/commands.c \
-	./Src/pipex.c \
-	./Src/pipex_path.c \
+	./Src/executioner.c \
+	./Src/get_path.c \
 	./Src/pipex_error.c
 OBJ = $(SRC:%.c=%.o)
 
