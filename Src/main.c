@@ -6,11 +6,29 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 14:03:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/29 18:00:17 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void init_shell()
+{
+	char	*username;
+	
+	username = getenv("USER");
+    printf("\033[H\033[J");
+    printf("\n******************"
+        "************************");
+    printf("\n\n\t****ROLF AND QUILFORT'S SHELL****");
+    printf("\n\n\t----USE AT YOUR OWN RISK----");
+    printf("\n\n*******************"
+        "***********************");
+    printf("\n\nUSER is: @%s", username);
+    printf("\n");
+    sleep(2);
+    printf("\033[H\033[J");
+}
 
 static void sigint_handler(int sig)
 {
@@ -42,7 +60,7 @@ int	main(int argc, char *argv[], char **envp)
 	int				flag;
 
 	flag = 0;
-
+	init_shell();
 	while (flag != EOF)
 	{
 		signals();

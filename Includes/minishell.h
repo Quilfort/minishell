@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 17:00:48 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/29 17:41:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ enum tokens {
 typedef struct s_vars {
 	int		f1;
 	int		f2;
+	int		no_file;
 	char	**cmd;
 	char	**path;
 	char	*path_cmd;
@@ -94,7 +95,8 @@ int		list_infile(t_node **temp, char **infile, int i);
 int 	list_single_quote(t_node **temp, char **pipe_split, int i);
 int 	list_double_quote(t_node **temp, char **pipe_split, int i);
 
-
+//quilfortpipex
+void	q_pipex_start(t_node *command_table, char **envp);
 
 
 

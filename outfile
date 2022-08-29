@@ -1,12 +1,4 @@
- datoutfile
-content 0:  cat -n < infile > outfile
-words 0:  cat -n 
-
-infile 0:  infile
-
-outfile 0:  outfile
-
-heredoc 0:  
-
-command[0] 0:  cat
-Minishell QR1.0: exit
+^I^ISongtekst voor Rolf in Augustus
+ik zat hier aan de bar
+een biertje te drinken
+jij kwam toen daarvoorbiij

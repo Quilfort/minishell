@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 18:26:57 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/29 18:01:54 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	list_print_command(t_node *list)
 		printf("%s\n", list->outfile);
 		printf("\nheredoc %d:  ", i);
 		printf("%s\n", list->heredoc);
-		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[0]);
+		// printf("\ncommand[0] %d:  ", i);
+		// printf("%s\n", list->command[0]);
 		list = list->next;
 		i++;
 	}
@@ -52,7 +52,7 @@ void	list_print_command(t_node *list)
 // 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
 // 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
 // 		}
-// 	}	
+// 	}
 // }
 
 static int list_heredoc(t_node **temp, char **pipe_split, int i)
@@ -162,6 +162,6 @@ void	command_table(char **split, char **envp)
 		i++;
 	}
 	exec_init(node);
-	pipex_start(node, envp);
-	list_print_command(node);
+	q_pipex_start(node, envp);
+	// list_print_command(node);
 }

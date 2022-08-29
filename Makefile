@@ -9,6 +9,7 @@ SRC = ./Src/main.c \
 	./Src/list.c \
 	./Src/commands.c \
 	./Src/executioner.c \
+	./Src/q_executioner.c \
 	./Src/get_path.c \
 	./Src/pipex_error.c
 OBJ = $(SRC:%.c=%.o)
