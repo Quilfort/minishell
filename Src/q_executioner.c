@@ -57,7 +57,7 @@ static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 		if (dup2(vars->f1, STDIN_FILENO) == -1)
 			print_error(vars);
 	}
-	if (vars->no_infile == 1)
+	if (vars->no_infile == 0)
 	{
 		if (dup2(vars->f2, STDOUT_FILENO) == -1)
 			print_error(vars);
