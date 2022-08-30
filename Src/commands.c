@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 18:23:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/08/30 18:09:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	commands_built(t_node *command_table, char **envp)
 	split = ft_split(command_table->words, ' ');
 	if ((ft_strncmp("exit", split[0], 4) == 0) && (split[1] == NULL))
 	{
-		ft_putendl_fd("exit", 1);
+		ft_putendl_fd("exitcookies", 1);
 		exit(0);
 	}
 	if ((ft_strncmp("pwd", split[0], 3) == 0) && (split[1] == NULL))

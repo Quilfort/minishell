@@ -26,14 +26,14 @@ static void	q_preform_cmd(t_node *command_table, char**envp, t_vars *vars)
 static void	q_fork_proces(t_node *command_table, char**envp, t_vars *vars)
 {
 	int		pipefd[2];
-	pid_t	pid;
+	// pid_t	pid;
 
 	if (pipe(pipefd) == -1)
 		print_error(vars);
-	pid = fork();
-	if (pid == -1)
+	vars->pid = fork();
+	if (vars->pid == -1)
 		print_error(vars);
-	if (pid == 0)
+	if (vars->pid == 0)
 	{
 		close(pipefd[0]);
 		if (dup2(pipefd[1], STDOUT_FILENO) == -1)
@@ -50,6 +50,35 @@ static void	q_fork_proces(t_node *command_table, char**envp, t_vars *vars)
 	close(pipefd[1]);
 }
 
+static void	q_last_fork_proces(t_node *command_table, char**envp, t_vars *vars)
+{
+	int		pipefd[2];
+	// pid_t	pid;
+
+	if (pipe(pipefd) == -1)
+		print_error(vars);
+	vars->pid = fork();
+	if (vars->pid == -1)
+		print_error(vars);
+	if (vars->pid == 0)
+	{
+		close(pipefd[0]);
+		if (dup2(vars->f2, STDOUT_FILENO) == -1)
+			print_error(vars);
+		q_preform_cmd(command_table, envp, vars);
+	}
+	else
+	{
+		close(pipefd[1]);
+		if (dup2(pipefd[0], STDIN_FILENO) == -1)
+			print_error(vars);
+	}
+	printf("Komt je hier\n");
+	close(pipefd[0]);
+	close(pipefd[1]);
+	close(vars->f2);
+}
+
 static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 {
 	if (vars->no_infile == 0)
@@ -57,11 +86,11 @@ static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 		if (dup2(vars->f1, STDIN_FILENO) == -1)
 			print_error(vars);
 	}
-	if (vars->no_outfile == 0)
-	{
-		if (dup2(vars->f2, STDOUT_FILENO) == -1)
-			print_error(vars);
-	}
+	// if (vars->no_outfile == 0)
+	// {
+	// 	if (dup2(vars->f2, STDOUT_FILENO) == -1)
+	// 		print_error(vars);
+	// }
 	if ((commands_built(command_table, envp) != 0))
 	{
 		while (command_table->next != NULL)
@@ -80,7 +109,12 @@ static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 			// 	command_table = command_table->next;
 		}
 	}
-	q_preform_cmd(command_table, envp, vars);
+	q_last_fork_proces(command_table, envp, vars);
+	// printf("Komt je hier222222");
+	// q_preform_cmd(command_table, envp, vars);
+	wait(NULL);
+		
+	
 }
 
 // returnd de node met token infile om die door te geven aan open
@@ -125,9 +159,6 @@ void	q_pipex_start(t_node *command_table, char **envp)
 	vars.no_outfile = 0;
 	string_infile = q_find_token_infile(command_table, &vars);
 	string_outfile = q_find_token_outfile(command_table, &vars);
-	printf("Dit is de infile = %s\n", string_infile);
-	printf("Dit is de outfile = %s\n", string_outfile);
-	printf("Dit is infile number = %d", vars.no_infile);
 	if (vars.no_infile == 0)
 	{
 		vars.f1 = open(string_infile, O_RDONLY, 0644);
@@ -151,6 +182,9 @@ void	q_pipex_start(t_node *command_table, char **envp)
 	// }
 	find_path(envp, &vars);
 	q_pipex(command_table, envp, &vars);
+	printf("dit is een hail marry\n");
 	close(vars.f1);
 	close(vars.f2);
+	
+	// main_loop(0, envp);
 }

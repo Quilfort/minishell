@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/30 13:59:51 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/30 17:49:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_vars {
 	char	**path;
 	char	*path_cmd;
 	char	*my_path;
+	pid_t	pid;
 }				t_vars;
 
 typedef struct s_node
@@ -98,6 +99,8 @@ int 	list_double_quote(t_node **temp, char **pipe_split, int i);
 
 //quilfortpipex
 void	q_pipex_start(t_node *command_table, char **envp);
+void 	sigint_handler(int sig);
+void	main_loop(int flag, char **envp);
 
 
 
