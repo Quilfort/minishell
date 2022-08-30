@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/29 17:41:00 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/30 13:59:51 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ enum tokens {
 typedef struct s_vars {
 	int		f1;
 	int		f2;
-	int		no_file;
+	int		no_infile;
+	int		no_outfile;
 	char	**cmd;
 	char	**path;
 	char	*path_cmd;

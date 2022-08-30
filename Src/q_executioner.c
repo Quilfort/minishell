@@ -52,10 +52,13 @@ static void	q_fork_proces(t_node *command_table, char**envp, t_vars *vars)
 
 static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 {
-	if (vars->no_file == 0)
+	if (vars->no_infile == 0)
 	{
 		if (dup2(vars->f1, STDIN_FILENO) == -1)
 			print_error(vars);
+	}
+	if (vars->no_infile == 1)
+	{
 		if (dup2(vars->f2, STDOUT_FILENO) == -1)
 			print_error(vars);
 	}
@@ -81,7 +84,7 @@ static void	q_pipex(t_node *command_table, char **envp, t_vars *vars)
 }
 
 // returnd de node met token infile om die door te geven aan open
-char	*q_find_token_infile(t_node *command_table)
+static char	*q_find_token_infile(t_node *command_table, t_vars *vars)
 {
 	t_node	*temp;
 	
@@ -92,11 +95,12 @@ char	*q_find_token_infile(t_node *command_table)
 			return (temp->infile);
 		temp = temp->next;
 	}
+	vars->no_infile = 1;	
 	return ("");
 }
 
 // returnd node met token outfile om die door te geven aan open
-char	*q_find_token_outfile(t_node *command_table)
+static char	*q_find_token_outfile(t_node *command_table, t_vars *vars)
 {
 	t_node	*temp;
 	
@@ -107,6 +111,7 @@ char	*q_find_token_outfile(t_node *command_table)
 			return (temp->outfile);
 		temp = temp->next;
 	}
+	vars->no_outfile = 1;
 	return ("");
 }
 
@@ -116,22 +121,34 @@ void	q_pipex_start(t_node *command_table, char **envp)
 	char	*string_infile;
 	char	*string_outfile;
 
-	string_infile = q_find_token_infile(command_table);
-	string_outfile = q_find_token_outfile(command_table);
-	vars.no_file = 0;
+	vars.no_infile = 0;
+	vars.no_outfile = 0;
+	string_infile = q_find_token_infile(command_table, &vars);
+	string_outfile = q_find_token_outfile(command_table, &vars);
 	printf("Dit is de infile = %s\n", string_infile);
 	printf("Dit is de outfile = %s\n", string_outfile);
-	if (ft_strncmp(string_infile , "", 1) != 0 && ft_strncmp(string_infile , "", 1) != 0)
+	printf("Dit is infile number = %d", vars.no_infile);
+	if (vars.no_infile == 0)
 	{
 		vars.f1 = open(string_infile, O_RDONLY, 0644);
-		vars.f2 = open(string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (vars.f1 < 0)
 			print_error(&vars);
+	}
+	if (vars.no_outfile == 0)
+	{
+		vars.f2 = open(string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (vars.f2 < 0)
 			print_error(&vars);
 	}
-	else
-		vars.no_file = 1;
+	// if (ft_strncmp(string_infile , "", 1) != 0 && ft_strncmp(string_infile , "", 1) != 0)
+	// {
+	// 	vars.f1 = open(string_infile, O_RDONLY, 0644);
+	// 	vars.f2 = open(string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// 	if (vars.f1 < 0)
+	// 		print_error(&vars);
+	// 	if (vars.f2 < 0)
+	// 		print_error(&vars);
+	// }
 	find_path(envp, &vars);
 	q_pipex(command_table, envp, &vars);
 	close(vars.f1);
