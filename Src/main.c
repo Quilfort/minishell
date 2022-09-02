@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/30 18:20:03 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/08/31 17:01:16 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void signals()
         perror("error");
 	if (signal(SIGINT, sigint_handler) == SIG_ERR)
         perror("error");
-	if (signal(SIGTRAP, sigint_handler) == SIG_ERR)
-        perror("error");
+	// if (signal(SIGTRAP, sigint_handler) == SIG_ERR)
+    //     perror("error");
 
 }
 
@@ -66,13 +66,13 @@ void main_loop(int flag, char **envp)
 	while (flag != EOF)
 	{
 		signals();
-		printf("It's Loop time\n");
+		// printf("It's Loop time\n");
 		input = readline("Minishell QR1.0: ");
-		printf("\n%s\n", input);
+		// printf("\n%s\n", input);
 		if (input == NULL)
 		{
 			flag = EOF;
-			write(1 ,"exit", 4);
+			write(2 ,"exit", 4);
 		}
 		else
 		{

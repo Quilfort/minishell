@@ -8,7 +8,6 @@ SRC = ./Src/main.c \
 	./Src/lexer_utils.c \
 	./Src/list.c \
 	./Src/commands.c \
-	./Src/executioner.c \
 	./Src/q_executioner.c \
 	./Src/get_path.c \
 	./Src/pipex_error.c
