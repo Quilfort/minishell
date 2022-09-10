@@ -43,17 +43,18 @@ enum tokens {
 
 //pipex
 typedef struct s_vars {
-	int		f1;
-	int		f2;
-	int		no_infile;
-	int		no_outfile;
+	int	f1;
+	int	f2;
+	int	no_infile;
+	int	no_outfile;
 	char	**cmd;
 	char	**path;
 	char	*path_cmd;
 	char	*my_path;
+	int	com;
+	int	com_count;
 	pid_t	pid;
-}				t_vars;
-
+}	
 typedef struct s_node
 {
 	char			*content;
