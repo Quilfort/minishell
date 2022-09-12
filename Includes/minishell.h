@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/30 17:49:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/12 11:04:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,21 @@ enum tokens {
 
 //pipex
 typedef struct s_vars {
-	int	f1;
-	int	f2;
-	int	no_infile;
-	int	no_outfile;
+	int		f1;
+	int		f2;
+	int		no_infile;
+	int		no_outfile;
 	char	**cmd;
 	char	**path;
 	char	*path_cmd;
 	char	*my_path;
-	int	com;
-	int	com_count;
+	char	*string_infile;
+	char	*string_outfile;
+	int		com;
+	int		com_count;
 	pid_t	pid;
-}	
+}	t_vars;
+
 typedef struct s_node
 {
 	char			*content;

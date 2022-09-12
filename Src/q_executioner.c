@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+static int	lstsize(t_node *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		list = list->next;
+		i++;
+	}
+	return (i);
+}
+
+
 static void	q_preform_cmd(t_node *command_table, char**envp, t_vars *vars)
 {
 	if (!command_table->command)
@@ -138,6 +152,7 @@ void	last_child(t_vars *vars, t_node *command_table, int (*fd)[vars->com][2], ch
 void	ft_wait(t_vars *vars)
 {
 	int x;
+
 	x = 0;
 	while (x < vars->com)
 	{
@@ -149,6 +164,7 @@ void	ft_wait(t_vars *vars)
 void	multiple_fork(t_node *command_table, char **envp, t_vars *vars)
 {
 	int fd[vars->com - 1][2];
+	
 	vars->com_count = 1;
 	init_pipes(vars, &fd);
     find_path(envp, vars);
