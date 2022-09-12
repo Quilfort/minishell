@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/02 14:29:47 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/12 14:29:17 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,13 @@ void	echo(t_node *command_table)
 	{
 		while (command_table->command[i] != '\0')
 		{
-			ft_putstr_fd(command_table->command[i], 1);
+		
+			if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
+			{
+				ft_putstr_fd(command_table->heredoc, 1);
+			}
+			else
+				ft_putstr_fd(command_table->command[i], 1);
 			ft_putchar_fd(' ', 1);
 			i++;
 		}
@@ -54,7 +60,12 @@ void	echo(t_node *command_table)
 		i = 1;
 		while (command_table->command[i] != '\0')
 		{
-			ft_putstr_fd(command_table->command[i], 1);
+			if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
+			{
+				ft_putstr_fd(command_table->heredoc, 1);
+			}
+			else
+				ft_putstr_fd(command_table->command[i], 1);
 			ft_putchar_fd(' ', 1);
 			i++;
 		}

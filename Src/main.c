@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/31 17:01:16 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/12 17:28:45 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void sigquit_handler(int sig)
 
 static void signals()
 {
-	printf("it's signals time\n");
+	// printf("it's signals time\n");
 	if (signal(SIGQUIT, sigquit_handler) == SIG_ERR)
         perror("error");
 	if (signal(SIGINT, sigint_handler) == SIG_ERR)
@@ -57,12 +57,12 @@ static void signals()
 
 }
 
-void main_loop(int flag, char **envp)
+void	main_loop(int flag, char **envp, t_envp *env)
 {
 	char			*input;
 	char			**split;
 
-	printf("It's main time\n");
+	// printf("It's main time\n");
 	while (flag != EOF)
 	{
 		signals();
@@ -79,42 +79,56 @@ void main_loop(int flag, char **envp)
 			add_history(input);
 			split = ft_split(input, '|');
 			if (split[0] != NULL)
-				command_table(split, envp);
+				command_table(split, envp, env);
 		}
+	}
+}
+
+static void	print_envp(t_envp *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
+		printf("\nkey %d:  ", i);
+		printf("%s", list->key);
+		printf("\noutput %d:  ", i);
+		printf("%s\n", list->output);
+		list = list->next;
+		i++;
 	}
 }
 
 
 
-
-
 int	main(int argc, char *argv[], char **envp)
 {
-	// char			*input;
-	// char			**split;
-	// int				flag;
+	t_envp	*env;
+	t_envp	*temp;
 
-	// flag = 0;
+	int		i;
 	// init_shell();
-	main_loop(0, envp);
-	// while (flag != EOF)
-	// {
-	// 	signals();
-	// 	input = readline("Minishell QR1.0: ");
-	// 	if (input == NULL)
-	// 	{
-	// 		flag = EOF;
-	// 		write(1 ,"exit", 4);
-	// 	}
-	// 	else
-	// 	{
-	// 		add_history(input);
-	// 		split = ft_split(input, '|');
-	// 		if (split[0] != NULL)
-	// 			command_table(split, envp);
-	// 	}
-	// }
-	printf("Rolf is misschien gelijk\n");
+	env = create_list_envp(envp[0]);
+	i = 1;
+	while (envp[i] != '\0')
+	{
+		lstadd_back_envp(&env, envp[i], 0);
+		i++;
+	}
+	i = 0;
+	temp = env;
+	while (temp != NULL)
+	{
+		key_output(envp[i], &temp);
+		temp = temp->next;
+		i++;
+	}
+	// print_envp(env);
+	
+	main_loop(0, envp, env);
 	return (0);
 }
 

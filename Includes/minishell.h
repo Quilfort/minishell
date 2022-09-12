@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 11:04:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/12 17:28:36 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_vars {
 	pid_t	pid;
 }	t_vars;
 
+//input to commands
 typedef struct s_node
 {
 	char			*content;
@@ -71,7 +72,17 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-void	command_table(char **split, char **envp);
+//envp in list
+typedef struct s_envp
+{
+	char	*content;
+	char	*key;
+	char	*output;
+
+	struct s_envp	*next;
+}	t_envp;
+
+void	command_table(char **split, char **envp, t_envp *env);
 
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
@@ -82,6 +93,23 @@ int		commands_built(t_node *command_table, char **envp);
 t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split, int token);
 t_node	*create_head(char *first, int token);
+
+
+
+// envp list
+t_envp	*create_list_envp(char *head);
+t_envp	*create_head_envp(char *first);
+void	lstadd_back_envp(t_envp **lst, char *split, int token);
+
+void	key_output(char *split, t_envp **temp);
+void	print_envp(t_envp *list);
+
+// environmental variables
+char	env_var_envp(char **envp, char *var);
+char	env_var(t_envp *list, char *var);
+
+
+
 
 //pipex
 void	pipex_start(t_node *command_table, char **envp);
@@ -104,7 +132,7 @@ int 	list_double_quote(t_node **temp, char **pipe_split, int i);
 //quilfortpipex
 void	q_pipex_start(t_node *command_table, char **envp);
 void 	sigint_handler(int sig);
-void	main_loop(int flag, char **envp);
+void	main_loop(int flag, char **envp, t_envp *env);
 
 
 

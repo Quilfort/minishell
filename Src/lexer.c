@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/02 15:05:24 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/12 17:27:03 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	list_print_command(t_node *list)
 		printf("\nheredoc %d:  ", i);
 		printf("%s\n", list->heredoc);
 		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[i]);
+		printf("%s\n", list->command[0]);
 		list = list->next;
 		i++;
 	}
@@ -60,10 +60,8 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 	char	*delimiter;
 	char	*input;
 	int		flag;
-	char	double_quote;
 	char	*in_operator;
 
-	double_quote = 34;
 	in_operator = "<<";
 	flag = 0;
 	list_word(temp, in_operator);
@@ -76,7 +74,6 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 	}
 	else
 		return (i);
-	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);
 	// add_heredoc(temp, delimiter);
 	while (flag == 0)
 	{
@@ -90,7 +87,6 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
 		}
 	}
-	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, &double_quote);	
 	return (i);
 }
 
@@ -139,7 +135,7 @@ void	exec_init(t_node *command_table)
 	}
 }
 
-void	command_table(char **split, char **envp)
+void	command_table(char **split, char **envp, t_envp *env)
 {
 	t_node			*node;
 	t_node			*temp;
@@ -150,7 +146,7 @@ void	command_table(char **split, char **envp)
 	i = 1;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&node,split[i], 0);
+		lstadd_back(&node, split[i], 0);
 		i++;
 	}
 	i = 0;
@@ -162,7 +158,11 @@ void	command_table(char **split, char **envp)
 		i++;
 	}
 	exec_init(node);
+	// env_var(env, "PWD");
+	// env_var_envp(envp, "PATH");
+
 	if ((commands_built(node, envp) == 0))
 		q_pipex_start(node, envp);
+	
 	// list_print_command(node);
 }

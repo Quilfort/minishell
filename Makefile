@@ -7,6 +7,8 @@ SRC = ./Src/main.c \
 	./Src/lexer.c \
 	./Src/lexer_utils.c \
 	./Src/list.c \
+	./Src/envp_list.c \
+	./Src/env_var.c \
 	./Src/commands.c \
 	./Src/q_executioner.c \
 	./Src/get_path.c \
