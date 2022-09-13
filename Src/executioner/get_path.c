@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/24 17:01:40 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/13 15:16:21 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,38 @@ void	right_path(t_vars *vars, t_node *commands_table)
 	}
 	if (!vars->my_path)
 		pexit("Command not found", 127);
+}
+
+// returnd de node met token infile om die door te geven aan open
+char	*q_find_token_infile(t_node *command_table, t_vars *vars)
+{
+	t_node	*temp;
+
+	vars->no_infile = 0;
+	temp = command_table;
+	while (temp)
+	{
+		if (ft_strncmp(temp->infile, "", 1) != 0)
+			return (temp->infile);
+		temp = temp->next;
+	}
+	vars->no_infile = 1;
+	return ("");
+}
+
+// returnd node met token outfile om die door te geven aan open
+char	*q_find_token_outfile(t_node *command_table, t_vars *vars)
+{
+	t_node	*temp;
+
+	vars->no_outfile = 0;
+	temp = command_table;
+	while (temp != NULL)
+	{
+		if (ft_strncmp(temp->outfile, "", 1) != 0)
+			return (temp->outfile);
+		temp = temp->next;
+	}
+	vars->no_outfile = 1;
+	return ("");
 }

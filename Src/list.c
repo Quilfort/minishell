@@ -3,14 +3,27 @@
 /*                                                        ::::::::            */
 /*   list.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:37:25 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/13 17:27:46 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	lstsize(t_node *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		list = list->next;
+		i++;
+	}
+	return (i);
+}
 
 static t_node	*lstlast(t_node *lst)
 {
@@ -68,12 +81,4 @@ t_node	*create_head(char *first, int token)
 	head->token = token;
 	head->next = NULL;
 	return (head);
-}
-
-t_node	*create_list(char *head)
-{
-	t_node	*list;
-	
-	list = create_head(head, NULL);
-	return (list);
 }

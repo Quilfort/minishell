@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 17:28:36 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/13 17:43:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
-
 
 enum tokens {
 	WORD = 1,
@@ -75,9 +74,9 @@ typedef struct s_node
 //envp in list
 typedef struct s_envp
 {
-	char	*content;
-	char	*key;
-	char	*output;
+	char			*content;
+	char			*key;
+	char			*output;
 
 	struct s_envp	*next;
 }	t_envp;
@@ -94,8 +93,6 @@ t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split, int token);
 t_node	*create_head(char *first, int token);
 
-
-
 // envp list
 t_envp	*create_list_envp(char *head);
 t_envp	*create_head_envp(char *first);
@@ -108,13 +105,44 @@ void	print_envp(t_envp *list);
 char	env_var_envp(char **envp, char *var);
 char	env_var(t_envp *list, char *var);
 
-
-
-
-//pipex
+// executioner
+		// executioner.c
+void	q_preform_cmd(t_node *command_table, char**envp, t_vars *vars);
+void	multiple_fork(t_node *command_table, char **envp, t_vars *vars);
 void	pipex_start(t_node *command_table, char **envp);
+
+		// child.c
+void	first_child(t_vars *vars, t_node *command_table, \
+					int (*fd)[vars->com][2], char **envp);
+void	middle_child(t_vars *vars, t_node *command_table, \
+					int (*fd)[vars->com][2], char **envp);
+void	last_child(t_vars *vars, t_node *command_table, \
+					int (*fd)[vars->com][2], char **envp);
+
+		// fork_with_file.c
+void	just_infile_fork_process(t_vars *vars, t_node *command_table, \
+															char **envp);	
+void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table, \
+															char **envp);
+void	just_outfile_fork_process( t_vars *vars, t_node *command_table, \
+															char **envp);
+void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table, \
+															char **envp);
+void	in_out_file_fork_process(t_vars *vars, t_node *command_table, \
+															char **envp);
+
+		// get_path.c
 void	right_path(t_vars *vars, t_node *command_table);
 void	find_path(char **envp, t_vars *vars);
+char	*q_find_token_infile(t_node *command_table, t_vars *vars);
+char	*q_find_token_outfile(t_node *command_table, t_vars *vars);
+
+		// init_pipes.c
+void	init_pipes(t_vars *vars, int (*fd)[vars->com - 2][2]);
+void	close_pipes(t_vars *vars, int (*fd)[vars->com - 2][2]);
+void	ft_wait(t_vars *vars);
+
+		// pipex_error.c
 void	print_error(t_vars *vars);
 void	pexit(char *str, int exit_code);
 
@@ -123,17 +151,14 @@ void	pexit(char *str, int exit_code);
 // void	make_command_table_pipe(t_node *list, char **envp);
 
 //lexer_utils
+int		lstsize(t_node *list);
 void	list_word(t_node **temp, char *word);
 int		list_outfile(t_node **temp, char **outfile, int i);
 int		list_infile(t_node **temp, char **infile, int i);
-int 	list_single_quote(t_node **temp, char **pipe_split, int i);
-int 	list_double_quote(t_node **temp, char **pipe_split, int i);
+int		list_single_quote(t_node **temp, char **pipe_split, int i);
+int		list_double_quote(t_node **temp, char **pipe_split, int i);
 
-//quilfortpipex
-void	q_pipex_start(t_node *command_table, char **envp);
-void 	sigint_handler(int sig);
-void	main_loop(int flag, char **envp, t_envp *env);
-
-
+// signals
+void	signals(void);
 
 #endif

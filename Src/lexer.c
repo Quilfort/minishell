@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 17:27:03 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/13 17:25:49 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int list_heredoc(t_node **temp, char **pipe_split, int i)
 	return (i);
 }
 
-static void fill_in(t_node *temp)
+static void	fill_in(t_node *temp)
 {
 	temp->words = ft_strdup("");
 	temp->infile = ft_strdup("");
@@ -98,10 +98,10 @@ static void fill_in(t_node *temp)
 	temp->heredoc = ft_strdup("");
 }
 
-static char split_pipe(char *split, t_node *temp)
+static char	split_pipe(char *split, t_node *temp)
 {
 	char	**pipe_split;
-	int i;
+	int		i;
 
 	i = 0;
 	pipe_split = ft_split(split, ' ');
@@ -112,9 +112,9 @@ static char split_pipe(char *split, t_node *temp)
 			i = list_single_quote(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == 34)
 			i = list_double_quote(&temp, pipe_split, i);
-		else if  (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
+		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
 			i = list_heredoc(&temp, pipe_split, i);
-		else if  (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
+		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
 			i = list_infile(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
 			i = list_outfile(&temp, pipe_split, i);
@@ -122,7 +122,7 @@ static char split_pipe(char *split, t_node *temp)
 			list_word(&temp, pipe_split[i]);
 		i++;
 	}
-	return (0);	
+	return (0);
 }
 
 void	exec_init(t_node *command_table)
@@ -142,7 +142,7 @@ void	command_table(char **split, char **envp, t_envp *env)
 	char			**command_split;
 	int				i;
 
-	node = create_list(split[0]);
+	node = create_head(split[0], NULL);
 	i = 1;
 	while (split[i] != '\0')
 	{
@@ -160,9 +160,7 @@ void	command_table(char **split, char **envp, t_envp *env)
 	exec_init(node);
 	// env_var(env, "PWD");
 	// env_var_envp(envp, "PATH");
-
 	if ((commands_built(node, envp) == 0))
 		q_pipex_start(node, envp);
-	
 	// list_print_command(node);
 }

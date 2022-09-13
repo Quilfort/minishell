@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 14:29:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/13 18:21:51 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,42 +28,40 @@ void	open_folder(t_node *command_table)
 	if (dir == NULL)
 	{
 		ft_putstr_fd("shell: cd: ", 2);
-		perror(command_table->command[1]); // als cd niet kan, dan doet bash dit, bv bash: cd: minishell: Not a directory, zonder exit
+		perror(command_table->command[1]);
 	}
 	if (dir != NULL)
 		closedir(dir);
 	chdir(command_table->command[1]);
 }
 
+void	echo_n(t_node *command_table, int i)
+{
+	while (command_table->command[i] != '\0')
+	{
+		if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
+			ft_putstr_fd(command_table->heredoc, 1);
+		else
+			ft_putstr_fd(command_table->command[i], 1);
+		ft_putchar_fd(' ', 1);
+		i++;
+	}
+}
+
 void	echo(t_node *command_table)
 {
-	int i;
+	int	i;
 
 	i = 2;
 	if (ft_strncmp("-n", command_table->command[1], 2) == 0)
-	{
-		while (command_table->command[i] != '\0')
-		{
-		
-			if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
-			{
-				ft_putstr_fd(command_table->heredoc, 1);
-			}
-			else
-				ft_putstr_fd(command_table->command[i], 1);
-			ft_putchar_fd(' ', 1);
-			i++;
-		}
-	}
+		echo_n(command_table, i);
 	else
 	{
 		i = 1;
 		while (command_table->command[i] != '\0')
 		{
 			if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
-			{
 				ft_putstr_fd(command_table->heredoc, 1);
-			}
 			else
 				ft_putstr_fd(command_table->command[i], 1);
 			ft_putchar_fd(' ', 1);

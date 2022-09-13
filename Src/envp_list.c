@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   envp_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:59:22 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/13 17:28:17 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_envp	*create_head_envp(char *first)
 t_envp	*create_list_envp(char *head)
 {
 	t_envp	*list;
-	
+
 	list = create_head_envp(head);
 	return (list);
 }
