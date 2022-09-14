@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   child.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:06:14 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/13 15:55:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 17:16:45 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,17 @@ void	first_child(t_vars *vars, t_node *command_table, \
 			if (dup2(vars->f1, STDIN_FILENO) == -1)
 				print_error(vars);
 		}
-		dup2((*fd)[0][1], STDOUT_FILENO);
-		close_pipes(vars, fd);
-		q_preform_cmd(command_table, envp, vars);
+		if (!command_table->command[0])
+		{
+			close_pipes(vars, fd);
+			exit(0);
+		}
+		else
+		{
+			dup2((*fd)[0][1], STDOUT_FILENO);
+			close_pipes(vars, fd);
+			q_preform_cmd(command_table, envp, vars);
+		}
 	}
 }
 
@@ -45,8 +53,16 @@ void	middle_child(t_vars *vars, t_node *command_table, \
 	{
 		dup2((*fd)[vars->com_count - 1][0], STDIN_FILENO);
 		dup2((*fd)[vars->com_count][1], STDOUT_FILENO);
-		close_pipes(vars, fd);
-		q_preform_cmd(command_table, envp, vars);
+		if (!command_table->command[0])
+		{
+			close_pipes(vars, fd);
+			exit(0);
+		}
+		else
+		{
+			close_pipes(vars, fd);
+			q_preform_cmd(command_table, envp, vars);
+		}
 	}
 }
 
@@ -65,8 +81,17 @@ void	last_child(t_vars *vars, t_node *command_table, \
 			if (dup2(vars->f2, STDOUT_FILENO) == -1)
 				print_error(vars);
 		}
-		dup2((*fd)[vars->com_count - 1][0], STDIN_FILENO);
-		close_pipes(vars, fd);
-		q_preform_cmd(command_table, envp, vars);
+		if (!command_table->command[0])
+		{
+			close_pipes(vars, fd);
+			exit(0);
+		}
+		else
+		{
+			dup2((*fd)[vars->com_count - 1][0], STDIN_FILENO);
+			close_pipes(vars, fd);
+			q_preform_cmd(command_table, envp, vars);
+		}
+		
 	}
 }

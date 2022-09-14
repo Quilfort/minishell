@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 15:08:30 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 17:13:12 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,8 @@ void	command_table(char **split, char **envp, t_envp *env)
 		i++;
 	}
 	exec_init(node);
-	// env_var(env, "PWD");
-	// env_var_envp(envp, "PATH");
-	if ((commands_built(node, env, envp) == 0))
-		q_pipex_start(node, envp);
+	// if ((commands_built(node, env, envp) == 0))
+	// 	q_pipex_start(node, envp);
+	q_pipex_start(node, envp);
 	// list_print_command(node);
 }
