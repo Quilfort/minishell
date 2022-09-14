@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 12:21:21 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/14 13:52:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env)
 		var = env_var(env, var);
 		list_word(temp, var);
 	}
-	if (pipe_split[i + 1] != NULL)
+	else if (pipe_split[i + 1] != NULL)
 	{
 		list_word(temp, pipe_split[i]);
 		i++;
