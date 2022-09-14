@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 14:56:01 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 12:51:38 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_envp(t_envp *list)
 // 	return (*output);
 // }
 
-char	env_var(t_envp *list, char *var)
+char	*env_var(t_envp *list, char *var)
 {
 	char	*var_string;
 	char	*output;
@@ -61,17 +61,33 @@ char	env_var(t_envp *list, char *var)
 	var_string = var;
 	var_len = ft_strlen(var_string);
 
-	printf("dit is var_string = %s\n", var_string);
-	printf("dit is var_string = %d\n", var_len);
-	printf("dit is var = %s\n", var);
+	// printf("dit is var_string = %s\n", var_string);
+	// printf("dit is var_string = %d\n", var_len);
+	// printf("dit is var = %s\n", var);
 
-	while (ft_strncmp(var_string, list->key, var_len) && list->next != NULL)
+	while ((ft_strncmp(var_string, list->key, var_len) != 0) && (var_len != ft_strlen(list->key)) && list->next != NULL)
+	{
 		list = list->next;
-	if (ft_strncmp(var_string, list->key, var_len) != 0)
-		return (*var);
-	output = list->output;
-	printf("dit is output = %s\n", output);
-	return (*output);
+	}
+	// if (ft_strncmp(var_string, list->key, var_len) != 0 && (var_len != ft_strlen(list->key)))
+	// 	return (var);
+	// else
+	// {
+	// 	output = list->output;
+	// 	// printf("dit is output = %s\n", output);
+	// 	return (output);
+	// }
+	if (ft_strncmp(var_string, list->key, var_len) == 0 && (var_len == ft_strlen(list->key)))
+	{
+		output = list->output;
+		// printf("dit is output = %s\n", output);
+		return (output);
+	}
+		
+	else
+	{
+		return (var);
+	}
 }
 
 

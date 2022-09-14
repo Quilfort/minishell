@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 18:05:13 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 11:53:04 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_envp	*temp;
 	int		i;
 
-	init_shell();
+	// init_shell();
 	env = create_list_envp(envp[0]);
 	i = 1;
 	while (envp[i] != '\0')
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[], char **envp)
 		temp = temp->next;
 		i++;
 	}
-	print_envp(env);
+	// print_envp(env);
 	main_loop(0, envp, env);
 	return (0);
 }

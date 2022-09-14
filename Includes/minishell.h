@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:43:00 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 11:56:31 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,14 @@ void	print_envp(t_envp *list);
 
 // environmental variables
 char	env_var_envp(char **envp, char *var);
-char	env_var(t_envp *list, char *var);
+char	*env_var(t_envp *list, char *var);
 
 // executioner
 		// executioner.c
 void	q_preform_cmd(t_node *command_table, char**envp, t_vars *vars);
 void	multiple_fork(t_node *command_table, char **envp, t_vars *vars);
 void	pipex_start(t_node *command_table, char **envp);
+void	q_pipex_start(t_node *command_table, char **envp);
 
 		// child.c
 void	first_child(t_vars *vars, t_node *command_table, \
@@ -156,7 +157,7 @@ void	list_word(t_node **temp, char *word);
 int		list_outfile(t_node **temp, char **outfile, int i);
 int		list_infile(t_node **temp, char **infile, int i);
 int		list_single_quote(t_node **temp, char **pipe_split, int i);
-int		list_double_quote(t_node **temp, char **pipe_split, int i);
+int 	list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
 
 // signals
 void	signals(void);

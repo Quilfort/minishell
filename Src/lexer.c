@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:25:49 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 11:43:38 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	fill_in(t_node *temp)
 	temp->heredoc = ft_strdup("");
 }
 
-static char	split_pipe(char *split, t_node *temp)
+static char	split_pipe(char *split, t_node *temp, t_envp *env)
 {
 	char	**pipe_split;
 	int		i;
@@ -111,7 +111,7 @@ static char	split_pipe(char *split, t_node *temp)
 		if (pipe_split[i][0] == 39)
 			i = list_single_quote(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == 34)
-			i = list_double_quote(&temp, pipe_split, i);
+			i = list_double_quote(&temp, pipe_split, i, env);
 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
 			i = list_heredoc(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
@@ -153,7 +153,7 @@ void	command_table(char **split, char **envp, t_envp *env)
 	temp = node;
 	while (temp != NULL)
 	{
-		split_pipe(split[i], temp);
+		split_pipe(split[i], temp, env);
 		temp = temp->next;
 		i++;
 	}

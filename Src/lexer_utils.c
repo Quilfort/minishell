@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/08/29 14:17:36 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/14 12:21:21 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,35 @@ int list_single_quote(t_node **temp, char **pipe_split, int i)
 	return (i);	
 }
 
-int list_double_quote(t_node **temp, char **pipe_split, int i)
+// check is there is an " at the end. Case echo "$PWD" | var is PWD"
+
+
+int list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env)
 {
+	char	*var;
+	
 	if (pipe_split[i][1] == '$')
-		printf("Function for env var");
+	{
+		var = ft_substr(pipe_split[i], 2 , ft_strlen(pipe_split[i]));
+		var = env_var(env, var);
+		list_word(temp, var);
+	}
 	if (pipe_split[i + 1] != NULL)
 	{
 		list_word(temp, pipe_split[i]);
 		i++;
-
 		while (pipe_split[i][0] != 34)
 		{
 			if (pipe_split[i + 1] == NULL)
 				break;
-			if (pipe_split[i][0] == '$')
-				printf("Function for env var");
-			list_word(temp, pipe_split[i]);
+			else if (pipe_split[i][0] == '$')
+			{
+				var = ft_substr(pipe_split[i], 1 , ft_strlen(pipe_split[i]));
+				var = env_var(env, var);
+				list_word(temp, var);
+			}
+			else
+				list_word(temp, pipe_split[i]);	
 			i++;
 		}
 		list_word(temp, pipe_split[i]);
