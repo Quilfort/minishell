@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 11:56:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/14 15:07:52 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,21 @@ void	list_print(t_node *list);
 void	list_print_command(t_node *list);
 
 // void	commands_built(t_node *command_table, char **envp);
-int		commands_built(t_node *command_table, char **envp);
+int		commands_built(t_node *command_table, t_envp *list_envp, char **envp);
 
 t_node	*create_list(char *head);
-void	lstadd_back(t_node **lst, char *split, int token);
-t_node	*create_head(char *first, int token);
+void	lstadd_back(t_node **lst, char *split);
+t_node	*create_head(char *first);
 
-// envp list
-t_envp	*create_list_envp(char *head);
-t_envp	*create_head_envp(char *first);
-void	lstadd_back_envp(t_envp **lst, char *split, int token);
-
-void	key_output(char *split, t_envp **temp);
+// environment
+		// env_var.c
 void	print_envp(t_envp *list);
-
-// environmental variables
-char	env_var_envp(char **envp, char *var);
 char	*env_var(t_envp *list, char *var);
+void	key_output(char *split, t_envp **temp);
+
+		// envp list
+void	lstadd_back_envp(t_envp **lst, char *split, int token);
+t_envp	*create_head_envp(char *first);
 
 // executioner
 		// executioner.c
@@ -147,9 +145,15 @@ void	ft_wait(t_vars *vars);
 void	print_error(t_vars *vars);
 void	pexit(char *str, int exit_code);
 
-// void	make_command_table(t_node *list, char **envp);
-// t_node  *create_head_parser_pipe(t_node **list, t_node *command_table, int string_token, char *string);
-// void	make_command_table_pipe(t_node *list, char **envp);
+// Commands_build
+		// commands_built.c
+int		commands_built(t_node *command_table, t_envp *list_envp, char **envp);	
+
+		// commands.c
+int		open_folder(t_node *command_table);
+int		echo(t_node *command_table);
+int		pwd(void);
+int		env(t_envp *list_envp);
 
 //lexer_utils
 int		lstsize(t_node *list);
@@ -157,7 +161,7 @@ void	list_word(t_node **temp, char *word);
 int		list_outfile(t_node **temp, char **outfile, int i);
 int		list_infile(t_node **temp, char **infile, int i);
 int		list_single_quote(t_node **temp, char **pipe_split, int i);
-int 	list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
+int		list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
 
 // signals
 void	signals(void);

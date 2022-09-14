@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 11:53:04 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/14 15:06:25 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char *argv[], char **envp)
 	int		i;
 
 	// init_shell();
-	env = create_list_envp(envp[0]);
+	env = create_head_envp(envp[0]);
 	i = 1;
 	while (envp[i] != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:27:46 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 15:07:57 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_node	*lstlast(t_node *lst)
 	return (lst);
 }
 
-static t_node	*lstnew(char *split, int token)
+static t_node	*lstnew(char *split)
 {
 	t_node	*newcontent;
 
@@ -44,17 +44,16 @@ static t_node	*lstnew(char *split, int token)
 	if (!newcontent)
 		return (NULL);
 	newcontent->content = split;
-	newcontent->token = token;
 	newcontent->next = NULL;
 	return (newcontent);
 }
 
-void	lstadd_back(t_node **lst, char *split, int token)
+void	lstadd_back(t_node **lst, char *split)
 {
 	t_node	*temp;
 	t_node	*new;
 
-	new = lstnew(split, token);
+	new = lstnew(split);
 	if (!(*lst))
 	{
 		*lst = new;
@@ -67,7 +66,7 @@ void	lstadd_back(t_node **lst, char *split, int token)
 	}
 }
 
-t_node	*create_head(char *first, int token)
+t_node	*create_head(char *first)
 {
 	t_node	*head;
 
@@ -78,7 +77,6 @@ t_node	*create_head(char *first, int token)
 		exit(1);
 	}
 	head->content = first;
-	head->token = token;
 	head->next = NULL;
 	return (head);
 }

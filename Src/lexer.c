@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 11:43:38 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/14 15:08:30 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ void	command_table(char **split, char **envp, t_envp *env)
 	char			**command_split;
 	int				i;
 
-	node = create_head(split[0], NULL);
+	node = create_head(split[0]);
 	i = 1;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&node, split[i], 0);
+		lstadd_back(&node, split[i]);
 		i++;
 	}
 	i = 0;
@@ -160,7 +160,7 @@ void	command_table(char **split, char **envp, t_envp *env)
 	exec_init(node);
 	// env_var(env, "PWD");
 	// env_var_envp(envp, "PATH");
-	if ((commands_built(node, envp) == 0))
+	if ((commands_built(node, env, envp) == 0))
 		q_pipex_start(node, envp);
 	// list_print_command(node);
 }

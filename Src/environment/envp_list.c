@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:28:17 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/14 15:06:57 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static t_envp	*lstnew_envp(char *split, int token)
 	newcontent->next = NULL;
 	return (newcontent);
 }
-
 
 void	lstadd_back_envp(t_envp **lst, char *split, int token)
 {
@@ -67,12 +66,4 @@ t_envp	*create_head_envp(char *first)
 	head->content = first;
 	head->next = NULL;
 	return (head);
-}
-
-t_envp	*create_list_envp(char *head)
-{
-	t_envp	*list;
-
-	list = create_head_envp(head);
-	return (list);
 }
