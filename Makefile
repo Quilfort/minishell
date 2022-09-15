@@ -13,6 +13,7 @@ ENVIRONMENT_FOLDER = ./src/environment/
 SRC = ./src/main.c \
 	./src/lexer.c \
 	./src/lexer_utils.c \
+	./src/here_doc.c \
 	./src/list.c \
 	./src/signals.c \
 	$(ENVIRONMENT_FOLDER)envp_list.c \

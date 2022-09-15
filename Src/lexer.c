@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 17:13:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:35:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,60 +36,6 @@ void	list_print_command(t_node *list)
 	}
 }
 
-// static void add_heredoc(t_node **temp, char *delimiter)
-// {
-// 	int		flag;
-// 	char	*input;
-
-// 	flag = 0;
-// 	while (flag == 0)
-// 	{
-// 		input = readline("> ");
-// 		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0)
-// 			flag = 1;
-// 		else
-// 		{
-// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
-// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
-// 		}
-// 	}
-// }
-
-static int list_heredoc(t_node **temp, char **pipe_split, int i)
-{
-	char	*delimiter;
-	char	*input;
-	int		flag;
-	char	*in_operator;
-
-	in_operator = "<<";
-	flag = 0;
-	list_word(temp, in_operator);
-	if (pipe_split[i][2])
-		delimiter = &pipe_split[i][2];
-	else if (pipe_split[i + 1] != NULL)
-	{
-		i++;
-		delimiter = pipe_split[i];
-	}
-	else
-		return (i);
-	// add_heredoc(temp, delimiter);
-	while (flag == 0)
-	{
-		input = readline("> ");
-		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0 \
-			&& ft_strlen(delimiter) == ft_strlen(input))
-			flag = 1;
-		else
-		{
-			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
-			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, " ");
-		}
-	}
-	return (i);
-}
-
 static void	fill_in(t_node *temp)
 {
 	temp->words = ft_strdup("");
@@ -113,7 +59,7 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 		else if (pipe_split[i][0] == 34)
 			i = list_double_quote(&temp, pipe_split, i, env);
 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
-			i = list_heredoc(&temp, pipe_split, i);
+			i = list_heredoc(&temp, pipe_split, i, env);
 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
 			i = list_infile(&temp, pipe_split, i);
 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
@@ -158,8 +104,8 @@ void	command_table(char **split, char **envp, t_envp *env)
 		i++;
 	}
 	exec_init(node);
-	// if ((commands_built(node, env, envp) == 0))
-	// 	q_pipex_start(node, envp);
-	q_pipex_start(node, envp);
+	if ((commands_built(node, env, envp) == 0))
+		q_pipex_start(node, envp);
+	// q_pipex_start(node, envp);
 	// list_print_command(node);
 }

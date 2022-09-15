@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 15:07:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/15 11:36:16 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_envp
 }	t_envp;
 
 void	command_table(char **split, char **envp, t_envp *env);
+int 	list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env);
 
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
