@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:37:13 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 18:47:33 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/15 19:18:08 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,3 +163,30 @@ int list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env)
 // heey qfrederi is qfrederi is qfrederi pwd"" /Users/qfrederi/Desktop/minishell_github 
 // echo "$PWD"$PWD"$PWD" - Even aantal " Dit werkt
 // echo "$PWD"$PWD" - Oneven aantal " Dit werkt niet
+
+// echo 1 "2" 3 4 "5"
+
+// vanaf 2 spliten we
+// 2"
+
+// "3
+
+// 4"
+
+// "5"
+
+// 2 iterate - werk magic
+
+// 3
+
+// // in functie met quotes ""
+// split op ""
+
+// " iteraten tot je een " tegenkomt
+// tussendoor voor je bij " ook $ uit"
+// ga je uit de functie.
+
+// Daarna iterate je over het hele string over er nog een " aan komt. 
+// Zo ja, dan ga je opnieuw met de hele string in doublequote functie
+// Zo nee, dan split je verder zoals we het in onze functie doen.
+
