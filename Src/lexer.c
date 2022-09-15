@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 11:35:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/15 17:09:10 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 	while (pipe_split[i] != NULL)
 	{
 		if (pipe_split[i][0] == 39)
-			i = list_single_quote(&temp, pipe_split, i);
+			i = list_single_quote(&temp, pipe_split, i, env);
 		else if (pipe_split[i][0] == 34)
 			i = list_double_quote(&temp, pipe_split, i, env);
 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')

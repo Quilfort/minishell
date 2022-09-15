@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 12:56:46 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/15 14:54:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ int	echo(t_node *command_table)
 	int	i;
 
 	i = 2;
-	if (ft_strncmp("-n", command_table->command[1], 2) == 0)
+
+	if (!command_table->command[1])
+	{
+		ft_putchar_fd('\n', 1);
+		return (1);
+	}
+	else if (ft_strncmp("-n", command_table->command[1], 2) == 0)
 		return (echo_n(command_table, i));
 	else
 	{

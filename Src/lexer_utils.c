@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 14:37:32 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/15 17:09:17 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,4 @@ int	list_infile(t_node **temp, char **infile, int i)
 	i++;
 	(*temp)->infile = ft_strjoin((*temp)->infile, infile[i]);
 	return (i);
-}
-
-int list_single_quote(t_node **temp, char **pipe_split, int i)
-{
-	if (pipe_split[i + 1] != NULL)
-	{
-		list_word(temp, pipe_split[i]);
-		i++;
-
-		while (pipe_split[i][0] != 39)
-		{
-			if (pipe_split[i + 1] == NULL)
-				break;
-			list_word(temp, pipe_split[i]);
-			i++;
-		}
-		list_word(temp, pipe_split[i]);
-	}
-	else
-		list_word(temp, pipe_split[i]);
-	return (i);	
 }
