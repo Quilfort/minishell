@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 17:27:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/19 18:06:26 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_envp
 }	t_envp;
 
 void	command_table(char **split, char **envp, t_envp *env);
-int 	list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env);
+// int 	list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env);
 
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
@@ -159,10 +159,20 @@ int		env(t_envp *list_envp);
 //lexer_utils
 int		lstsize(t_node *list);
 void	list_word(t_node **temp, char *word);
-int		list_outfile(t_node **temp, char **outfile, int i);
-int		list_infile(t_node **temp, char **infile, int i);
-int 	list_single_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
-int		list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
+// int		list_outfile(t_node **temp, char **outfile, int i);
+// int		list_infile(t_node **temp, char **infile, int i);
+// int 	list_single_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
+// int		list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
+
+void	list_quotes(t_node **temp, char *word);
+int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
+int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
+
+int		find_quote(t_node **temp, int i, char *split, int start);
+int 	find_word(t_node **temp, int i, char *split, int start);
+int		list_infile(t_node **temp, int i, char *split);
+int		list_outfile(t_node **temp, int i, char *split);
+int 	list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
 // signals
 void	signals(void);

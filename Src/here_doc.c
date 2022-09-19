@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/15 14:29:55 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/19 18:19:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,30 @@ static char *env_var_here_doc(char *input, t_envp *env)
 	return (output);
 }
 
-int list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env)
+int list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 {
 	char	*delimiter;
-	char	*input;
 	int		flag;
+	int		start;
 	char	*in_operator;
+	char	*input;
 
 	in_operator = "<<";
 	flag = 0;
-	list_word(temp, in_operator);
-	if (pipe_split[i][2])
-		delimiter = &pipe_split[i][2];
-	else if (pipe_split[i + 1] != NULL)
+	list_quotes(temp, in_operator);
+	i = i + 2;
+	if (split[i] != ' ')
+		start = i;
+	else if (split[i] == ' ')
 	{
 		i++;
-		delimiter = pipe_split[i];
+		start = i;
 	}
 	else
 		return (i);
+	while (split[i] != ' ')
+		i++;
+	delimiter = ft_substr(split, start, (i - start));
 	while (flag == 0)
 	{
 		input = readline("> ");
@@ -73,3 +78,38 @@ int list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env)
 	}
 	return (i);
 }
+
+// int list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env)
+// {
+// 	char	*delimiter;
+// 	char	*input;
+// 	int		flag;
+// 	char	*in_operator;
+
+// 	in_operator = "<<";
+// 	flag = 0;
+// 	list_word(temp, in_operator);
+// 	if (pipe_split[i][2])
+// 		delimiter = &pipe_split[i][2];
+// 	else if (pipe_split[i + 1] != NULL)
+// 	{
+// 		i++;
+// 		delimiter = pipe_split[i];
+// 	}
+// 	else
+// 		return (i);
+// 	while (flag == 0)
+// 	{
+// 		input = readline("> ");
+// 		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0 \
+// 			&& ft_strlen(delimiter) == ft_strlen(input))
+// 			flag = 1;
+// 		else
+// 		{
+// 			input = env_var_here_doc(input, env);
+// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
+// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "\n");
+// 		}
+// 	}
+// 	return (i);
+// }
