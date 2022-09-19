@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   list.c                                             :+:    :+:            */
+/*   envp_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 15:07:57 by rharing       ########   odam.nl         */
+/*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
+/*   Updated: 2022/09/14 15:06:57 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	lstsize(t_node *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		list = list->next;
-		i++;
-	}
-	return (i);
-}
-
-static t_node	*lstlast(t_node *lst)
+static t_envp	*lstlast_envp(t_envp *lst)
 {
 	while (lst)
 	{
@@ -36,11 +23,11 @@ static t_node	*lstlast(t_node *lst)
 	return (lst);
 }
 
-static t_node	*lstnew(char *split)
+static t_envp	*lstnew_envp(char *split, int token)
 {
-	t_node	*newcontent;
+	t_envp	*newcontent;
 
-	newcontent = (t_node *)malloc(sizeof(t_node));
+	newcontent = (t_envp *)malloc(sizeof(t_envp));
 	if (!newcontent)
 		return (NULL);
 	newcontent->content = split;
@@ -48,12 +35,12 @@ static t_node	*lstnew(char *split)
 	return (newcontent);
 }
 
-void	lstadd_back(t_node **lst, char *split)
+void	lstadd_back_envp(t_envp **lst, char *split, int token)
 {
-	t_node	*temp;
-	t_node	*new;
+	t_envp	*temp;
+	t_envp	*new;
 
-	new = lstnew(split);
+	new = lstnew_envp(split, token);
 	if (!(*lst))
 	{
 		*lst = new;
@@ -61,16 +48,16 @@ void	lstadd_back(t_node **lst, char *split)
 	}
 	else
 	{
-		temp = lstlast(*lst);
+		temp = lstlast_envp(*lst);
 		temp->next = new;
 	}
 }
 
-t_node	*create_head(char *first)
+t_envp	*create_head_envp(char *first)
 {
-	t_node	*head;
+	t_envp	*head;
 
-	head = (t_node *)malloc(sizeof(t_node));
+	head = (t_envp *)malloc(sizeof(t_envp));
 	if (head == NULL)
 	{
 		ft_putstr_fd("Error\n", 2);

@@ -3,114 +3,109 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/09 14:35:54 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/06/20 16:46:28 by rharing       ########   odam.nl         */
+/*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
+/*   Updated: 2022/09/15 17:09:10 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*lexer_option(char c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') \
-	 || (c >= '0' && c <= '9'))
-	 	return ("OPTION");
-}
-
-
-char	*lexer_word(char c)
-{
-	if (c == '%' || c == '=' || c == '+' || c == 34 || c == 39 || c == 92 \
-	 || c == '$' || c == '/' || c == '$' || c == '_' || c == '-' || c == '.' \
-	 || c == '?' || c == '*' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') \
-	 || (c >= '0' && c <= '9'))
-		return("WORD");
-}
-
-void	list_print(t_node *list)
-{
-	while (list)
-	{
-		printf("\n%s - ", list->content);
-		printf("%s\n\n", list->token);
-		list = list->next;
-	}
-}
-
 void	list_print_command(t_node *list)
 {
-	while (list)
-	{
-		printf("\ncontent: %s ", list->content);
-		list = list->next;
-	}
-}
-
-
-static char	*find_token(char *split)
-{
-	int 			i;
-	char			*lexer_token;
+	int	i;
 
 	i = 0;
-	while (split[i] != '\0')
+	while (list)
 	{
-		if (split[0] == '-' && split[1] != '\0')
-		{
-			lexer_token = lexer_option(split[1]);
-			break;
-		}
-		if (split[0] == '<' && split[1] == '\0')
-			lexer_token = ft_strdup("LESS");
-		if (split[0] == '>' && split[1] == '\0')
-			lexer_token = ft_strdup("GREAT");
-		if (split[0] == '|' && split[1] == '\0')
-			lexer_token = ft_strdup("PIPE");
-		if (split[0] == '&' && split[1] == '\0')
-			lexer_token = ft_strdup("AMPERSAND");
-		if (split[0] == 92 && split[1] == 'n' && split[2] == '\0')
-		{
-			lexer_token = ft_strdup("NEWLINE");
-			break;
-		}
-		if (split[0] == '>' && split[1] == '>' && split[2] == '\0')
-			lexer_token = ft_strdup("GREATGREAT");
-		if (split[0] == '>' && split[1] == '&' && split[2] == '\0')
-			lexer_token = ft_strdup("GREATAMPERSAND");
-		else
-			lexer_token = lexer_word(split[i]);
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
+		printf("\nwords %d:  ", i);
+		printf("%s\n", list->words);
+		printf("\ninfile %d:  ", i);
+		printf("%s\n", list->infile);
+		printf("\noutfile %d:  ", i);
+		printf("%s\n", list->outfile);
+		printf("\nheredoc %d:  ", i);
+		printf("%s\n", list->heredoc);
+		printf("\ncommand[0] %d:  ", i);
+		printf("%s\n", list->command[0]);
+		list = list->next;
 		i++;
 	}
-	return(lexer_token);
 }
 
-void	lexer(char **split)
+static void	fill_in(t_node *temp)
 {
-	// char			*input;
-	t_node			*list;
+	temp->words = ft_strdup("");
+	temp->infile = ft_strdup("");
+	temp->outfile = ft_strdup("");
+	temp->heredoc = ft_strdup("");
+}
+
+static char	split_pipe(char *split, t_node *temp, t_envp *env)
+{
+	char	**pipe_split;
+	int		i;
+
+	i = 0;
+	pipe_split = ft_split(split, ' ');
+	fill_in(temp);
+	while (pipe_split[i] != NULL)
+	{
+		if (pipe_split[i][0] == 39)
+			i = list_single_quote(&temp, pipe_split, i, env);
+		else if (pipe_split[i][0] == 34)
+			i = list_double_quote(&temp, pipe_split, i, env);
+		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
+			i = list_heredoc(&temp, pipe_split, i, env);
+		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
+			i = list_infile(&temp, pipe_split, i);
+		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
+			i = list_outfile(&temp, pipe_split, i);
+		else
+			list_word(&temp, pipe_split[i]);
+		i++;
+	}
+	return (0);
+}
+
+void	exec_init(t_node *command_table)
+{
+	command_table->command = ft_split(command_table->words, ' ');
+	while (command_table->next != NULL)
+	{
+		command_table = command_table->next;
+		command_table->command = ft_split(command_table->words, ' ');
+	}
+}
+
+void	command_table(char **split, char **envp, t_envp *env)
+{
+	t_node			*node;
 	t_node			*temp;
-	// char			**split;
-
+	char			**command_split;
 	int				i;
-	int				k;
 
-	list = create_list(split[0]);
+	node = create_head(split[0]);
 	i = 1;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&list,split[i]);
+		lstadd_back(&node, split[i]);
 		i++;
 	}
 	i = 0;
-	temp = list;
+	temp = node;
 	while (temp != NULL)
 	{
-		temp->token = find_token(split[i]);
+		split_pipe(split[i], temp, env);
 		temp = temp->next;
 		i++;
 	}
-	list_print(list);
-	make_command_table(list);
+	exec_init(node);
+	if ((commands_built(node, env, envp) == 0))
+		q_pipex_start(node, envp);
+	// q_pipex_start(node, envp);
+	// list_print_command(node);
 }
