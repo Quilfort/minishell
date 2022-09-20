@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 13:53:02 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 14:59:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 {
 	int		i;
 	char	*word;
-	
+
 	i = 0;
 	fill_in(temp);
 	while (split[i] != '\0')
@@ -140,7 +140,6 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 		}
 		else if (split[i] == '<' && split[i + 1] == '<' )
 		{
-			
 			if (split[i + 2] == '\0')
 			{
 				word = ft_substr(split, i, 2);
@@ -152,7 +151,6 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 		}
 		else if (split[i] == '>' && split[i + 1] == '>' )
 		{
-			
 			if (split[i + 2] == '\0')
 			{
 				word = ft_substr(split, i, 2);
@@ -178,7 +176,6 @@ static char	split_pipe(char *split, t_node *temp, t_envp *env)
 				i++;
 				i = list_infile(&temp, i, split);
 			}
-			
 		}
 		else if (split[i] == '>')
 		{
@@ -228,7 +225,7 @@ void	exec_init(t_node *command_table)
 	}
 }
 
-void	command_table(char **split, t_envp	*env, t_vars *vars)
+t_node	*create_command_table_list(char **split, t_envp *env)
 {
 	t_node			*node;
 	t_node			*temp;
@@ -250,11 +247,19 @@ void	command_table(char **split, t_envp	*env, t_vars *vars)
 		temp = temp->next;
 		i++;
 	}
+	return (node);
+}
+
+void	command_table(char **split, t_envp	*env, t_vars *vars)
+{
+	t_node			*node;
+
+	node = create_command_table_list(split, env);
 	exec_init(node);
 	if ((commands_built(node, env) == 0))
 		q_pipex_start(node, vars);
 	// q_pipex_start(node, envp);
-// 	list_print_command(node);
+	list_print_command(node);
 }
 
 

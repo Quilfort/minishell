@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 14:10:34 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 14:57:20 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,15 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
-void	command_table(char **split, t_envp *env, t_vars *vars);
-// int 	list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env);
+// Commands_build
+		// commands_built.c
+int		commands_built(t_node *command_table, t_envp *list_envp);	
 
-void	list_print(t_node *list);
-void	list_print_command(t_node *list);
-
-t_node	*create_list(char *head);
-void	lstadd_back(t_node **lst, char *split);
-t_node	*create_head(char *first);
+		// commands.c
+int		open_folder(t_node *command_table);
+int		echo(t_node *command_table);
+int		pwd(void);
+int		env(t_envp *list_envp);
 
 // environment
 		// env_to_array.c
@@ -144,33 +144,33 @@ void	ft_wait(t_vars *vars);
 void	print_error(t_vars *vars);
 void	pexit(char *str, int exit_code);
 
-// Commands_build
-		// commands_built.c
-int		commands_built(t_node *command_table, t_envp *list_envp);	
+// parsing
+		// here_doc.c
+int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
-		// commands.c
-int		open_folder(t_node *command_table);
-int		echo(t_node *command_table);
-int		pwd(void);
-int		env(t_envp *list_envp);
-
-//lexer_utils
-int		lstsize(t_node *list);
+		// lexer_util.c
 void	list_word(t_node **temp, char *word);
-// int		list_outfile(t_node **temp, char **outfile, int i);
-// int		list_infile(t_node **temp, char **infile, int i);
-// int 	list_single_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
-// int		list_double_quote(t_node **temp, char **pipe_split, int i, t_envp *env);
-
-void	list_quotes(t_node **temp, char *word);
-int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
-int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
-
-int		find_quote(t_node **temp, int i, char *split, int start);
-int 	find_word(t_node **temp, int i, char *split, int start);
-int		list_infile(t_node **temp, int i, char *split);
 int		list_outfile(t_node **temp, int i, char *split);
-int 	list_heredoc(t_node **temp, char *split, int i, t_envp *env);
+int		list_infile(t_node **temp, int i, char *split);
+
+		// lexer.c
+void	list_print_command(t_node *list);
+int		find_word(t_node **temp, int i, char *split, int start);
+		// in een nieuwe file
+void	exec_init(t_node *command_table);
+t_node	*create_command_table_list(char **split, t_envp *env);
+void	command_table(char **split, t_envp	*env, t_vars *vars);
+
+		// list.c
+int		lstsize(t_node *list);
+void	lstadd_back(t_node **lst, char *split);
+t_node	*create_head(char *first);
+
+		// quotes.c
+void	list_quotes(t_node **temp, char *word);
+int		find_quote(t_node **temp, int i, char *split, int start);
+int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
+int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
 
 // signals
 void	signals(void);
