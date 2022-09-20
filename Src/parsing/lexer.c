@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 17:04:40 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 17:29:36 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static int split_word(t_node **temp, int i, char *split, t_envp *env)
 	}
 	while (split[i] != '\0')
 	{
-		if (split[i] == 39 || split[i] == 34 || split[i] == '<' || split[i] == '>')
+		if (split[i] == 39 || split[i] == 34 || \
+			split[i] == '<' || split[i] == '>')
 		{
 			i = find_word(temp, i, split, start);
 			return (i);
@@ -108,14 +109,12 @@ static int split_word(t_node **temp, int i, char *split, t_envp *env)
 					space = ft_substr(split, i, 1);
 					list_quotes(temp, space);
 				}
-				
 			}
 		}
 		i++;
 	}
 	i = find_word(temp, i, split, start);
 	return (i);
-	
 }
 
 char	split_pipe(char *split, t_node *temp, t_envp *env)

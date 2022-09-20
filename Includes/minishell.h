@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 17:04:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 17:49:26 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ typedef struct s_envp
 
 // Commands_build
 		// commands_built.c
-int		commands_built(t_node *command_table, t_envp *list_envp);	
+int		commands_built(t_node *command_table, t_envp *list_envp, t_vars *vars);	
 
 		// commands.c
 int		open_folder(t_node *command_table);
-int		echo(t_node *command_table);
+int		echo(t_node *command_table, t_vars *vars);
 int		pwd(void);
 int		env(t_envp *list_envp);
 
