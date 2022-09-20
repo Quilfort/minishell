@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 14:58:47 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 16:21:34 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ int	main(int argc, char *argv[], char **envp)
 
 	// init_shell();
 	vars = (t_vars *)malloc(sizeof(t_vars));
+	if (vars == NULL)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
 	env = put_envp_in_list(envp, vars);
 	// print_envp(env);
 	envp_to_array(env, vars);

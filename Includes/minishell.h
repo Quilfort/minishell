@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 14:57:20 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 17:04:52 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,11 @@ void	print_error(t_vars *vars);
 void	pexit(char *str, int exit_code);
 
 // parsing
+		// create_command_table.c
+void	exec_init(t_node *command_table);
+t_node	*create_command_table_list(char **split, t_envp *env);
+void	command_table(char **split, t_envp	*env, t_vars *vars);
+
 		// here_doc.c
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
@@ -156,10 +161,7 @@ int		list_infile(t_node **temp, int i, char *split);
 		// lexer.c
 void	list_print_command(t_node *list);
 int		find_word(t_node **temp, int i, char *split, int start);
-		// in een nieuwe file
-void	exec_init(t_node *command_table);
-t_node	*create_command_table_list(char **split, t_envp *env);
-void	command_table(char **split, t_envp	*env, t_vars *vars);
+char	split_pipe(char *split, t_node *temp, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);

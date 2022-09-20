@@ -6,7 +6,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 # INCLUDE_READLINE = -I $(BREW_DIR)/opt/readline/include
 # READLINE_DIRS = -L $(LIB_READLINE) $(READLINE)
 FLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
-INC = -I ./Includes 
+INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
 PARSING_FOLDER = ./src/parsing/
 EXEC_FOLDER = ./src/executioner/
@@ -15,6 +15,7 @@ ENVIRONMENT_FOLDER = ./src/environment/
 SRC = ./src/main.c \
 	$(SIGNAL_FOLDER)signals.c \
 	$(PARSING_FOLDER)here_doc.c \
+	$(PARSING_FOLDER)create_command_table.c \
 	$(PARSING_FOLDER)lexer_utils.c \
 	$(PARSING_FOLDER)lexer.c \
 	$(PARSING_FOLDER)list.c \
