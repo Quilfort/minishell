@@ -3,17 +3,17 @@
 /*                                                        ::::::::            */
 /*   child.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:06:14 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/14 17:16:45 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/20 14:05:46 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	first_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp)
+					int (*fd)[vars->com][2])
 {
 	int	pid1;
 
@@ -36,13 +36,13 @@ void	first_child(t_vars *vars, t_node *command_table, \
 		{
 			dup2((*fd)[0][1], STDOUT_FILENO);
 			close_pipes(vars, fd);
-			q_preform_cmd(command_table, envp, vars);
+			q_preform_cmd(command_table, vars);
 		}
 	}
 }
 
 void	middle_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp)
+					int (*fd)[vars->com][2])
 {
 	int	pid;
 
@@ -61,13 +61,13 @@ void	middle_child(t_vars *vars, t_node *command_table, \
 		else
 		{
 			close_pipes(vars, fd);
-			q_preform_cmd(command_table, envp, vars);
+			q_preform_cmd(command_table, vars);
 		}
 	}
 }
 
 void	last_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp)
+					int (*fd)[vars->com][2])
 {
 	int	pid3;
 
@@ -90,8 +90,7 @@ void	last_child(t_vars *vars, t_node *command_table, \
 		{
 			dup2((*fd)[vars->com_count - 1][0], STDIN_FILENO);
 			close_pipes(vars, fd);
-			q_preform_cmd(command_table, envp, vars);
+			q_preform_cmd(command_table, vars);
 		}
-		
 	}
 }

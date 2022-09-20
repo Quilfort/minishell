@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/19 18:06:26 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/20 14:10:34 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_vars {
 	int		f2;
 	int		no_infile;
 	int		no_outfile;
+	char	**enviroment;
 	char	**cmd;
 	char	**path;
 	char	*path_cmd;
@@ -81,20 +82,22 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
-void	command_table(char **split, char **envp, t_envp *env);
+void	command_table(char **split, t_envp *env, t_vars *vars);
 // int 	list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env);
 
 void	list_print(t_node *list);
 void	list_print_command(t_node *list);
-
-// void	commands_built(t_node *command_table, char **envp);
-int		commands_built(t_node *command_table, t_envp *list_envp, char **envp);
 
 t_node	*create_list(char *head);
 void	lstadd_back(t_node **lst, char *split);
 t_node	*create_head(char *first);
 
 // environment
+		// env_to_array.c
+int		lst_size(t_envp *list);
+void	print_array(t_vars *vars);
+void	envp_to_array(t_envp *env, t_vars *vars);
+
 		// env_var.c
 void	print_envp(t_envp *list);
 char	*env_var(t_envp *list, char *var);
@@ -103,37 +106,32 @@ void	key_output(char *split, t_envp **temp);
 		// envp list
 void	lstadd_back_envp(t_envp **lst, char *split, int token);
 t_envp	*create_head_envp(char *first);
+t_envp	*put_envp_in_list(char **envp, t_vars *vars);
 
 // executioner
 		// executioner.c
-void	q_preform_cmd(t_node *command_table, char**envp, t_vars *vars);
-void	multiple_fork(t_node *command_table, char **envp, t_vars *vars);
-void	pipex_start(t_node *command_table, char **envp);
-void	q_pipex_start(t_node *command_table, char **envp);
+void	q_preform_cmd(t_node *command_table, t_vars *vars);
+void	multiple_fork(t_node *command_table, t_vars *vars);
+void	q_pipex_start(t_node *command_table, t_vars *vars);
 
 		// child.c
 void	first_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp);
+					int (*fd)[vars->com][2]);
 void	middle_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp);
+					int (*fd)[vars->com][2]);
 void	last_child(t_vars *vars, t_node *command_table, \
-					int (*fd)[vars->com][2], char **envp);
+					int (*fd)[vars->com][2]);
 
 		// fork_with_file.c
-void	just_infile_fork_process(t_vars *vars, t_node *command_table, \
-															char **envp);	
-void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table, \
-															char **envp);
-void	just_outfile_fork_process( t_vars *vars, t_node *command_table, \
-															char **envp);
-void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table, \
-															char **envp);
-void	in_out_file_fork_process(t_vars *vars, t_node *command_table, \
-															char **envp);
+void	just_infile_fork_process(t_vars *vars, t_node *command_table);	
+void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table);
+void	just_outfile_fork_process(t_vars *vars, t_node *command_table);
+void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table);
+void	in_out_file_fork_process(t_vars *vars, t_node *command_table);
 
 		// get_path.c
 void	right_path(t_vars *vars, t_node *command_table);
-void	find_path(char **envp, t_vars *vars);
+void	find_path(t_vars *vars);
 char	*q_find_token_infile(t_node *command_table, t_vars *vars);
 char	*q_find_token_outfile(t_node *command_table, t_vars *vars);
 
@@ -148,7 +146,7 @@ void	pexit(char *str, int exit_code);
 
 // Commands_build
 		// commands_built.c
-int		commands_built(t_node *command_table, t_envp *list_envp, char **envp);	
+int		commands_built(t_node *command_table, t_envp *list_envp);	
 
 		// commands.c
 int		open_folder(t_node *command_table);

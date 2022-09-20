@@ -6,16 +6,14 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 14:47:35 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/14 14:53:03 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 13:55:29 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	commands_built(t_node *command_table, t_envp *list_envp, char **envp)
+int	commands_built(t_node *command_table, t_envp *list_envp)
 {
-	int	k;
-
 	if ((ft_strncmp("exit", command_table->command[0], 4) == 0) \
 					&& (command_table->command[1] == NULL))
 	{

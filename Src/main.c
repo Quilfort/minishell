@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 15:06:25 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/20 14:10:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	init_shell(void)
 	printf("\033[H\033[J");
 }
 
-void	main_loop(int flag, char **envp, t_envp *env)
+void	main_loop(int flag, t_envp *env, t_vars *vars)
 {
 	char			*input;
 	char			**split;
@@ -49,7 +49,7 @@ void	main_loop(int flag, char **envp, t_envp *env)
 			add_history(input);
 			split = ft_split(input, '|');
 			if (split[0] != NULL)
-				command_table(split, envp, env);
+				command_table(split, env, vars);
 		}
 	}
 }
@@ -57,27 +57,14 @@ void	main_loop(int flag, char **envp, t_envp *env)
 int	main(int argc, char *argv[], char **envp)
 {
 	t_envp	*env;
-	t_envp	*temp;
-	int		i;
+	t_vars	*vars;
 
 	// init_shell();
-	env = create_head_envp(envp[0]);
-	i = 1;
-	while (envp[i] != '\0')
-	{
-		lstadd_back_envp(&env, envp[i], 0);
-		i++;
-	}
-	i = 0;
-	temp = env;
-	while (temp != NULL)
-	{
-		key_output(envp[i], &temp);
-		temp = temp->next;
-		i++;
-	}
+	vars = (t_vars *)malloc(sizeof(t_vars));
+	env = put_envp_in_list(envp, vars);
 	// print_envp(env);
-	main_loop(0, envp, env);
+	envp_to_array(env, vars);
+	main_loop(0, env, vars);
 	return (0);
 }
 
