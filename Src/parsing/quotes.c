@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 13:05:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/21 13:19:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "minishell.h"
+#include "minishell.h"
 
-void list_quotes(t_node **temp, char *word)
+void	list_quotes(t_node **temp, char *word)
 {
 	(*temp)->words = ft_strjoin((*temp)->words, word);
 }
@@ -28,7 +28,7 @@ int	find_quote(t_node **temp, int i, char *split, int start)
 	return (i);
 }
 
-int list_double_quote(t_node **temp, int i, char *split, t_envp *env)
+int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 {
 	char	*var;
 	int		start;
@@ -42,7 +42,7 @@ int list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 			i++;
 			return (i);
 		}
-		else if (split[i] == '$' &&  split[i + 1] != '\0')
+		else if (split[i] == '$' && split[i + 1] != '\0')
 		{
 			if (split[i + 1] == 34)
 			{
@@ -79,17 +79,15 @@ int list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 						return (i);
 					}
 				}
-
 			}
 		}	
 		i++;
 	}
-
 	i = find_quote(temp, i, split, start);
 	return (i);
 }
 
-int list_single_quote(t_node **temp, int i, char *split, t_envp *env)
+int	list_single_quote(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
 

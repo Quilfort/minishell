@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 13:17:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/21 13:56:03 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
 	while (split[i] != ' ')
 	{
 		i++;
-		if (split[i] == '\0' || split[i] == '.')
+		if (split[i] == '\0' || split[i] == '.' || split[i] == '$')
 			break ;
 	}
 	var = ft_substr(split, start, (i - start));
@@ -94,7 +94,7 @@ static int	split_word(t_node **temp, int i, char *split, t_envp *env)
 			i = find_word(temp, i, split, start);
 			return (i);
 		}
-		if (split[i] == '$' && split[i + 1] != '\0')
+		if ((split[i] == '$' && (split[i + 1] != ' ' && split[i + 1] != '\0')))
 		{
 			i = find_word(temp, i, split, start);
 			i++;
