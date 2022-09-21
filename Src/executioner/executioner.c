@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/20 16:44:20 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:18:50 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 void	q_preform_cmd(t_node *command_table, t_vars *vars)
 {
-	if (!command_table->command)
-		print_error(vars);
-	right_path(vars, command_table);
-	if (vars->my_path == NULL)
-		pexit("nee", 1);
-	if (execve(vars->my_path, command_table->command, vars->enviroment) < 0)
-		print_error(vars);
+	if ((commands_built(command_table, vars) == 0))
+	{
+		if (!command_table->command)
+			print_error(vars);
+		right_path(vars, command_table);
+		if (vars->my_path == NULL)
+			pexit("nee", 1);
+		if (execve(vars->my_path, command_table->command, vars->enviroment) < 0)
+			print_error(vars);
+	}
+	else
+		exit(0);
 }
 
 void	multiple_fork(t_node *command_table, t_vars *vars)

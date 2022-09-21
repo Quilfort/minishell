@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 12:47:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/21 16:59:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ typedef struct s_envp
 
 // Commands_build
 		// commands_built.c
-int		commands_built(t_node *command_table, t_envp *list_envp, t_vars *vars);	
+int		commands_built(t_node *command_table, t_vars *vars);	
 
 		// commands.c
 int		open_folder(t_node *command_table);
 int		echo(t_node *command_table, t_vars *vars);
 int		pwd(void);
-int		env(t_envp *list_envp);
+int		env(t_vars *vars);
 
 // environment
 		// env_to_array.c

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 14:09:33 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 17:10:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 		i++;
 		env = env->next;
 	}
-	vars->enviroment[i] = ft_strdup("\0");
+	vars->enviroment[i] = "\0";
+	// vars->enviroment[i] = ft_strdup("\0");
 }
