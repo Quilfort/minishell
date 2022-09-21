@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 14:09:12 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 15:57:56 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	find_path(t_vars *vars)
 {
 	char	*temp;
 
-	while (ft_strncmp("PATH=", *vars->enviroment, 5) && *(vars->enviroment + 1))
-		vars->enviroment++;
-	if (ft_strncmp("PATH=", *vars->enviroment, 5) != 0)
-		print_error(vars);
-	temp = ft_strtrim(*vars->enviroment, "PATH=");
+	temp = getenv("PATH");
 	vars->path = ft_split(temp, ':');
 	if (!vars->path)
 		print_error(vars);

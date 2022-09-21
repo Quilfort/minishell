@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 16:21:34 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 16:01:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ static void	init_shell(void)
 	printf("\033[H\033[J");
 }
 
+char	*rl_history(void)
+{
+	static char	*input;
+
+	if (input)
+	{
+		free (input);
+		input = (char *) NULL;
+	}
+	input = readline ("Minishell QR1.0: ");
+	if (input && *input)
+		add_history (input);
+	return (input);
+}
+
 void	main_loop(int flag, t_envp *env, t_vars *vars)
 {
 	char			*input;
@@ -38,7 +53,7 @@ void	main_loop(int flag, t_envp *env, t_vars *vars)
 	while (flag != EOF)
 	{
 		signals();
-		input = readline("Minishell QR1.0: ");
+		input = rl_history();
 		if (input == NULL)
 		{
 			flag = EOF;
@@ -46,7 +61,6 @@ void	main_loop(int flag, t_envp *env, t_vars *vars)
 		}
 		else
 		{
-			add_history(input);
 			split = ft_split(input, '|');
 			if (split[0] != NULL)
 				command_table(split, env, vars);
