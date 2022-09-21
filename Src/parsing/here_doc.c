@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/19 18:19:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/21 13:20:09 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *env_var_here_doc(char *input, t_envp *env)
+static char	*env_var_here_doc(char *input, t_envp *env)
 {
 	char	*output;
 	char	*var;
@@ -22,7 +22,6 @@ static char *env_var_here_doc(char *input, t_envp *env)
 	i = 0;
 	output = ft_strdup("");
 	split = ft_split(input, ' ');
-	
 	while (split[i] != NULL)
 	{
 		if (split[i][0] == '$')
@@ -34,12 +33,12 @@ static char *env_var_here_doc(char *input, t_envp *env)
 		else
 			output = ft_strjoin(output, split[i]);
 			output = ft_strjoin(output, " ");
-		i++;	
+		i++;
 	}
 	return (output);
 }
 
-int list_heredoc(t_node **temp, char *split, int i, t_envp *env)
+int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 {
 	char	*delimiter;
 	int		flag;
@@ -66,8 +65,8 @@ int list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	while (flag == 0)
 	{
 		input = readline("> ");
-		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0 \
-			&& ft_strlen(delimiter) == ft_strlen(input))
+		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && \
+			ft_strlen(input) != 0 && ft_strlen(delimiter) == ft_strlen(input))
 			flag = 1;
 		else
 		{
@@ -78,38 +77,3 @@ int list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	}
 	return (i);
 }
-
-// int list_heredoc(t_node **temp, char **pipe_split, int i, t_envp *env)
-// {
-// 	char	*delimiter;
-// 	char	*input;
-// 	int		flag;
-// 	char	*in_operator;
-
-// 	in_operator = "<<";
-// 	flag = 0;
-// 	list_word(temp, in_operator);
-// 	if (pipe_split[i][2])
-// 		delimiter = &pipe_split[i][2];
-// 	else if (pipe_split[i + 1] != NULL)
-// 	{
-// 		i++;
-// 		delimiter = pipe_split[i];
-// 	}
-// 	else
-// 		return (i);
-// 	while (flag == 0)
-// 	{
-// 		input = readline("> ");
-// 		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && ft_strlen(input) != 0 \
-// 			&& ft_strlen(delimiter) == ft_strlen(input))
-// 			flag = 1;
-// 		else
-// 		{
-// 			input = env_var_here_doc(input, env);
-// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
-// 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "\n");
-// 		}
-// 	}
-// 	return (i);
-// }
