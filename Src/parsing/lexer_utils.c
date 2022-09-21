@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/19 17:56:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/21 13:15:14 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "minishell.h"
- 
-void list_word(t_node **temp, char *word)
+#include "minishell.h"
+
+void	list_word(t_node **temp, char *word)
 {
 	int		i;
 	char	**split;
@@ -29,10 +29,11 @@ void list_word(t_node **temp, char *word)
 
 int	list_outfile(t_node **temp, int i, char *split)
 {
-	char *outfile;
-	int	start;
-	int	end;
+	char	*outfile;
+	int		start;
+	int		end;
 
+	i++;
 	while (split[i] == ' ')
 		i++;
 	start = i;
@@ -55,10 +56,11 @@ int	list_outfile(t_node **temp, int i, char *split)
 
 int	list_infile(t_node **temp, int i, char *split)
 {
-	char *infile;
-	int	start;
-	int	end;
+	char	*infile;
+	int		start;
+	int		end;
 
+	i++;
 	while (split[i] == ' ')
 		i++;
 	start = i;
@@ -78,18 +80,3 @@ int	list_infile(t_node **temp, int i, char *split)
 	(*temp)->infile = ft_strjoin((*temp)->infile, infile);
 	return (i);
 }
-
-
-// int	list_outfile(t_node **temp, char **outfile, int i)
-// {
-// 	i++;
-// 	(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile[i]);
-// 	return (i);
-// }
-
-// int	list_infile(t_node **temp, char **infile, int i)
-// {
-// 	i++;
-// 	(*temp)->infile = ft_strjoin((*temp)->infile, infile[i]);
-// 	return (i);
-// }

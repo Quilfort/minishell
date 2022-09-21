@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 17:29:36 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 13:17:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	fill_in(t_node *temp)
 
 // als split[0] een spatie is na een '' of "" moet er wel een spatie komen.
 
-int find_word(t_node **temp, int i, char *split, int start)
+int	find_word(t_node **temp, int i, char *split, int start)
 {
 	char	*pipe_split;
 	int		end;
@@ -57,7 +57,7 @@ int find_word(t_node **temp, int i, char *split, int start)
 	return (i);
 }
 
-static int find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
+int	find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
 {
 	char	*var;
 	int		start;
@@ -66,7 +66,7 @@ static int find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
 	while (split[i] != ' ')
 	{
 		i++;
-		if (split[i] == '\0')
+		if (split[i] == '\0' || split[i] == '.')
 			break ;
 	}
 	var = ft_substr(split, start, (i - start));
@@ -75,7 +75,7 @@ static int find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
 	return (i);
 }
 
-static int split_word(t_node **temp, int i, char *split, t_envp *env)
+static int	split_word(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
 	char	*space;
@@ -94,14 +94,17 @@ static int split_word(t_node **temp, int i, char *split, t_envp *env)
 			i = find_word(temp, i, split, start);
 			return (i);
 		}
-		if (split[i] == '$')
+		if (split[i] == '$' && split[i + 1] != '\0')
 		{
-			if (split[i + 1] == '\0')
-				sleep(0);
+			i = find_word(temp, i, split, start);
+			i++;
+			if ((ft_isdigit(split[i]) == 1))
+			{
+				i++;
+				start = i;
+			}
 			else
 			{
-				i = find_word(temp, i, split, start);
-				i++;
 				i = find_var_in_word(temp, i, split, env);
 				start = i;
 				if (split[i] == ' ')
@@ -109,7 +112,7 @@ static int split_word(t_node **temp, int i, char *split, t_envp *env)
 					space = ft_substr(split, i, 1);
 					list_quotes(temp, space);
 				}
-			}
+			}				
 		}
 		i++;
 	}
@@ -171,43 +174,10 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 				i++;
 			}
 			else
-			{
-				i++;
 				i = list_infile(&temp, i, split);
-			}
 		}
 		else if (split[i] == '>')
-		{
-			i++;
 			i = list_outfile(&temp, i, split);
-		}
 	}
 	return (0);
 }
-
-// static char	split_pipe(char *split, t_node *temp, t_envp *env)
-// {
-// 	char	**pipe_split;
-// 	int		i;
-
-// 	i = 0;
-// 	pipe_split = ft_split(split, ' ');
-// 	fill_in(temp);
-// 	while (pipe_split[i] != NULL)
-// 	{
-// 		if (pipe_split[i][0] == 39)
-// 			i = list_single_quote(&temp, pipe_split, i, env);
-// 		else if (pipe_split[i][0] == 34)
-// 			i = list_double_quote(&temp, pipe_split, i, env);
-// 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '<')
-// 			i = list_heredoc(&temp, pipe_split, i, env);
-// 		else if (pipe_split[i][0] == '<' && pipe_split[i][1] == '\0')
-// 			i = list_infile(&temp, pipe_split, i);
-// 		else if (pipe_split[i][0] == '>' && pipe_split[i][1] == '\0')
-// 			i = list_outfile(&temp, pipe_split, i);
-// 		else
-// 			list_word(&temp, pipe_split[i]);
-// 		i++;
-// 	}
-// 	return (0);
-// }

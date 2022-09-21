@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 17:49:26 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 12:47:54 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int		list_infile(t_node **temp, int i, char *split);
 void	list_print_command(t_node *list);
 int		find_word(t_node **temp, int i, char *split, int start);
 char	split_pipe(char *split, t_node *temp, t_envp *env);
+int		find_var_in_word(t_node **temp, int i, char *split, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);

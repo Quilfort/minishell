@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 14:59:25 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/21 12:47:40 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void	print_envp(t_envp *list)
 		i++;
 	}
 }
+
+
+
+
+
+
+
 
 char	*env_var(t_envp *list, char *var)
 {
