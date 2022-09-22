@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 12:51:34 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 15:12:07 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	list_outfile(t_node **temp, int i, char *split)
 	}
 	end = i;
 	outfile = ft_substr(split, start, (end - start));
-	(*temp)->outfile = ft_strjoin((*temp)->infile, outfile);
+	(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile);
 	return (i);
 }
 

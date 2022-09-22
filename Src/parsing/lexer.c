@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/22 13:01:36 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 15:08:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,11 @@ static int	split_word(t_node **temp, int i, char *split, t_envp *env)
 		}
 		if ((split[i] == '$' && (split[i + 1] != ' ' && split[i + 1] != '\0')))
 		{
-			i = find_word(temp, i, split, start);
+			i = find_quote(temp, i, split, start);
 			i++;
 			i = find_var(temp, i, split, env);
+			if (split[i] == 39 || split[i] == 34)
+				return (i);
 			start = i;
 			add_space(temp, split, start);
 		}
@@ -146,7 +148,7 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 			else
 				i = list_heredoc(&temp, split, i, env);
 		}
-		else if (split[i] == '>' && split[i + 1] == '>' )
+		else if (split[i] == '>')
 		{
 			if (split[i + 2] == '\0')
 			{
@@ -154,11 +156,14 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 				list_quotes(&temp, word);
 				i = i + 2;
 			}
-			else
+			else if (split[i] == '>' && split[i + 1] == '>')
 			{
 				printf("Moeten functie voor append nog regelen");
-				i = i + 2;
+				i++;
+				i = list_outfile(&temp, i, split);
 			}
+			else
+				i = list_outfile(&temp, i, split);
 		}
 		else if (split[i] == '<')
 		{
@@ -171,8 +176,6 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 			else
 				i = list_infile(&temp, i, split);
 		}
-		else if (split[i] == '>')
-			i = list_outfile(&temp, i, split);
 	}
 	return (0);
 }

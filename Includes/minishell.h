@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 12:50:01 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 15:17:17 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table);
 void	just_outfile_fork_process(t_vars *vars, t_node *command_table);
 void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table);
 void	in_out_file_fork_process(t_vars *vars, t_node *command_table);
+void	in_out_file_one_command(t_vars *vars, t_node *command_table);
 
 		// get_path.c
 void	right_path(t_vars *vars, t_node *command_table);
