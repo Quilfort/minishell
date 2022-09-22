@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/21 16:22:50 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/22 13:01:36 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	fill_in(t_node *temp)
 	temp->heredoc = ft_strdup("");
 }
 
-// als split[0] een spatie is na een '' of "" moet er wel een spatie komen.
-
 int	find_word(t_node **temp, int i, char *split, int start)
 {
 	char	*pipe_split;
@@ -57,35 +55,44 @@ int	find_word(t_node **temp, int i, char *split, int start)
 	return (i);
 }
 
-int	find_var_in_word(t_node **temp, int i, char *split, t_envp *env)
+int	find_var(t_node **temp, int i, char *split, t_envp *env)
 {
 	char	*var;
 	int		start;
 
-	start = i;
-	while (split[i] != ' ')
+	if ((ft_isdigit(split[i]) == 1))
 	{
 		i++;
-		if (split[i] == '\0' || split[i] == '.' || split[i] == '$')
-			break ;
+		return (i);
 	}
-	var = ft_substr(split, start, (i - start));
-	var = env_var(env, var);
-	list_quotes(temp, var);
+	else
+	{
+		start = i;
+		while (split[i] != ' ')
+		{
+			i++;
+			if (split[i] == 34 || split[i] == '.' || split[i] == '$' || \
+				split[i] == '\0' || split[i] == 39)
+				break ;
+		}
+		var = ft_substr(split, start, (i - start));
+		var = env_var(env, var);
+		list_quotes(temp, var);
+		if (split[i] == '$')
+		{
+			i++;
+			i = find_var(temp, i, split, env);
+		}
+	}
 	return (i);
 }
 
 static int	split_word(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
-	char	*space;
 
 	start = i;
-	if (start != 0 && split[i] == ' ')
-	{
-		space = ft_substr(split, start, 1);
-		list_quotes(temp, space);
-	}
+	add_space(temp, split, start);
 	while (split[i] != '\0')
 	{
 		if (split[i] == 39 || split[i] == 34 || \
@@ -98,21 +105,9 @@ static int	split_word(t_node **temp, int i, char *split, t_envp *env)
 		{
 			i = find_word(temp, i, split, start);
 			i++;
-			if ((ft_isdigit(split[i]) == 1))
-			{
-				i++;
-				start = i;
-			}
-			else
-			{
-				i = find_var_in_word(temp, i, split, env);
-				start = i;
-				if (split[i] == ' ')
-				{
-					space = ft_substr(split, i, 1);
-					list_quotes(temp, space);
-				}
-			}				
+			i = find_var(temp, i, split, env);
+			start = i;
+			add_space(temp, split, start);
 		}
 		i++;
 	}

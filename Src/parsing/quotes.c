@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 13:19:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 12:44:29 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	find_quote(t_node **temp, int i, char *split, int start)
 
 int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 {
-	char	*var;
 	int		start;
 
 	start = i;
@@ -42,44 +41,19 @@ int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 			i++;
 			return (i);
 		}
-		else if (split[i] == '$' && split[i + 1] != '\0')
+		else if (split[i] == '$' && (split[i + 1] != '\0' && split[i + 1] \
+				!= 34 && split[i + 1] != ' '))
 		{
-			if (split[i + 1] == 34)
+			i = find_quote(temp, i, split, start);
+			i++;
+			i = find_var(temp, i, split, env);
+			if (split[i] == 34)
 			{
-				i++;
-				i = find_quote(temp, i, split, start);
 				i++;
 				return (i);
 			}
 			else
-			{
-				i = find_quote(temp, i, split, start);
-				i++;
-				if ((ft_isdigit(split[i]) == 1))
-				{
-					i++;
-					start = i;
-				}
-				else
-				{
-					start = i;
-					while (split[i] != ' ')
-					{
-						i++;
-						if (split[i] == 34 || split[i] == '.')
-							break ;
-					}
-					var = ft_substr(split, start, (i - start));
-					var = env_var(env, var);
-					list_quotes(temp, var);
-					start = i;
-					if (split[i] == 34)
-					{
-						i++;
-						return (i);
-					}
-				}
-			}
+				start = i;
 		}	
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 16:59:44 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/22 12:50:01 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,13 @@ int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 void	list_word(t_node **temp, char *word);
 int		list_outfile(t_node **temp, int i, char *split);
 int		list_infile(t_node **temp, int i, char *split);
+void	add_space(t_node **temp, char *split, int start);
 
 		// lexer.c
 void	list_print_command(t_node *list);
 int		find_word(t_node **temp, int i, char *split, int start);
 char	split_pipe(char *split, t_node *temp, t_envp *env);
-int		find_var_in_word(t_node **temp, int i, char *split, t_envp *env);
+int		find_var(t_node **temp, int i, char *split, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);

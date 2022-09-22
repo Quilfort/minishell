@@ -6,11 +6,22 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 13:15:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 12:51:34 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_space(t_node **temp, char *split, int start)
+{
+	char	*space;
+
+	if (start != 0 && split[start] == ' ')
+	{
+		space = ft_substr(split, start, 1);
+		list_quotes(temp, space);
+	}
+}
 
 void	list_word(t_node **temp, char *word)
 {
