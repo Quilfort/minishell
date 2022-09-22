@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 16:01:02 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 17:09:53 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,60 @@ void	exec_init(t_node *command_table)
 	}
 }
 
-t_node	*create_command_table_list(char **split, t_envp *env)
+int	make_pipes(char *split, int i)
+{
+	while (split[i] != '|' && split[i] != '\0')
+	{
+		if (split[i] == 34)
+		{
+			i++;
+			while (split[i] != '\0' && split[i] != 34)
+				i++;
+		}
+		else if (split[i] == 39)
+		{
+			i++;
+			while (split[i] != '\0' && split[i] != 39)
+				i++;
+		}
+		i++;
+	}
+	return (i);
+}
+
+t_node	*create_command_table_list(char *split, t_envp *env)
 {
 	t_node			*node;
 	t_node			*temp;
-	char			**command_split;
+	char			*content;
 	int				i;
+	int				start;
 
-	node = create_head(split[0]);
-	i = 1;
+	i = 0;
+	start = 0;
+	i = make_pipes(split, i);
+	content = ft_substr(split, start, (i - start));
+	node = create_head(content);
+	i++;
 	while (split[i] != '\0')
 	{
-		lstadd_back(&node, split[i]);
+		start = i;
+		i = make_pipes(split, i);
+		content = ft_substr(split, start, (i - start));
+		lstadd_back(&node, content);
 		i++;
 	}
-	i = 0;
 	temp = node;
 	while (temp != NULL)
 	{
-		split_pipe(split[i], temp, env);
+		split_pipe(temp->content, temp, env);
 		temp = temp->next;
 		i++;
 	}
 	return (node);
 }
 
-void	command_table(char **split, t_envp	*env, t_vars *vars)
+void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
 
@@ -60,4 +88,5 @@ void	command_table(char **split, t_envp	*env, t_vars *vars)
 		exit(0);
 	}
 	q_pipex_start(node, vars);
+	// list_print_command(node);
 }

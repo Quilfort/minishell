@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 16:59:41 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/22 16:49:53 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*rl_history(void)
 void	main_loop(int flag, t_envp *env, t_vars *vars)
 {
 	char			*input;
-	char			**split;
+	// char			**split;
 
 	while (flag != EOF)
 	{
@@ -61,9 +61,11 @@ void	main_loop(int flag, t_envp *env, t_vars *vars)
 		}
 		else
 		{
-			split = ft_split(input, '|');
-			if (split[0] != NULL)
-				command_table(split, env, vars);
+			if (input != NULL)
+				command_table(input, env, vars);
+			// split = ft_split(input, '|');
+			// if (split[0] != NULL)
+			// 	command_table(split, env, vars);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 15:17:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/22 16:31:19 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,9 @@ void	pexit(char *str, int exit_code);
 // parsing
 		// create_command_table.c
 void	exec_init(t_node *command_table);
-t_node	*create_command_table_list(char **split, t_envp *env);
-void	command_table(char **split, t_envp	*env, t_vars *vars);
+t_node	*create_command_table_list(char *split, t_envp *env);
+void	command_table(char *split, t_envp	*env, t_vars *vars);
+int		make_pipes(char *split, int i);
 
 		// here_doc.c
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
