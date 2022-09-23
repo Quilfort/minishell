@@ -30,13 +30,6 @@ void	print_envp(t_envp *list)
 	}
 }
 
-
-
-
-
-
-
-
 char	*env_var(t_envp *list, char *var)
 {
 	char	*var_string;

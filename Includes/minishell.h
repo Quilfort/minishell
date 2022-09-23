@@ -46,6 +46,7 @@ typedef struct s_vars {
 	int		f2;
 	int		no_infile;
 	int		no_outfile;
+	int		env_count;
 	char	**enviroment;
 	char	**cmd;
 	char	**path;
@@ -92,6 +93,8 @@ int		echo(t_node *command_table, t_vars *vars);
 int		pwd(void);
 int		env(t_vars *vars);
 
+void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
+
 // environment
 		// env_to_array.c
 int		lst_size(t_envp *list);
@@ -104,7 +107,8 @@ char	*env_var(t_envp *list, char *var);
 void	key_output(char *split, t_envp **temp);
 
 		// envp list
-void	lstadd_back_envp(t_envp **lst, char *split, int token);
+t_envp	*lstlast_envp(t_envp *lst);
+void	lstadd_back_envp(t_envp **lst, char *split);
 t_envp	*create_head_envp(char *first);
 t_envp	*put_envp_in_list(char **envp, t_vars *vars);
 

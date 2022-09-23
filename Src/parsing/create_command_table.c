@@ -88,5 +88,9 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 		exit(0);
 	}
 	q_pipex_start(node, vars);
+	if ((ft_strncmp("cd", node->command[0], 2) == 0))
+		open_folder(node);
+	if ((ft_strncmp("export", node->command[0], 6) == 0))
+		export(env, node, vars);
 	// list_print_command(node);
 }

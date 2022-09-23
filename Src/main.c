@@ -85,6 +85,7 @@ int	main(int argc, char *argv[], char **envp)
 	env = put_envp_in_list(envp, vars);
 	// print_envp(env);
 	envp_to_array(env, vars);
+	
 	main_loop(0, env, vars);
 	return (0);
 }

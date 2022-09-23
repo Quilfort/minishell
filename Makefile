@@ -25,6 +25,7 @@ SRC = ./src/main.c \
 	$(ENVIRONMENT_FOLDER)env_var.c \
 	$(COMMANDS_FOLDER)commands_built.c \
 	$(COMMANDS_FOLDER)commands.c \
+	$(COMMANDS_FOLDER)export.c \
 	$(EXEC_FOLDER)child.c \
 	$(EXEC_FOLDER)executioner.c \
 	$(EXEC_FOLDER)get_path.c \

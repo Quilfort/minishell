@@ -119,7 +119,7 @@ int	env(t_vars *vars)
 	int	i;
 
 	i = 0;
-	while (vars->enviroment[i])
+	while (i < vars->env_count)
 	{
 		ft_putendl_fd(vars->enviroment[i], 1);
 		i++;

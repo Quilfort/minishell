@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static t_envp	*lstlast_envp(t_envp *lst)
+t_envp	*lstlast_envp(t_envp *lst)
 {
 	while (lst)
 	{
@@ -23,7 +23,7 @@ static t_envp	*lstlast_envp(t_envp *lst)
 	return (lst);
 }
 
-static t_envp	*lstnew_envp(char *split, int token)
+static t_envp	*lstnew_envp(char *split)
 {
 	t_envp	*newcontent;
 
@@ -35,12 +35,12 @@ static t_envp	*lstnew_envp(char *split, int token)
 	return (newcontent);
 }
 
-void	lstadd_back_envp(t_envp **lst, char *split, int token)
+void	lstadd_back_envp(t_envp **lst, char *split)
 {
 	t_envp	*temp;
 	t_envp	*new;
 
-	new = lstnew_envp(split, token);
+	new = lstnew_envp(split);
 	if (!(*lst))
 	{
 		*lst = new;
@@ -78,7 +78,7 @@ t_envp	*put_envp_in_list(char **envp, t_vars *vars)
 	i = 1;
 	while (envp[i] != '\0')
 	{
-		lstadd_back_envp(&envi, envp[i], 0);
+		lstadd_back_envp(&envi, envp[i]);
 		i++;
 	}
 	i = 0;

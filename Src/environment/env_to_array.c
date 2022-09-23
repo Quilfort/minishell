@@ -44,6 +44,7 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 	int	count;
 
 	count = lst_size(env);
+	printf("ditsis: %d\n", count);
 	i = 0;
 	vars->enviroment = malloc((count + 1) * sizeof(char *));
 	while (i < count)
@@ -53,5 +54,7 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 		env = env->next;
 	}
 	vars->enviroment[i] = "\0";
+	vars->env_count = i;
+	printf("ditsisI: %d\n", i);
 	// vars->enviroment[i] = ft_strdup("\0");
 }
