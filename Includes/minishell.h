@@ -94,6 +94,7 @@ int		pwd(void);
 int		env(t_vars *vars);
 
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
+void    unset(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 // environment
 		// env_to_array.c

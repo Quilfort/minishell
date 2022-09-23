@@ -31,7 +31,7 @@ void	print_array(t_vars *vars)
 	int	i;
 
 	i = 0;
-	while (i < 38)
+	while (i < vars->env_count)
 	{
 		printf("%s\n", vars->enviroment[i]);
 		i++;
@@ -44,17 +44,16 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 	int	count;
 
 	count = lst_size(env);
-	printf("ditsis: %d\n", count);
 	i = 0;
-	vars->enviroment = malloc((count + 1) * sizeof(char *));
+	vars->enviroment = malloc((count) * sizeof(char *));
+	if (vars->enviroment == NULL)
+		pexit("error", 1);
 	while (i < count)
 	{
 		vars->enviroment[i] = ft_strdup(env->content);
 		i++;
 		env = env->next;
 	}
-	vars->enviroment[i] = "\0";
+	vars->enviroment[i + 1] = "\0";
 	vars->env_count = i;
-	printf("ditsisI: %d\n", i);
-	// vars->enviroment[i] = ft_strdup("\0");
 }

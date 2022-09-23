@@ -17,8 +17,63 @@ void    export(t_envp *env_list, t_node *command_table, t_vars *vars)
     t_envp  *temp;
 
     lstadd_back_envp(&env_list, command_table->command[1]);
-    free(vars->enviroment);
+    if (vars->enviroment != NULL)
+        free(vars->enviroment);
     envp_to_array(env_list, vars);
     temp = lstlast_envp(env_list);
     key_output(command_table->command[1], &temp);
+}
+
+
+int     get_pos(t_envp  *env_list, t_node *command_table)
+{
+    int i;
+
+    i = 0;
+    while (ft_strncmp(env_list->key, command_table->command[1], \
+                        ft_strlen(command_table->command[1])) != 0)
+    {
+        env_list = env_list->next;
+        i++;
+    }
+    return(i);
+}
+
+void    unset_utils(t_envp *env_list, t_envp *temp, t_envp *del, int position)
+{
+    int i;
+
+    i = 0;
+    if (position == 0) 
+    {
+        env_list = env_list->next; 
+        temp->next = NULL;
+        free(temp);
+    }
+    else 
+    {
+        while(i < position - 1)
+        {
+            temp = temp->next;
+            i++;
+        }
+        del = temp->next; 
+        temp->next = temp->next->next;
+        del->next = NULL;
+        free(del);
+    }
+}
+
+
+void    unset(t_envp *env_list, t_node *command_table, t_vars *vars)
+{
+    t_envp  *temp;
+    t_envp  *del;
+    int     position;
+
+    temp = env_list;
+    position = get_pos(env_list, command_table);
+    unset_utils(env_list, temp, del, position);
+    free(vars->enviroment);
+    envp_to_array(env_list, vars);
 }

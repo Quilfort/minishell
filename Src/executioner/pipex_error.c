@@ -20,15 +20,15 @@ void	pexit(char *str, int exit_code)
 
 void	print_error(t_vars *vars)
 {
-	if (vars->f1 < 0 || vars->f2 < 0)
-	{
-		perror("Can't Open It");
-		exit(1);
-	}
 	if (vars->my_path == NULL)
 	{
 		perror("Command not found");
 		exit(127);
+	}
+	else if (vars->f1 < 0 || vars->f2 < 0)
+	{
+		perror("Can't Open It");
+		exit(1);
 	}
 	else
 		perror("Error: 404s and Heartbreak");
