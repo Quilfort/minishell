@@ -25,7 +25,7 @@ void    export(t_envp *env_list, t_node *command_table, t_vars *vars)
 }
 
 
-int     get_pos(t_envp  *env_list, t_node *command_table)
+static  int     get_pos(t_envp  *env_list, t_node *command_table)
 {
     int i;
 
@@ -39,7 +39,7 @@ int     get_pos(t_envp  *env_list, t_node *command_table)
     return(i);
 }
 
-void    unset_utils(t_envp *env_list, t_envp *temp, t_envp *del, int position)
+static  void    unset_utils(t_envp *env_list, t_envp *temp, t_envp *del, int position)
 {
     int i;
 

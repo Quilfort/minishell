@@ -83,6 +83,8 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
+void	main_loop(int flag, t_envp *env, t_vars *vars);
+
 // Commands_build
 		// commands_built.c
 int		commands_built(t_node *command_table, t_vars *vars);	
