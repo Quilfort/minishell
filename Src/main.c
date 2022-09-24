@@ -48,7 +48,6 @@ char	*rl_history(void)
 void	main_loop(int flag, t_envp *env, t_vars *vars)
 {
 	char			*input;
-	// char			**split;
 
 	while (flag != EOF)
 	{
@@ -63,9 +62,6 @@ void	main_loop(int flag, t_envp *env, t_vars *vars)
 		{
 			if (input != NULL)
 				command_table(input, env, vars);
-			// split = ft_split(input, '|');
-			// if (split[0] != NULL)
-			// 	command_table(split, env, vars);
 		}
 	}
 }
@@ -75,7 +71,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_envp	*env;
 	t_vars	*vars;
 
-	// init_shell();
+	init_shell();
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (vars == NULL)
 	{
@@ -83,9 +79,7 @@ int	main(int argc, char *argv[], char **envp)
 		exit(1);
 	}
 	env = put_envp_in_list(envp, vars);
-	// print_envp(env);
 	envp_to_array(env, vars);
-	
 	main_loop(0, env, vars);
 	return (0);
 }

@@ -15,16 +15,20 @@
 void	find_path(t_vars *vars)
 {
 	char	*temp;
+	int		i;
 
-	// while (ft_strncmp("PATH=", *vars->enviroment, 5) && *(vars->enviroment + 1))
-	// 	vars->enviroment++;
-	// if (ft_strncmp("PATH=", *vars->enviroment, 5) != 0)
-	// 	print_error(vars);
-	// temp = ft_strtrim(*vars->enviroment, "PATH=");
-	temp = getenv("PATH");
+	i = 0;
+	while (ft_strncmp("PATH=", vars->enviroment[i], 5) && i + 1 < vars->env_count)
+		i++;
+	// if (i == vars->env_count)
+	// 	ft_putstr_fd("Error", 2);
+	// if (ft_strncmp("PATH=", vars->enviroment[i], 5) != 0)
+	// 	ft_putstr_fd("Error", 2);
+	temp = ft_strtrim(vars->enviroment[i], "PATH=");
+	// temp = getenv("PATH");
 	vars->path = ft_split(temp, ':');
 	if (!vars->path)
-		print_error(vars);
+		perror("nopath");
 }
 
 void	right_path(t_vars *vars, t_node *commands_table)
@@ -33,6 +37,7 @@ void	right_path(t_vars *vars, t_node *commands_table)
 	char	*pipex_path;
 	int		i;
 
+	vars->my_path = NULL;
 	if (access(commands_table->command[0], X_OK) == 0)
 		vars->my_path = ft_strdup(commands_table->command[0]);
 	i = 0;
@@ -40,10 +45,10 @@ void	right_path(t_vars *vars, t_node *commands_table)
 	{
 		slash = ft_strjoin(vars->path[i], "/");
 		if (!slash)
-			print_error(vars);
+			print_error(vars, commands_table);
 		pipex_path = ft_strjoin(slash, commands_table->command[0]);
 		if (!pipex_path)
-			print_error(vars);
+			print_error(vars, commands_table);
 		if (access(pipex_path, X_OK) == 0)
 			vars->my_path = ft_strdup(pipex_path);
 		free(slash);
@@ -51,7 +56,7 @@ void	right_path(t_vars *vars, t_node *commands_table)
 		i++;
 	}
 	if (!vars->my_path)
-		pexit("Command not found", 127);
+		print_error(vars, commands_table);
 }
 
 // returnd de node met token infile om die door te geven aan open

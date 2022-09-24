@@ -19,13 +19,13 @@ void	first_child(t_vars *vars, t_node *command_table, \
 
 	pid1 = fork();
 	if (pid1 < 0)
-		print_error(vars);
+		print_error(vars, command_table);
 	if (pid1 == 0)
 	{
 		if (vars->no_infile == 0)
 		{
 			if (dup2(vars->f1, STDIN_FILENO) == -1)
-				print_error(vars);
+				print_error(vars, command_table);
 		}
 		if (!command_table->command[0])
 		{
@@ -48,7 +48,7 @@ void	middle_child(t_vars *vars, t_node *command_table, \
 
 	pid = fork();
 	if (pid < 0)
-		print_error(vars);
+		print_error(vars, command_table);
 	if (pid == 0)
 	{
 		dup2((*fd)[vars->com_count - 1][0], STDIN_FILENO);
@@ -73,13 +73,13 @@ void	last_child(t_vars *vars, t_node *command_table, \
 
 	pid3 = fork();
 	if (pid3 < 0)
-		print_error(vars);
+		print_error(vars, command_table);
 	if (pid3 == 0)
 	{
 		if (vars->no_outfile == 0)
 		{
 			if (dup2(vars->f2, STDOUT_FILENO) == -1)
-				print_error(vars);
+				print_error(vars, command_table);
 		}
 		if (!command_table->command[0])
 		{

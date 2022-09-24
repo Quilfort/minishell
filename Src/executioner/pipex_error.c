@@ -18,17 +18,14 @@ void	pexit(char *str, int exit_code)
 	exit(exit_code);
 }
 
-void	print_error(t_vars *vars)
+void	print_error(t_vars *vars, t_node *command_table)
 {
 	if (vars->my_path == NULL)
 	{
-		perror("Command not found");
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(command_table->command[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
-	}
-	else if (vars->f1 < 0 || vars->f2 < 0)
-	{
-		perror("Can't Open It");
-		exit(1);
 	}
 	else
 		perror("Error: 404s and Heartbreak");

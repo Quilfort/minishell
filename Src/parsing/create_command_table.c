@@ -77,17 +77,19 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 
 int		jaweetikt(t_node *command_table, t_envp *env, t_vars *vars)
 {
-	if ((ft_strncmp("export", command_table->command[0], 6) == 0) && (command_table->command[1] != NULL))
+	if ((ft_strncmp("export", command_table->command[0], 6) == 0) \
+							&& (command_table->command[1] != NULL))
 	{
 		export(env, command_table, vars);
 		return (1);
 	}
-	if ((ft_strncmp("cd", command_table->command[0], 2) == 0) && (command_table->command[1] != NULL))
+	if ((ft_strncmp("cd", command_table->command[0], 2) == 0))
 	{
 		open_folder(command_table);
 		return (1);
 	}
-	if ((ft_strncmp("unset", command_table->command[0], 5) == 0) && (command_table->command[1] != NULL))
+	if ((ft_strncmp("unset", command_table->command[0], 5) == 0) \
+							&& (command_table->command[1] != NULL))
 	{
 		unset(env, command_table, vars);
 		return (1);

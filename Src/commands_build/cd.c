@@ -12,14 +12,39 @@
 
 #include "minishell.h"
 
-void    export(t_envp *env_list, t_node *command_table, t_vars *vars)
+static  void	open_folder_utils(t_node *command_table, char *last_dir)
 {
-    t_envp  *temp;
+	if (command_table->command[1] == NULL)
+		command_table->command[1] = getenv("HOME");
+	else if (ft_strncmp(command_table->command[1], "-", 1) == 0)
+	{
+		if (last_dir == NULL)
+			ft_putstr_fd("Minishell: cd: No last directory", 2);
+		command_table->command[1] = ft_strdup(last_dir);
+	}
+}
 
-    lstadd_back_envp(&env_list, command_table->command[1]);
-    if (vars->enviroment != NULL)
-        free(vars->enviroment);
-    envp_to_array(env_list, vars);
-    temp = lstlast_envp(env_list);
-    key_output(command_table->command[1], &temp);
+int	open_folder(t_node *command_table)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+	char			*last_dir;
+	char			temp[PATH_MAX];
+
+	getcwd(temp, sizeof(temp));
+	open_folder_utils(command_table, last_dir);
+	if (command_table->command[1] != NULL)
+	{
+		dir = opendir(command_table->command[1]);
+		if (dir == NULL)
+		{
+			ft_putstr_fd("Minishell: cd: ", 2);
+			perror(command_table->command[1]);
+		}
+		if (dir != NULL)
+			closedir(dir);
+	}
+	chdir(command_table->command[1]);
+	last_dir = ft_strdup(temp);
+	return (1);
 }

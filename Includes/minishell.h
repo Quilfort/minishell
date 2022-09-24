@@ -86,16 +86,21 @@ typedef struct s_envp
 void	main_loop(int flag, t_envp *env, t_vars *vars);
 
 // Commands_build
-		// commands_built.c
-int		commands_built(t_node *command_table, t_vars *vars);	
+		// cd.c
+int		open_folder(t_node *command_table);
 
 		// commands.c
-int		open_folder(t_node *command_table);
-int		echo(t_node *command_table, t_vars *vars);
+int		commands_built(t_node *command_table, t_vars *vars);	
 int		pwd(void);
 int		env(t_vars *vars);
 
+		//echo.c
+int		echo(t_node *command_table, t_vars *vars);
+
+		// export.c
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
+
+		// unset.c
 void    unset(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 // environment
@@ -129,13 +134,14 @@ void	middle_child(t_vars *vars, t_node *command_table, \
 void	last_child(t_vars *vars, t_node *command_table, \
 					int (*fd)[vars->com][2]);
 
-		// fork_with_file.c
-void	just_infile_fork_process(t_vars *vars, t_node *command_table);	
-void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table);
-void	just_outfile_fork_process(t_vars *vars, t_node *command_table);
-void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table);
+		// fork_with_both.c
 void	in_out_file_fork_process(t_vars *vars, t_node *command_table);
-void	in_out_file_one_command(t_vars *vars, t_node *command_table);
+
+		// fork_with_infile.c
+void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table);
+
+		// fork_with_outfile.c
+void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table);
 
 		// get_path.c
 void	right_path(t_vars *vars, t_node *command_table);
@@ -149,7 +155,7 @@ void	close_pipes(t_vars *vars, int (*fd)[vars->com - 2][2]);
 void	ft_wait(t_vars *vars);
 
 		// pipex_error.c
-void	print_error(t_vars *vars);
+void	print_error(t_vars *vars, t_node *command_table);
 void	pexit(char *str, int exit_code);
 
 // parsing

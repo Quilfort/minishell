@@ -20,7 +20,7 @@ void	init_pipes(t_vars *vars, int (*fd)[vars->com - 2][2])
 	while (x < (vars->com - 1))
 	{
 		if (pipe((*fd)[x]) == -1)
-			print_error(vars);
+			perror("error with pipes");
 		x++;
 	}
 }

@@ -12,74 +12,18 @@
 
 #include "minishell.h"
 
-void	just_infile_fork_process(t_vars *vars, t_node *command_table)
+static void	in_out_file_one_command(t_vars *vars, t_node *command_table)
 {
 	find_path(vars);
 	vars->pid = fork();
 	if (vars->pid == -1)
-		print_error(vars);
+		print_error(vars, command_table);
 	if (vars->pid == 0)
 	{
 		if (dup2(vars->f1, STDIN_FILENO) == -1)
-			print_error(vars);
-		q_preform_cmd(command_table, vars);
-	}
-	else
-		wait(&vars->pid);
-}
-
-// is er een infile en 1 command dan  open en justinfilefunctie
-// is er een infile en meerdere commands dan open en multiplefork
-void	just_infile_multiple_fork_process(t_vars *vars, t_node *command_table)
-{
-	vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
-	if (vars->f1 < 0)
-		perror(vars->string_infile);
-	if (vars->com == 1)
-		just_infile_fork_process(vars, command_table);
-	if (vars->com > 1)
-		multiple_fork(command_table, vars);
-	close(vars->f1);
-}
-
-void	just_outfile_fork_process(t_vars *vars, t_node *command_table)
-{	
-	find_path(vars);
-	vars->pid = fork();
-	if (vars->pid == 0)
-	{
+			print_error(vars, command_table);
 		if (dup2(vars->f2, STDOUT_FILENO) == -1)
-			print_error(vars);
-		q_preform_cmd(command_table, vars);
-	}
-	else
-		wait(&vars->pid);
-}
-
-// is er een outfile en 1 command dan open en justoutfilefunctie
-// is er een outfile en meerdere commands dan open en multiplefork
-void	just_outfile_multiple_fork_process(t_vars *vars, t_node *command_table)
-{
-	vars->f2 = open(vars->string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (vars->f2 < 0)
-		perror(vars->string_outfile);
-	if (vars->com == 1)
-		just_outfile_fork_process(vars, command_table);
-	if (vars->com > 1)
-		multiple_fork(command_table, vars);
-	close(vars->f2);
-}
-
-void	in_out_file_one_command(t_vars *vars, t_node *command_table)
-{
-	find_path(vars);
-	vars->pid = fork();
-	if (vars->pid == 0)
-	{
-		if (dup2(vars->f1, STDIN_FILENO) == -1)
-			print_error(vars);
-		if (dup2(vars->f2, STDOUT_FILENO) == -1)
-			print_error(vars);
+			print_error(vars, command_table);
 		q_preform_cmd(command_table, vars);
 	}
 	else

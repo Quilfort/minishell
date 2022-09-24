@@ -17,12 +17,12 @@ void	q_preform_cmd(t_node *command_table, t_vars *vars)
 	if ((commands_built(command_table, vars) == 0))
 	{
 		if (!command_table->command)
-			print_error(vars);
+			print_error(vars, command_table);
 		right_path(vars, command_table);
-		if (vars->my_path == NULL)
-			pexit("nee", 1);
+		if (!vars->my_path)
+			print_error(vars, command_table);
 		if (execve(vars->my_path, command_table->command, vars->enviroment) < 0)
-			print_error(vars);
+			print_error(vars, command_table);
 	}
 	else
 		exit(0);
@@ -54,7 +54,7 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars)
 	find_path(vars);
 	vars->pid = fork();
 	if (vars->pid == -1)
-		print_error(vars);
+		print_error(vars, command_table);
 	if (vars->pid == 0)
 		q_preform_cmd(command_table, vars);
 	else

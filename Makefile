@@ -23,13 +23,17 @@ SRC = ./src/main.c \
 	$(ENVIRONMENT_FOLDER)env_to_array.c \
 	$(ENVIRONMENT_FOLDER)envp_list.c \
 	$(ENVIRONMENT_FOLDER)env_var.c \
-	$(COMMANDS_FOLDER)commands_built.c \
+	$(COMMANDS_FOLDER)cd.c \
 	$(COMMANDS_FOLDER)commands.c \
+	$(COMMANDS_FOLDER)echo.c \
 	$(COMMANDS_FOLDER)export.c \
+	$(COMMANDS_FOLDER)unset.c \
 	$(EXEC_FOLDER)child.c \
 	$(EXEC_FOLDER)executioner.c \
 	$(EXEC_FOLDER)get_path.c \
-	$(EXEC_FOLDER)fork_with_file.c \
+	$(EXEC_FOLDER)fork_with_both.c \
+	$(EXEC_FOLDER)fork_with_infile.c \
+	$(EXEC_FOLDER)fork_with_outfile.c \
 	$(EXEC_FOLDER)init_pipes.c \
 	$(EXEC_FOLDER)pipex_error.c
 OBJ = $(SRC:%.c=%.o)
