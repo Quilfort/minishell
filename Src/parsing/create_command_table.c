@@ -79,21 +79,21 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 	return (node);
 }
 
-int	jaweetikt(t_node *command_table, t_envp *env, t_vars *vars)
+int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 {
-	if ((ft_strncmp("export", command_table->command[0], 6) == 0) \
-							&& (command_table->command[1] != NULL))
+	if ((ft_strncmp("export", command_table->command[0], 6) == 0) && (command_table->command[1] != NULL) \
+	&& ft_strlen("export") == ft_strlen(command_table->command[0]))
 	{
 		export(env, command_table, vars);
 		return (1);
 	}
-	if ((ft_strncmp("cd", command_table->command[0], 2) == 0))
+	if ((ft_strncmp("cd", command_table->command[0], 2) == 0) && ft_strlen("cd") == ft_strlen(command_table->command[0]))
 	{
 		open_folder(command_table);
 		return (1);
 	}
-	if ((ft_strncmp("unset", command_table->command[0], 5) == 0) \
-							&& (command_table->command[1] != NULL))
+	if ((ft_strncmp("unset", command_table->command[0], 3) == 0) && (command_table->command[1] != NULL) \
+	&& ft_strlen("unset") == ft_strlen(command_table->command[0]))
 	{
 		unset(env, command_table, vars);
 		return (1);
@@ -109,13 +109,13 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	exec_init(node);
 	if (node->command[0] == NULL)
 		main_loop(0, env, vars);
-	if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-					&& (node->command[1] == NULL))
+	if ((ft_strncmp("exit", node->command[0], 4) == 0) && (node->command[1] == NULL) \
+	&& ft_strlen("exit") == ft_strlen(node->command[0]))
 	{
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}
-	if (jaweetikt(node, env, vars) == 0)
+	if (builtin(node, env, vars) == 0)
 		q_pipex_start(node, vars);
 	// list_print_command(node);
 }

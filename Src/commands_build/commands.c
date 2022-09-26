@@ -14,13 +14,14 @@
 
 int	commands_built(t_node *command_table, t_vars *vars)
 {
-	if ((ft_strncmp("pwd", command_table->command[0], 3) == 0) \
-					&& (command_table->command[1] == NULL))
+	if ((ft_strncmp("pwd", command_table->command[0], 3) == 0) && (command_table->command[1] == NULL) \
+	&& ft_strlen("pwd") == ft_strlen(command_table->command[0]))
 		return (pwd());
-	if ((ft_strncmp("echo ", command_table->content, 5) == 0))
+	if ((ft_strncmp("echo ", command_table->content, 5) == 0) \
+	&& ft_strlen("echo ") == ft_strlen(command_table->command[0]))
 		return (echo(command_table, vars));
-	if ((ft_strncmp("env", command_table->command[0], 3) == 0) \
-						&& (command_table->command[1] == NULL))
+	if ((ft_strncmp("env", command_table->command[0], 3) == 0) && (command_table->command[1] == NULL) \
+	&& ft_strlen("env") == ft_strlen(command_table->command[0]))
 		return (env(vars));
 	return (0);
 }
