@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 16:31:19 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 11:35:23 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int		make_pipes(char *split, int i);
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
 		// lexer_util.c
-void	list_word(t_node **temp, char *word);
+void	list_word(t_node **temp, char *word, int space);
 int		list_outfile(t_node **temp, int i, char *split);
 int		list_infile(t_node **temp, int i, char *split);
 void	add_space(t_node **temp, char *split, int start);

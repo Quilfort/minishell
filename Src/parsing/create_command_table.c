@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 17:09:53 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 11:44:32 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 	return (node);
 }
 
-int		jaweetikt(t_node *command_table, t_envp *env, t_vars *vars)
+int	jaweetikt(t_node *command_table, t_envp *env, t_vars *vars)
 {
 	if ((ft_strncmp("export", command_table->command[0], 6) == 0) \
 							&& (command_table->command[1] != NULL))
@@ -113,5 +113,5 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	}
 	if (jaweetikt(node, env, vars) == 0)
 		q_pipex_start(node, vars);
-	// list_print_command(node);
+	list_print_command(node);
 }
