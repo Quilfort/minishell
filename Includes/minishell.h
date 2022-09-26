@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 14:42:59 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 15:50:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		echo(t_node *command_table, t_vars *vars);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// unset.c
-void    unset(t_envp *env_list, t_node *command_table, t_vars *vars);
+void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 // environment
 		// env_to_array.c
@@ -198,6 +198,7 @@ int		var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env);
 int		split_word(t_node **temp, int i, char *split, t_envp *env);
 int		find_word(t_node **temp, int i, char *split, int start);
 int		find_var(t_node **temp, int i, char *split, t_envp *env);
+int		var_first_char(char *split, int i, t_node **temp);
 
 // signals
 void	signals(void);
