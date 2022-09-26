@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 13:27:49 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 14:42:59 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ void	add_space(t_node **temp, char *split, int start);
 void	list_print_command(t_node *list);
 int		redirect_infile(t_node *temp, char *split, int i);
 int		redirect_here_doc(t_node *temp, char *split, int i, t_envp *env);
+int		redirect_outfile(t_node *temp, char *split, int i);
 char	split_pipe(char *split, t_node *temp, t_envp *env);
 
 		// list.c

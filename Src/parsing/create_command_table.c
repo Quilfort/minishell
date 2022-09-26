@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 13:31:24 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 14:55:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}
-	// if (jaweetikt(node, env, vars) == 0)
-	// 	q_pipex_start(node, vars);
-	list_print_command(node);
+	if (jaweetikt(node, env, vars) == 0)
+		q_pipex_start(node, vars);
+	// list_print_command(node);
 }

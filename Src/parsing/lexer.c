@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/26 13:40:37 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 14:44:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,30 @@ int	redirect_infile(t_node *temp, char *split, int i)
 	return (i);
 }
 
+int	redirect_outfile(t_node *temp, char *split, int i)
+{
+	char	*word;
 
-
+	if (split[i + 2] == '\0')
+	{
+		word = ft_substr(split, i, 2);
+		list_quotes(&temp, word);
+		i = i + 2;
+	}
+	else if (split[i] == '>' && split[i + 1] == '>')
+	{
+		printf("Moeten functie voor append nog regelen");
+		i++;
+		i = list_outfile(&temp, i, split);
+	}
+	else
+		i = list_outfile(&temp, i, split);
+	return (i);
+}
 
 char	split_pipe(char *split, t_node *temp, t_envp *env)
 {
 	int		i;
-	char	*word;
 
 	i = 0;
 	fill_in(temp);
@@ -97,22 +114,7 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 		else if (split[i] == '<' && split[i + 1] == '<')
 			i = redirect_here_doc(temp, split, i, env);
 		else if (split[i] == '>')
-		{
-			if (split[i + 2] == '\0')
-			{
-				word = ft_substr(split, i, 2);
-				list_quotes(&temp, word);
-				i = i + 2;
-			}
-			else if (split[i] == '>' && split[i + 1] == '>')
-			{
-				printf("Moeten functie voor append nog regelen");
-				i++;
-				i = list_outfile(&temp, i, split);
-			}
-			else
-				i = list_outfile(&temp, i, split);
-		}
+			i = redirect_outfile(temp, split, i);
 		else if (split[i] == '<')
 			i = redirect_infile(temp, split, i);
 	}
