@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/22 12:44:29 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 12:25:11 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ int	find_quote(t_node **temp, int i, char *split, int start)
 	return (i);
 }
 
+int	var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env)
+{
+	i++;
+	i = find_var(temp, i, split, env);
+	if (split[i] == 34)
+	{
+		i++;
+		return (i);
+	}
+	else
+		return (i);
+}
+
 int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
@@ -45,13 +58,9 @@ int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 				!= 34 && split[i + 1] != ' '))
 		{
 			i = find_quote(temp, i, split, start);
-			i++;
-			i = find_var(temp, i, split, env);
-			if (split[i] == 34)
-			{
-				i++;
+			i = var_in_double_quotes(temp, i, split, env);
+			if (split[i - 1] == 34)
 				return (i);
-			}
 			else
 				start = i;
 		}	
@@ -65,6 +74,7 @@ int	list_single_quote(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
 
+	i++;
 	start = i;
 	while (split[i] != '\0')
 	{

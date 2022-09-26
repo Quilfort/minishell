@@ -20,6 +20,7 @@ SRC = ./src/main.c \
 	$(PARSING_FOLDER)lexer.c \
 	$(PARSING_FOLDER)list.c \
 	$(PARSING_FOLDER)quotes.c \
+	$(PARSING_FOLDER)words.c \
 	$(ENVIRONMENT_FOLDER)env_to_array.c \
 	$(ENVIRONMENT_FOLDER)envp_list.c \
 	$(ENVIRONMENT_FOLDER)env_var.c \

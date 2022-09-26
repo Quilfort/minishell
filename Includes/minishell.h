@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 11:35:23 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 13:27:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void	exec_init(t_node *command_table);
 t_node	*create_command_table_list(char *split, t_envp *env);
 void	command_table(char *split, t_envp	*env, t_vars *vars);
 int		make_pipes(char *split, int i);
+int		add_to_list(t_node *node, int i, char *split);
 
 		// here_doc.c
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
@@ -176,9 +177,9 @@ void	add_space(t_node **temp, char *split, int start);
 
 		// lexer.c
 void	list_print_command(t_node *list);
-int		find_word(t_node **temp, int i, char *split, int start);
+int		redirect_infile(t_node *temp, char *split, int i);
+int		redirect_here_doc(t_node *temp, char *split, int i, t_envp *env);
 char	split_pipe(char *split, t_node *temp, t_envp *env);
-int		find_var(t_node **temp, int i, char *split, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);
@@ -190,6 +191,12 @@ void	list_quotes(t_node **temp, char *word);
 int		find_quote(t_node **temp, int i, char *split, int start);
 int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
 int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
+int		var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env);
+
+		// words.c
+int		split_word(t_node **temp, int i, char *split, t_envp *env);
+int		find_word(t_node **temp, int i, char *split, int start);
+int		find_var(t_node **temp, int i, char *split, t_envp *env);
 
 // signals
 void	signals(void);

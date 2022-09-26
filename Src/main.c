@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 11:52:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 11:53:15 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_envp	*env;
 	t_vars	*vars;
 
-	init_shell();
+	// init_shell();
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (vars == NULL)
 	{

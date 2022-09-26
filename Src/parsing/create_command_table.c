@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 11:44:32 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/26 13:31:24 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,38 @@ int	make_pipes(char *split, int i)
 	return (i);
 }
 
+int	add_to_list(t_node *node, int i, char *split)
+{
+	char	*content;
+	int		start;
+
+	start = i;
+	i = make_pipes(split, i);
+	content = ft_substr(split, start, (i - start));
+	lstadd_back(&node, content);
+	i++;
+	return (i);
+}
+
 t_node	*create_command_table_list(char *split, t_envp *env)
 {
 	t_node			*node;
 	t_node			*temp;
-	char			*content;
 	int				i;
-	int				start;
 
 	i = 0;
-	start = 0;
 	i = make_pipes(split, i);
-	content = ft_substr(split, start, (i - start));
-	node = create_head(content);
+	node = create_head(ft_substr(split, 0, i));
 	i++;
 	while (split[i] != '\0')
 	{
-		start = i;
-		i = make_pipes(split, i);
-		content = ft_substr(split, start, (i - start));
-		lstadd_back(&node, content);
-		i++;
+		i = add_to_list(node, i, split);
 	}
 	temp = node;
 	while (temp != NULL)
 	{
 		split_pipe(temp->content, temp, env);
 		temp = temp->next;
-		i++;
 	}
 	return (node);
 }
@@ -111,7 +115,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}
-	if (jaweetikt(node, env, vars) == 0)
-		q_pipex_start(node, vars);
+	// if (jaweetikt(node, env, vars) == 0)
+	// 	q_pipex_start(node, vars);
 	list_print_command(node);
 }
