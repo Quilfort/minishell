@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 15:02:35 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:14:32 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ static int	echo_print(t_node *command_table, t_vars *vars, int i, \
 	{
 		str_to_print = ft_substr(command_table->words, 5, \
 		ft_strlen(command_table->words));
-		ft_putstr_fd(str_to_print, 1);
-		ft_putchar_fd('\n', 1);
+		ft_putendl_fd(str_to_print, 1);
 		free(str_to_print);
 		return (1);
 	}

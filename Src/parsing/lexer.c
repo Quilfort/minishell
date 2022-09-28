@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/26 14:44:33 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:51:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 	{
 		i = split_word(&temp, i, split, env);
 		if (split[i] == 39)
+		{
+			i++;
 			i = list_single_quote(&temp, i, split, env);
+		}
 		else if (split[i] == 34)
 		{
 			i++;

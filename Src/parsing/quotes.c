@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 12:25:11 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 14:48:44 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	list_single_quote(t_node **temp, int i, char *split, t_envp *env)
 {
 	int		start;
 
-	i++;
 	start = i;
 	while (split[i] != '\0')
 	{

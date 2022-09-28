@@ -1,0 +1,11 @@
+Includes
+Libs
+Makefile
+OLD
+Src
+infile
+infile2
+lol
+minishell
+outfile
+test2

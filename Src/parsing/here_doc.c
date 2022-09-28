@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 15:09:39 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:50:53 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	char	*delimiter;
 	int		flag;
 	int		start;
-	char	*in_operator;
 	char	*input;
 
-	in_operator = "<<";
 	flag = 0;
-	list_quotes(temp, in_operator);
 	i = i + 2;
 	if (split[i] != ' ')
 		start = i;
@@ -65,7 +62,9 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	while (flag == 0)
 	{
 		input = readline("> ");
-		if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && \
+		if (input == NULL)
+			flag = 1;
+		else if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && \
 			ft_strlen(input) != 0 && ft_strlen(delimiter) == ft_strlen(input))
 			flag = 1;
 		else
@@ -75,5 +74,7 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "\n");
 		}
 	}
+	if (split[i] == ' ')
+			i++;
 	return (i);
 }

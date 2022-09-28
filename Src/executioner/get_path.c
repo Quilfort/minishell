@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_path.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 15:57:56 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/28 14:56:18 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,7 @@ void	find_path(t_vars *vars)
 	i = 0;
 	while (ft_strncmp("PATH=", vars->enviroment[i], 5) && i + 1 < vars->env_count)
 		i++;
-	// if (i == vars->env_count)
-	// 	ft_putstr_fd("Error", 2);
-	// if (ft_strncmp("PATH=", vars->enviroment[i], 5) != 0)
-	// 	ft_putstr_fd("Error", 2);
 	temp = ft_strtrim(vars->enviroment[i], "PATH=");
-	// temp = getenv("PATH");
 	vars->path = ft_split(temp, ':');
 	if (!vars->path)
 		perror("nopath");
