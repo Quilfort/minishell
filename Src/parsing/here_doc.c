@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:50:53 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 18:25:53 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,12 @@ static char	*env_var_here_doc(char *input, t_envp *env)
 	return (output);
 }
 
-int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
+static void	write_in_file(int fd, char *delimiter, t_envp *env)
 {
-	char	*delimiter;
-	int		flag;
-	int		start;
 	char	*input;
+	int		flag;
 
 	flag = 0;
-	i = i + 2;
-	if (split[i] != ' ')
-		start = i;
-	else if (split[i] == ' ')
-	{
-		i++;
-		start = i;
-	}
-	else
-		return (i);
-	while (split[i] != ' ')
-		i++;
-	delimiter = ft_substr(split, start, (i - start));
 	while (flag == 0)
 	{
 		input = readline("> ");
@@ -70,11 +55,36 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 		else
 		{
 			input = env_var_here_doc(input, env);
-			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, input);
-			(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "\n");
+			write(fd, input, ft_strlen(input));
+			write(fd, "\n", 1);
 		}
 	}
+}
+
+int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
+{
+	char	*delimiter;
+	int		fd;
+	int		start;
+
+	i = i + 2;
+	if (split[i] != ' ')
+		start = i;
+	else if (split[i] == ' ')
+	{
+		i++;
+		start = i;
+	}
+	else
+		return (i);
+	while (split[i] != ' ' && split[i] != '\0')
+		i++;
+	delimiter = ft_substr(split, start, (i - start));
+	fd = open("tmpfile", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "active");
+	write_in_file(fd, delimiter, env);
 	if (split[i] == ' ')
 			i++;
+	close(fd);
 	return (i);
 }

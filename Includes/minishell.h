@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 15:50:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 17:38:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,10 @@ int		add_to_list(t_node *node, int i, char *split);
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
 		// lexer_util.c
-void	list_word(t_node **temp, char *word, int space);
 int		list_outfile(t_node **temp, int i, char *split);
 int		list_infile(t_node **temp, int i, char *split);
-void	add_space(t_node **temp, char *split, int start);
+int		find_var(t_node **temp, int i, char *split, t_envp *env);
+int		var_first_char(char *split, int i, t_node **temp);
 
 		// lexer.c
 void	list_print_command(t_node *list);
@@ -197,8 +197,8 @@ int		var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env);
 		// words.c
 int		split_word(t_node **temp, int i, char *split, t_envp *env);
 int		find_word(t_node **temp, int i, char *split, int start);
-int		find_var(t_node **temp, int i, char *split, t_envp *env);
-int		var_first_char(char *split, int i, t_node **temp);
+void	list_word(t_node **temp, char *word, int space);
+void	add_space(t_node **temp, char *split, int start);
 
 // signals
 void	signals(void);

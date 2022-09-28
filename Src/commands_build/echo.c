@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:14:32 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 18:21:30 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	echo_n(t_node *command_table, int i)
 {
-	char	*string_to_print;
+	char	*str_to_print;
 
 	while (command_table->command[i] != '\0')
 	{
@@ -22,10 +22,16 @@ static	int	echo_n(t_node *command_table, int i)
 			ft_putstr_fd("", 1);
 		i++;
 	}
-	string_to_print = ft_substr(command_table->words, 7, \
-							ft_strlen(command_table->words));
-	ft_putstr_fd(string_to_print, 1);
-	free(string_to_print);
+	if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+	{
+		str_to_print = ft_substr(command_table->words, 7, \
+		(ft_strlen(command_table->words) - 14));
+	}
+	else
+		str_to_print = ft_substr(command_table->words, 7, \
+		ft_strlen(command_table->words));
+	ft_putstr_fd(str_to_print, 1);
+	free(str_to_print);
 	return (1);
 }
 
@@ -40,8 +46,14 @@ static int	echo_with_outfile(t_node *command_table, t_vars *vars)
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (vars->f2 < 0)
 			perror(vars->string_outfile);
-		str_to_print = ft_substr(command_table->words, 5, \
-		ft_strlen(command_table->words));
+		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		{
+			str_to_print = ft_substr(command_table->words, 5, \
+			(ft_strlen(command_table->words) - 12));
+		}
+		else
+			str_to_print = ft_substr(command_table->words, 5, \
+			ft_strlen(command_table->words));
 		ft_putstr_fd(str_to_print, vars->f2);
 		ft_putchar_fd('\n', vars->f2);
 		free(str_to_print);
@@ -64,8 +76,14 @@ static int	echo_print(t_node *command_table, t_vars *vars, int i, \
 		return (1);
 	else
 	{
-		str_to_print = ft_substr(command_table->words, 5, \
-		ft_strlen(command_table->words));
+		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		{
+			str_to_print = ft_substr(command_table->words, 5, \
+			(ft_strlen(command_table->words) - 12));
+		}
+		else
+			str_to_print = ft_substr(command_table->words, 5, \
+			ft_strlen(command_table->words));
 		ft_putendl_fd(str_to_print, 1);
 		free(str_to_print);
 		return (1);

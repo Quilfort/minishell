@@ -6,35 +6,11 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/28 15:51:43 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 17:34:41 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	list_print_command(t_node *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("\ncontent %d:  ", i);
-		printf("%s", list->content);
-		printf("\nwords %d:  ", i);
-		printf("%s\n", list->words);
-		printf("\ninfile %d:  ", i);
-		printf("%s\n", list->infile);
-		printf("\noutfile %d:  ", i);
-		printf("%s\n", list->outfile);
-		printf("\nheredoc %d:  ", i);
-		printf("%s\n", list->heredoc);
-		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[0]);
-		list = list->next;
-		i++;
-	}
-}
 
 static void	fill_in(t_node *temp)
 {
@@ -122,4 +98,28 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 			i = redirect_infile(temp, split, i);
 	}
 	return (0);
+}
+
+void	list_print_command(t_node *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
+		printf("\nwords %d:  ", i);
+		printf("%s\n", list->words);
+		printf("\ninfile %d:  ", i);
+		printf("%s\n", list->infile);
+		printf("\noutfile %d:  ", i);
+		printf("%s\n", list->outfile);
+		printf("\nheredoc %d:  ", i);
+		printf("%s\n", list->heredoc);
+		printf("\ncommand[0] %d:  ", i);
+		printf("%s\n", list->command[0]);
+		list = list->next;
+		i++;
+	}
 }

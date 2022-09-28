@@ -6,50 +6,42 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/26 15:53:01 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/28 17:37:12 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	var_first_char(char *split, int i, t_node **temp)
+void	add_space(t_node **temp, char *split, int start)
 {
-	if ((ft_isdigit(split[i]) == 1))
-		i++;
-	else if (split[i] == '?')
+	char	*space;
+
+	if (start != 0 && split[start] == ' ')
 	{
-		i++;
-		list_quotes(temp, "0");
+		space = ft_substr(split, start, 1);
+		list_quotes(temp, space);
 	}
-	return (i);
 }
 
-int	find_var(t_node **temp, int i, char *split, t_envp *env)
+void	list_word(t_node **temp, char *word, int space)
 {
-	char	*var;
-	int		start;
+	int		i;
+	char	**split;
 
-	i = var_first_char(split, i, temp);
-	if ((ft_isdigit(split[i - 1]) != 1) && split[i - 1] != '?')
+	split = ft_split(word, ' ');
+	i = 0;
+	while (split[i] != NULL)
 	{
-		start = i;
-		while (split[i] != ' ')
+		(*temp)->words = ft_strjoin((*temp)->words, split[i]);
+		if (split[i + 1] != NULL)
+				(*temp)->words = ft_strjoin((*temp)->words, " ");
+		else
 		{
-			i++;
-			if (split[i] == 34 || split[i] == '.' || split[i] == '$' || \
-				split[i] == '\0' || split[i] == 39)
-				break ;
+			if (space == 1)
+				(*temp)->words = ft_strjoin((*temp)->words, " ");
 		}
-		var = ft_substr(split, start, (i - start));
-		var = env_var(env, var);
-		list_quotes(temp, var);
-	}
-	if (split[i] == '$')
-	{
 		i++;
-		i = find_var(temp, i, split, env);
 	}
-	return (i);
 }
 
 int	find_word(t_node **temp, int i, char *split, int start)
