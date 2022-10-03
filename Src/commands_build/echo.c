@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 18:21:30 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/03 14:49:52 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static	int	echo_n(t_node *command_table, int i)
 	return (1);
 }
 
-static int	echo_with_outfile(t_node *command_table, t_vars *vars)
+static int	echo_with_outfile(t_node *command_table)
 {
 	char	*str_to_print;
 
-	vars->string_outfile = q_find_token_outfile(command_table, vars);
-	if (vars->no_outfile == 0)
+	g_vars.string_outfile = q_find_token_outfile(command_table);
+	if (g_vars.no_outfile == 0)
 	{
-		vars->f2 = open(vars->string_outfile, \
+		g_vars.f2 = open(g_vars.string_outfile, \
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (vars->f2 < 0)
-			perror(vars->string_outfile);
+		if (g_vars.f2 < 0)
+			perror(g_vars.string_outfile);
 		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
@@ -54,16 +54,16 @@ static int	echo_with_outfile(t_node *command_table, t_vars *vars)
 		else
 			str_to_print = ft_substr(command_table->words, 5, \
 			ft_strlen(command_table->words));
-		ft_putstr_fd(str_to_print, vars->f2);
-		ft_putchar_fd('\n', vars->f2);
+		ft_putstr_fd(str_to_print, g_vars.f2);
+		ft_putchar_fd('\n', g_vars.f2);
 		free(str_to_print);
-		close(vars->f2);
+		close(g_vars.f2);
 		return (1);
 	}
 	return (0);
 }
 
-static int	echo_print(t_node *command_table, t_vars *vars, int i, \
+static int	echo_print(t_node *command_table, int i, \
 							char *str_to_print)
 {
 	while (command_table->command[i] != '\0')
@@ -72,7 +72,7 @@ static int	echo_print(t_node *command_table, t_vars *vars, int i, \
 			ft_putstr_fd("", 1);
 		i++;
 	}
-	if (echo_with_outfile(command_table, vars) == 1)
+	if (echo_with_outfile(command_table) == 1)
 		return (1);
 	else
 	{
@@ -90,7 +90,7 @@ static int	echo_print(t_node *command_table, t_vars *vars, int i, \
 	}
 }
 
-int	echo(t_node *command_table, t_vars *vars)
+int	echo(t_node *command_table)
 {
 	int		i;
 	char	*str_to_print;
@@ -105,6 +105,6 @@ int	echo(t_node *command_table, t_vars *vars)
 	else if (ft_strncmp("-n", command_table->command[1], 2) == 0)
 		return (echo_n(command_table, i));
 	else
-		return (echo_print(command_table, vars, 1, str_to_print));
+		return (echo_print(command_table, 1, str_to_print));
 	return (1);
 }

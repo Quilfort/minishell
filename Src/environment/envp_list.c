@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/20 13:40:46 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/03 14:23:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_envp	*create_head_envp(char *first)
 	return (head);
 }
 
-t_envp	*put_envp_in_list(char **envp, t_vars *vars)
+t_envp	*put_envp_in_list(char **envp)
 {
 	t_envp	*envi;
 	t_envp	*temp;

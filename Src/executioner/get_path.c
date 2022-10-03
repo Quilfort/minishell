@@ -3,64 +3,64 @@
 /*                                                        ::::::::            */
 /*   get_path.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 12:01:41 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/03 14:53:38 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_path(t_vars *vars)
+void	find_path()
 {
 	char	*temp;
 	int		i;
 
 	i = 0;
-	while (ft_strncmp("PATH=", vars->enviroment[i], 5) \
-			&& i + 1 < vars->env_count)
+	while (ft_strncmp("PATH=", g_vars.enviroment[i], 5) \
+			&& i + 1 < g_vars.env_count)
 		i++;
-	temp = ft_strtrim(vars->enviroment[i], "PATH=");
-	vars->path = ft_split(temp, ':');
-	if (!vars->path)
+	temp = ft_strtrim(g_vars.enviroment[i], "PATH=");
+	g_vars.path = ft_split(temp, ':');
+	if (!g_vars.path)
 		perror("nopath");
 }
 
-void	right_path(t_vars *vars, t_node *commands_table)
+void	right_path(t_node *commands_table)
 {
 	char	*slash;
 	char	*pipex_path;
 	int		i;
 
-	vars->my_path = NULL;
+	g_vars.my_path = NULL;
 	if (access(commands_table->command[0], X_OK) == 0)
-		vars->my_path = ft_strdup(commands_table->command[0]);
+		g_vars.my_path = ft_strdup(commands_table->command[0]);
 	i = 0;
-	while (vars->path[i] != '\0')
+	while (g_vars.path[i] != '\0')
 	{
-		slash = ft_strjoin(vars->path[i], "/");
+		slash = ft_strjoin(g_vars.path[i], "/");
 		if (!slash)
-			print_error(vars, commands_table);
+			print_error(commands_table);
 		pipex_path = ft_strjoin(slash, commands_table->command[0]);
 		if (!pipex_path)
-			print_error(vars, commands_table);
+			print_error(commands_table);
 		if (access(pipex_path, X_OK) == 0)
-			vars->my_path = ft_strdup(pipex_path);
+			g_vars.my_path = ft_strdup(pipex_path);
 		free(slash);
 		free(pipex_path);
 		i++;
 	}
-	if (!vars->my_path)
-		print_error(vars, commands_table);
+	if (!g_vars.my_path)
+		print_error(commands_table);
 }
 
 // returnd de node met token infile om die door te geven aan open
-char	*q_find_token_infile(t_node *command_table, t_vars *vars)
+char	*q_find_token_infile(t_node *command_table)
 {
 	t_node	*temp;
 
-	vars->no_infile = 0;
+	g_vars.no_infile = 0;
 	temp = command_table;
 	while (temp)
 	{
@@ -68,16 +68,16 @@ char	*q_find_token_infile(t_node *command_table, t_vars *vars)
 			return (temp->infile);
 		temp = temp->next;
 	}
-	vars->no_infile = 1;
+	g_vars.no_infile = 1;
 	return ("");
 }
 
 // returnd node met token outfile om die door te geven aan open
-char	*q_find_token_outfile(t_node *command_table, t_vars *vars)
+char	*q_find_token_outfile(t_node *command_table)
 {
 	t_node	*temp;
 
-	vars->no_outfile = 0;
+	g_vars.no_outfile = 0;
 	temp = command_table;
 	while (temp != NULL)
 	{
@@ -85,6 +85,6 @@ char	*q_find_token_outfile(t_node *command_table, t_vars *vars)
 			return (temp->outfile);
 		temp = temp->next;
 	}
-	vars->no_outfile = 1;
+	g_vars.no_outfile = 1;
 	return ("");
 }

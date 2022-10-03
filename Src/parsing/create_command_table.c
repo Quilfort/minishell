@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 11:59:11 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/03 14:33:53 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,14 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 	return (node);
 }
 
-void	command_table(char *split, t_envp *env, t_vars *vars)
+void	command_table(char *split, t_envp *env)
 {
 	t_node			*node;
 
 	node = create_command_table_list(split, env);
 	exec_init(node);
 	if (node->command[0] == NULL)
-		main_loop(0, env, vars);
+		main_loop(0, env);
 	if ((ft_strncmp("exit", node->command[0], 4) == 0) \
 		&& (node->command[1] == NULL) \
 	&& ft_strlen("exit") == ft_strlen(node->command[0]))
@@ -104,8 +104,8 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}
-	if (builtin(node, env, vars) == 0)
-		q_pipex_start(node, vars);
+	if (builtin(node, env) == 0)
+		q_pipex_start(node);
 	unlink("tmpfile");
 	// list_print_command(node);
 }
