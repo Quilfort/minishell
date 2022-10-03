@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 14:56:18 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/03 12:01:41 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	find_path(t_vars *vars)
 	int		i;
 
 	i = 0;
-	while (ft_strncmp("PATH=", vars->enviroment[i], 5) && i + 1 < vars->env_count)
+	while (ft_strncmp("PATH=", vars->enviroment[i], 5) \
+			&& i + 1 < vars->env_count)
 		i++;
 	temp = ft_strtrim(vars->enviroment[i], "PATH=");
 	vars->path = ft_split(temp, ':');

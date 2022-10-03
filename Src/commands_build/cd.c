@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands.c                                         :+:    :+:            */
+/*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 17:13:32 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/03 12:02:35 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static  void	open_folder_utils(t_node *command_table, char *last_dir)
+static	void	open_folder_utils(t_node *command_table, char *last_dir)
 {
 	if (command_table->command[1] == NULL)
 		command_table->command[1] = getenv("HOME");

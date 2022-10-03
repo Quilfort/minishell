@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:38:13 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/03 11:59:51 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <limits.h>
-
-enum tokens {
-	WORD = 1,
-	OPTION = 2,
-	LESS = 3,
-	GREAT = 4,
-	PIPE = 5,
-	AMPERSAND = 6,
-	NEWLINE = 7,
-	GREATGREAT = 8,
-	GREATAMPERSAND = 9,
-	COMMAND = 10,
-	INFILE = 11,
-	OUTFILE = 12,
-};
 
 //pipex
 typedef struct s_vars {
@@ -90,7 +75,8 @@ void	main_loop(int flag, t_envp *env, t_vars *vars);
 int		open_folder(t_node *command_table);
 
 		// commands.c
-int		commands_built(t_node *command_table, t_vars *vars);	
+int		commands_built(t_node *command_table, t_vars *vars);
+int		builtin(t_node *command_table, t_envp *env, t_vars *vars);
 int		pwd(void);
 int		env(t_vars *vars);
 

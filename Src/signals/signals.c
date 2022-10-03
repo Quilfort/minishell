@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   signals.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/09/21 16:12:51 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/03 11:56:38 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	signals(void)
 		pexit("sigaction", EXIT_FAILURE);
 	if (sigaction(SIGQUIT, &act, NULL) == -1)
 		pexit("sigaction", EXIT_FAILURE);
-
 }
