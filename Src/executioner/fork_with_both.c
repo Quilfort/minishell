@@ -36,7 +36,10 @@ void	in_out_file_fork_process(t_node *command_table)
 	g_vars.f1 = open(g_vars.string_infile, O_RDONLY, 0644);
 	if (g_vars.f1 < 0)
 		perror(g_vars.string_infile);
-	g_vars.f2 = open(g_vars.string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (g_vars.append_open == 1)
+		g_vars.f2 = open(g_vars.string_outfile, O_RDWR | O_APPEND);
+	else
+		g_vars.f2 = open(g_vars.string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (g_vars.f2 < 0)
 		perror(g_vars.string_outfile);
 	if (g_vars.com == 1)

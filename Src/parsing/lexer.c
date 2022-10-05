@@ -54,6 +54,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 {
 	char	*word;
 
+	g_vars.append_open = 0;
 	if (split[i + 2] == '\0')
 	{
 		word = ft_substr(split, i, 2);
@@ -62,7 +63,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	}
 	else if (split[i] == '>' && split[i + 1] == '>')
 	{
-		printf("Moeten functie voor append nog regelen");
+		g_vars.append_open = 1;
 		i++;
 		i = list_outfile(&temp, i, split);
 	}

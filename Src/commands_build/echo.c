@@ -42,8 +42,10 @@ static int	echo_with_outfile(t_node *command_table)
 	g_vars.string_outfile = q_find_token_outfile(command_table);
 	if (g_vars.no_outfile == 0)
 	{
-		g_vars.f2 = open(g_vars.string_outfile, \
-						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (g_vars.append_open == 1)
+			g_vars.f2 = open(g_vars.string_outfile, O_RDWR | O_APPEND);
+		else
+			g_vars.f2 = open(g_vars.string_outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (g_vars.f2 < 0)
 			perror(g_vars.string_outfile);
 		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)

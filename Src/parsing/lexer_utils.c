@@ -19,7 +19,8 @@ int	var_first_char(char *split, int i, t_node **temp)
 	else if (split[i] == '?')
 	{
 		i++;
-		list_quotes(temp, "0");
+		// list_quotes(temp, "0");
+		list_quotes(temp, ft_itoa(g_vars.exit_code));
 	}
 	return (i);
 }

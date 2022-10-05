@@ -41,6 +41,8 @@ typedef struct s_vars {
 	char	*string_outfile;
 	int		com;
 	int		com_count;
+	int		append_open;
+	int		exit_code;
 	pid_t	pid;
 }	t_vars;
 
