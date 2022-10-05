@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   get_path.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 14:53:38 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/05 13:51:25 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	find_path()
+void	find_path(void)
 {
 	char	*temp;
 	int		i;
@@ -55,7 +55,6 @@ void	right_path(t_node *commands_table)
 		print_error(commands_table);
 }
 
-// returnd de node met token infile om die door te geven aan open
 char	*q_find_token_infile(t_node *command_table)
 {
 	t_node	*temp;
@@ -72,7 +71,6 @@ char	*q_find_token_infile(t_node *command_table)
 	return ("");
 }
 
-// returnd node met token outfile om die door te geven aan open
 char	*q_find_token_outfile(t_node *command_table)
 {
 	t_node	*temp;

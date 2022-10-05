@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 15:03:03 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/05 13:50:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_node
 	char			*outfile;
 	char			*heredoc;
 	char			**command;
-	int				token;
 
 	struct s_node	*next;
 }	t_node;
@@ -159,18 +158,18 @@ int		add_to_list(t_node *node, int i, char *split);
 		// here_doc.c
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
-		// lexer_util.c
+		// interpreter_util.c
 int		list_outfile(t_node **temp, int i, char *split);
 int		list_infile(t_node **temp, int i, char *split);
 int		find_var(t_node **temp, int i, char *split, t_envp *env);
 int		var_first_char(char *split, int i, t_node **temp);
 
-		// lexer.c
+		// interpreter.c
 void	list_print_command(t_node *list);
 int		redirect_infile(t_node *temp, char *split, int i);
 int		redirect_here_doc(t_node *temp, char *split, int i, t_envp *env);
 int		redirect_outfile(t_node *temp, char *split, int i);
-char	split_pipe(char *split, t_node *temp, t_envp *env);
+void	split_pipe(char *split, t_node *temp, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);
@@ -178,7 +177,7 @@ void	lstadd_back(t_node **lst, char *split);
 t_node	*create_head(char *first);
 
 		// quotes.c
-void	list_quotes(t_node **temp, char *word);
+void	add_to_word(t_node **temp, char *word);
 int		find_quote(t_node **temp, int i, char *split, int start);
 int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
 int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
@@ -187,7 +186,7 @@ int		var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env);
 		// words.c
 int		split_word(t_node **temp, int i, char *split, t_envp *env);
 int		find_word(t_node **temp, int i, char *split, int start);
-void	list_word(t_node **temp, char *word, int space);
+void	add_to_word_split(t_node **temp, char *word, int space);
 void	add_space(t_node **temp, char *split, int start);
 
 // signals

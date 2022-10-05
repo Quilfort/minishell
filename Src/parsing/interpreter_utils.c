@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:37:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:47:42 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	var_first_char(char *split, int i, t_node **temp)
 	else if (split[i] == '?')
 	{
 		i++;
-		list_quotes(temp, ft_itoa(g_vars.exit_code));
+		add_to_word(temp, ft_itoa(g_vars.exit_code));
 	}
 	return (i);
 }
@@ -42,7 +42,7 @@ int	find_var(t_node **temp, int i, char *split, t_envp *env)
 		}
 		var = ft_substr(split, start, (i - start));
 		var = env_var(env, var);
-		list_quotes(temp, var);
+		add_to_word(temp, var);
 	}
 	if (split[i] == '$')
 	{

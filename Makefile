@@ -16,8 +16,8 @@ SRC = ./src/main.c \
 	$(SIGNAL_FOLDER)signals.c \
 	$(PARSING_FOLDER)here_doc.c \
 	$(PARSING_FOLDER)create_command_table.c \
-	$(PARSING_FOLDER)lexer_utils.c \
-	$(PARSING_FOLDER)lexer.c \
+	$(PARSING_FOLDER)interpreter_utils.c \
+	$(PARSING_FOLDER)interpreter.c \
 	$(PARSING_FOLDER)list.c \
 	$(PARSING_FOLDER)quotes.c \
 	$(PARSING_FOLDER)words.c \

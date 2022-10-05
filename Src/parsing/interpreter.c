@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
+/*   interpreter.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/03 11:56:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:49:57 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	redirect_here_doc(t_node *temp, char *split, int i, t_envp *env)
 	if (split[i + 2] == '\0')
 	{
 		word = ft_substr(split, i, 2);
-		list_quotes(&temp, word);
+		add_to_word(&temp, word);
 		i = i + 2;
 	}
 	else
@@ -42,7 +42,7 @@ int	redirect_infile(t_node *temp, char *split, int i)
 	if (split[i + 1] == '\0')
 	{
 		word = ft_substr(split, i, 1);
-		list_quotes(&temp, word);
+		add_to_word(&temp, word);
 		i++;
 	}
 	else
@@ -58,7 +58,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	if (split[i + 2] == '\0')
 	{
 		word = ft_substr(split, i, 2);
-		list_quotes(&temp, word);
+		add_to_word(&temp, word);
 		i = i + 2;
 	}
 	else if (split[i] == '>' && split[i + 1] == '>')
@@ -72,7 +72,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	return (i);
 }
 
-char	split_pipe(char *split, t_node *temp, t_envp *env)
+void	split_pipe(char *split, t_node *temp, t_envp *env)
 {
 	int		i;
 
@@ -98,7 +98,6 @@ char	split_pipe(char *split, t_node *temp, t_envp *env)
 		else if (split[i] == '<')
 			i = redirect_infile(temp, split, i);
 	}
-	return (0);
 }
 
 void	list_print_command(t_node *list)

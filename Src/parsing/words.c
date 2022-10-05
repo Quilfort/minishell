@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:37:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:46:20 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	add_space(t_node **temp, char *split, int start)
 	if (start != 0 && split[start] == ' ')
 	{
 		space = ft_substr(split, start, 1);
-		list_quotes(temp, space);
+		add_to_word(temp, space);
 	}
 }
 
-void	list_word(t_node **temp, char *word, int space)
+void	add_to_word_split(t_node **temp, char *word, int space)
 {
 	int		i;
 	char	**split;
@@ -55,7 +55,7 @@ int	find_word(t_node **temp, int i, char *split, int start)
 	pipe_split = ft_substr(split, start, (end - start));
 	if (split[i - 1] == ' ')
 		space = 1;
-	list_word(temp, pipe_split, space);
+	add_to_word_split(temp, pipe_split, space);
 	return (i);
 }
 

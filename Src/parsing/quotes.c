@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 14:48:44 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:43:42 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	list_quotes(t_node **temp, char *word)
+void	add_to_word(t_node **temp, char *word)
 {
 	(*temp)->words = ft_strjoin((*temp)->words, word);
 }
@@ -24,7 +24,7 @@ int	find_quote(t_node **temp, int i, char *split, int start)
 
 	end = i;
 	pipe_split = ft_substr(split, start, (end - start));
-	list_quotes(temp, pipe_split);
+	add_to_word(temp, pipe_split);
 	return (i);
 }
 
