@@ -52,6 +52,8 @@ void	multiple_fork(t_node *command_table)
 // is er geen outfile en infile en een command dan no_inoutfile functie
 static	void	no_inoutfile(t_node *command_table)
 {
+	int status;
+
 	find_path();
 	g_vars.pid = fork();
 	if (g_vars.pid == -1)
@@ -59,7 +61,12 @@ static	void	no_inoutfile(t_node *command_table)
 	if (g_vars.pid == 0)
 		q_preform_cmd(command_table);
 	else
-		wait(&g_vars.pid);
+	{
+		wait(&status);
+		if (WIFEXITED(status))
+			g_vars.exit_code = WEXITSTATUS(status);
+	}
+
 }
 
 void	q_pipex_start(t_node *command_table)

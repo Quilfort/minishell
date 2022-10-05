@@ -51,7 +51,7 @@ void	right_path(t_node *commands_table)
 		free(pipex_path);
 		i++;
 	}
-	if (!g_vars.my_path)
+	if (g_vars.my_path == NULL)
 		print_error(commands_table);
 }
 

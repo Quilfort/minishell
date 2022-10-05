@@ -41,11 +41,14 @@ void	close_pipes(int (*fd)[g_vars.com - 2][2])
 void	ft_wait(void)
 {
 	int	x;
+	int status;
 
 	x = 0;
 	while (x < g_vars.com)
 	{
-		wait(NULL);
+		wait(&status);
 		x++;
 	}
+	if (WIFEXITED(status))
+		g_vars.exit_code = WEXITSTATUS(status);
 }
