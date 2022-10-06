@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 15:06:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/06 14:52:55 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	main_loop(int flag, t_envp *env)
 
 	while (flag != EOF)
 	{
-		signals();
 		input = rl_history();
 		if (input == NULL)
 		{
@@ -74,6 +73,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	env = put_envp_in_list(envp);
 	envp_to_array(env);
+	signals();
 	main_loop(0, env);
 	return (0);
 }

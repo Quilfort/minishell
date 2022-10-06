@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 12:13:32 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/06 14:10:50 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void	ft_wait(void)
 		wait(&status);
 		x++;
 	}
-	if (WIFEXITED(status))
+	if (WIFSIGNALED(status))
+	{
+		g_vars.exit_code = (WTERMSIG(status));
+		g_vars.exit_code += 129;
+	}
+	else if (WIFEXITED(status))
 		g_vars.exit_code = WEXITSTATUS(status);
 }

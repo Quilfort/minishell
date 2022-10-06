@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 12:08:49 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/06 14:57:48 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,17 @@ static	void	no_inoutfile(t_node *command_table)
 	else
 	{
 		wait(&status);
+		if (WIFSIGNALED(status))
+		{
+			printf("This is number 4 = %d\n\n", (WTERMSIG(status)));
+			g_vars.exit_code = (WTERMSIG(status));
+			g_vars.exit_code += 129;
+		}
 		if (WIFEXITED(status))
+		{
+			// printf("This is number 5 = %d\n\n", WEXITSTATUS(status));
 			g_vars.exit_code = WEXITSTATUS(status);
+		}
 	}
 }
 
