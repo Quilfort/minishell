@@ -42,7 +42,7 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
+	gcc $(OBJ) $(LIBFT) $(FLAGS) -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
 
 %.o: %.c
 	gcc $(INC) -c $< -o $@

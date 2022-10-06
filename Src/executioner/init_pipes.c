@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   init_pipes.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/03 15:00:04 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/06 12:13:32 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	close_pipes(int (*fd)[g_vars.com - 2][2])
 void	ft_wait(void)
 {
 	int	x;
-	int status;
+	int	status;
 
 	x = 0;
 	while (x < g_vars.com)

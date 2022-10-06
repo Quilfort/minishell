@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/05 14:00:37 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/06 12:08:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	multiple_fork(t_node *command_table)
 // is er geen outfile en infile en een command dan no_inoutfile functie
 static	void	no_inoutfile(t_node *command_table)
 {
-	int status;
+	int	status;
 
 	find_path();
 	g_vars.pid = fork();
@@ -66,7 +66,6 @@ static	void	no_inoutfile(t_node *command_table)
 		if (WIFEXITED(status))
 			g_vars.exit_code = WEXITSTATUS(status);
 	}
-
 }
 
 void	q_pipex_start(t_node *command_table)
