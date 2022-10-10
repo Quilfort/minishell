@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/10 13:38:40 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/10 16:55:26 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,22 @@ void	command_table(char *split, t_envp *env)
 	node = create_command_table_list(split, env);
 	exec_init(node);
 	if (node->command[0] == NULL)
-		main_loop(0, env);
-	if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-		&& (node->command[1] == NULL) \
-	&& ft_strlen("exit") == ft_strlen(node->command[0]))
 	{
-		ft_putendl_fd("exit", 1);
-		exit(0);
+		wait(NULL);
+		free(node);
 	}
-	if (builtin(node, env) == 0)
-		q_pipex_start(node);
-	unlink("tmpfile");
+	else
+	{
+		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
+			&& (node->command[1] == NULL) \
+			&& ft_strlen("exit") == ft_strlen(node->command[0]))
+		{
+			ft_putendl_fd("exit", 1);
+			exit(0);
+		}
+		if (builtin(node, env) == 0)
+			q_pipex_start(node);
+		unlink("tmpfile");
+	}
 	// list_print_command(node);
 }

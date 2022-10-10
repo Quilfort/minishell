@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/10 13:10:42 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/10 16:52:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,8 @@ void	main_loop(int flag, t_envp *env)
 			flag = EOF;
 			write(2, "exit", 4);
 		}
-		else
-		{
-			if (input != NULL)
-				command_table(input, env);
-		}
+		else if (input != NULL)
+			command_table(input, env);
 	}
 }
 
