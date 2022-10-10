@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   signals.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 14:43:04 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/10 15:41:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

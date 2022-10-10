@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/14 15:07:57 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/10 13:26:58 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_node	*create_head(char *first)
 	head = (t_node *)malloc(sizeof(t_node));
 	if (head == NULL)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Error with creating list.\n", 2);
 		exit(1);
 	}
 	head->content = first;

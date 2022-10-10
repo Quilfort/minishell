@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   init_pipes.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 14:10:50 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/10 15:49:25 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ void	ft_wait(void)
 		x++;
 	}
 	if (WIFSIGNALED(status))
-	{
-		g_vars.exit_code = (WTERMSIG(status));
-		g_vars.exit_code += 129;
-	}
+		g_vars.exit_code = 130;
 	else if (WIFEXITED(status))
 		g_vars.exit_code = WEXITSTATUS(status);
 }

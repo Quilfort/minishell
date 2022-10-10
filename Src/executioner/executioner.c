@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 14:57:48 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/10 15:48:43 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,13 @@ static	void	no_inoutfile(t_node *command_table)
 		q_preform_cmd(command_table);
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		if (WIFSIGNALED(status))
-		{
-			printf("This is number 4 = %d\n\n", (WTERMSIG(status)));
-			g_vars.exit_code = (WTERMSIG(status));
-			g_vars.exit_code += 129;
-		}
+			g_vars.exit_code = 130;
 		if (WIFEXITED(status))
-		{
-			// printf("This is number 5 = %d\n\n", WEXITSTATUS(status));
 			g_vars.exit_code = WEXITSTATUS(status);
-		}
+		signals();
 	}
 }
 
