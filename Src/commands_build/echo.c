@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/06 12:08:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/10 18:10:47 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ static	int	echo_n(t_node *command_table, int i)
 	return (1);
 }
 
+static void	open_files(t_node *command_table)
+{
+	if (g_vars.append_open == 1)
+		g_vars.f2 = open(g_vars.string_outfile, O_RDWR | O_APPEND);
+	else
+		g_vars.f2 = open(g_vars.string_outfile, \
+		O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (g_vars.f2 < 0)
+		perror(g_vars.string_outfile);
+}
+
 static int	echo_with_outfile(t_node *command_table)
 {
 	char	*str_to_print;
@@ -42,13 +53,7 @@ static int	echo_with_outfile(t_node *command_table)
 	g_vars.string_outfile = q_find_token_outfile(command_table);
 	if (g_vars.no_outfile == 0)
 	{
-		if (g_vars.append_open == 1)
-			g_vars.f2 = open(g_vars.string_outfile, O_RDWR | O_APPEND);
-		else
-			g_vars.f2 = open(g_vars.string_outfile, \
-			O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (g_vars.f2 < 0)
-			perror(g_vars.string_outfile);
+		open_files(command_table);
 		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
