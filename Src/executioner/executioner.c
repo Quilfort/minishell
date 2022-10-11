@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/10 15:48:43 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/11 15:19:10 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,25 @@ void	q_preform_cmd(t_node *command_table)
 
 void	multiple_fork(t_node *command_table)
 {
-	int	fd[g_vars.com - 1][2];
+	int	**fd;
 
+	fd = malloc_pipes();
 	g_vars.com_count = 1;
-	init_pipes(&fd);
+	init_pipes(fd);
 	find_path();
-	first_child(command_table, &fd);
+	first_child(command_table, fd);
 	command_table = command_table->next;
 	while (g_vars.com_count < (g_vars.com - 1))
 	{
-		middle_child(command_table, &fd);
+		middle_child(command_table, fd);
 		g_vars.com_count++;
 		command_table = command_table->next;
 	}
-	last_child(command_table, &fd);
-	close_pipes(&fd);
+	last_child(command_table, fd);
+	close_pipes(fd);
 	ft_wait();
 }
 
-// is er geen outfile en infile en een command dan no_inoutfile functie
 static	void	no_inoutfile(t_node *command_table)
 {
 	int	status;
@@ -57,7 +57,7 @@ static	void	no_inoutfile(t_node *command_table)
 	find_path();
 	g_vars.pid = fork();
 	if (g_vars.pid == -1)
-		print_error(command_table);
+		perror("fork error\n");
 	if (g_vars.pid == 0)
 		q_preform_cmd(command_table);
 	else

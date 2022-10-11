@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interpreter.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/05 13:49:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 14:37:51 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,29 +97,5 @@ void	split_pipe(char *split, t_node *temp, t_envp *env)
 			i = redirect_outfile(temp, split, i);
 		else if (split[i] == '<')
 			i = redirect_infile(temp, split, i);
-	}
-}
-
-void	list_print_command(t_node *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("\ncontent %d:  ", i);
-		printf("%s", list->content);
-		printf("\nwords %d:  ", i);
-		printf("%s\n", list->words);
-		printf("\ninfile %d:  ", i);
-		printf("%s\n", list->infile);
-		printf("\noutfile %d:  ", i);
-		printf("%s\n", list->outfile);
-		printf("\nheredoc %d:  ", i);
-		printf("%s\n", list->heredoc);
-		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[0]);
-		list = list->next;
-		i++;
 	}
 }

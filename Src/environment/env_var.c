@@ -3,15 +3,16 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/21 12:47:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 14:58:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// alleen nodig voor testen
 void	print_envp(t_envp *list)
 {
 	int	i;

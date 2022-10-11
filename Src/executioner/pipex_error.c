@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipex_error.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/06 13:57:27 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 15:20:31 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	print_error(t_node *command_table)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
-	exit(44);
+	exit(1);
 }

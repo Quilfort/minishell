@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/03 14:53:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/11 15:19:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	just_infile_fork_process(t_node *command_table)
 	find_path();
 	g_vars.pid = fork();
 	if (g_vars.pid == -1)
-		print_error(command_table);
+		perror("fork error\n");
 	if (g_vars.pid == 0)
 	{
 		if (dup2(g_vars.f1, STDIN_FILENO) == -1)

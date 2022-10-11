@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/10 17:19:17 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/11 14:38:03 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,4 @@ void	command_table(char *split, t_envp *env)
 			q_pipex_start(node);
 		unlink("tmpfile");
 	}
-	// list_print_command(node);
 }

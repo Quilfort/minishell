@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/06 12:42:37 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 14:31:40 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,9 @@ void	multiple_fork(t_node *command_table);
 void	q_pipex_start(t_node *command_table);
 
 		// child.c
-void	first_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2]);
-void	middle_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2]);
-void	last_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2]);
+void	first_child(t_node *command_table, int **fd);
+void	middle_child(t_node *command_table, int **fd);
+void	last_child(t_node *command_table, int **fd);
 
 		// fork_with_both.c
 void	in_out_file_fork_process(t_node *command_table);
@@ -141,8 +138,9 @@ char	*q_find_token_infile(t_node *command_table);
 char	*q_find_token_outfile(t_node *command_table);
 
 		// init_pipes.c
-void	init_pipes(int (*fd)[g_vars.com - 2][2]);
-void	close_pipes(int (*fd)[g_vars.com - 2][2]);
+int		**malloc_pipes(void);
+void	init_pipes(int **fd);
+void	close_pipes(int **fd);
 void	ft_wait(void);
 
 		// pipex_error.c

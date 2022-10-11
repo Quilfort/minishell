@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fork_with_both.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 12:09:09 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 15:19:37 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	in_out_file_one_command(t_node *command_table)
 	find_path();
 	g_vars.pid = fork();
 	if (g_vars.pid == -1)
-		print_error(command_table);
+		perror("fork error\n");
 	if (g_vars.pid == 0)
 	{
 		if (dup2(g_vars.f1, STDIN_FILENO) == -1)

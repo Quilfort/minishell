@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fork_with_outfile.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/06 12:09:30 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/11 15:20:27 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	just_outfile_fork_process(t_node *command_table)
 	find_path();
 	g_vars.pid = fork();
 	if (g_vars.pid == -1)
-		print_error(command_table);
+		perror("fork error\n");
 	if (g_vars.pid == 0)
 	{
 		if (dup2(g_vars.f2, STDOUT_FILENO) == -1)

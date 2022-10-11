@@ -6,14 +6,13 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:06:14 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/03 14:52:08 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/11 14:22:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	first_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2])
+void	first_child(t_node *command_table, int **fd)
 {
 	int	pid1;
 
@@ -34,15 +33,14 @@ void	first_child(t_node *command_table, \
 		}
 		else
 		{
-			dup2((*fd)[0][1], STDOUT_FILENO);
+			dup2(fd[0][1], STDOUT_FILENO);
 			close_pipes(fd);
 			q_preform_cmd(command_table);
 		}
 	}
 }
 
-void	middle_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2])
+void	middle_child(t_node *command_table, int **fd)
 {
 	int	pid;
 
@@ -51,8 +49,8 @@ void	middle_child(t_node *command_table, \
 		print_error(command_table);
 	if (pid == 0)
 	{
-		dup2((*fd)[g_vars.com_count - 1][0], STDIN_FILENO);
-		dup2((*fd)[g_vars.com_count][1], STDOUT_FILENO);
+		dup2(fd[g_vars.com_count - 1][0], STDIN_FILENO);
+		dup2(fd[g_vars.com_count][1], STDOUT_FILENO);
 		if (!command_table->command[0])
 		{
 			close_pipes(fd);
@@ -66,8 +64,7 @@ void	middle_child(t_node *command_table, \
 	}
 }
 
-void	last_child(t_node *command_table, \
-					int (*fd)[g_vars.com][2])
+void	last_child(t_node *command_table, int **fd)
 {
 	int	pid3;
 
@@ -88,7 +85,7 @@ void	last_child(t_node *command_table, \
 		}
 		else
 		{
-			dup2((*fd)[g_vars.com_count - 1][0], STDIN_FILENO);
+			dup2(fd[g_vars.com_count - 1][0], STDIN_FILENO);
 			close_pipes(fd);
 			q_preform_cmd(command_table);
 		}
