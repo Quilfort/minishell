@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   signals.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/10 15:41:44 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 11:45:34 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ static void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
-	{
-		if (ioctl(STDIN_FILENO, TIOCSTI, "\n") == -1)
-			pexit("sigquit", EXIT_FAILURE);
-		sleep(0);
-	}
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals(void)

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/05 13:46:20 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 11:39:01 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	split_word(t_node **temp, int i, char *split, t_envp *env)
 		}
 		if ((split[i] == '$' && (split[i + 1] != ' ' && split[i + 1] != '\0')))
 		{
-			i = find_quote(temp, i, split, start);
+			i = find_word(temp, i, split, start);
 			i++;
 			i = find_var(temp, i, split, env);
 			if (split[i] == 39 || split[i] == 34)
