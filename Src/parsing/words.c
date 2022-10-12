@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   words.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 15:32:51 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 19:10:29 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	add_to_word_split(t_node **temp, char *word, int space)
 	i = 0;
 	while (split[i] != NULL)
 	{
-		(*temp)->words = ft_strjoin((*temp)->words, split[i]);
+		if ((*temp)->words == NULL)
+			(*temp)->words = ft_strdup(split[i]);
+		else
+			(*temp)->words = ft_strjoin((*temp)->words, split[i]);
 		if (split[i + 1] != NULL)
-				(*temp)->words = ft_strjoin((*temp)->words, " ");
+			(*temp)->words = ft_strjoin((*temp)->words, " ");
 		else
 		{
 			if (space == 1)
@@ -42,6 +45,7 @@ void	add_to_word_split(t_node **temp, char *word, int space)
 		}
 		i++;
 	}
+	free(split);
 }
 
 int	find_word(t_node **temp, int i, char *split, int start)

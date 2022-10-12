@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 15:25:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 18:56:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	int	echo_n(t_node *command_table, int i)
 			ft_putstr_fd("", 1);
 		i++;
 	}
-	if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+	if (command_table->heredoc != NULL)
 	{
 		str_to_print = ft_substr(command_table->words, 7, \
 		(ft_strlen(command_table->words) - 14));
@@ -54,7 +54,7 @@ static int	echo_with_outfile(t_node *command_table, t_vars *vars)
 	if (vars->no_outfile == 0)
 	{
 		open_files(command_table, vars);
-		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		if (command_table->heredoc != NULL)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
 			(ft_strlen(command_table->words) - 12));
@@ -84,7 +84,7 @@ static int	echo_print(t_node *command_table, int i, \
 		return (1);
 	else
 	{
-		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		if (command_table->heredoc != NULL)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
 			(ft_strlen(command_table->words) - 12));
