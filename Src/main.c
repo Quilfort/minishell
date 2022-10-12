@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 10:41:11 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 10:57:09 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	main(int argc, char *argv[], char **envp)
 
 	env = put_envp_in_list(envp);
 	envp_to_array(env);
-	init_shell();
 	signals();
+	init_shell();
 	main_loop(0, env);
 	return (0);
 }
