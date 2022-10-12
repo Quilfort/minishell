@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lexer_utils.c                                      :+:    :+:            */
+/*   interpreter_utils.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/05 13:47:42 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 15:33:33 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	var_first_char(char *split, int i, t_node **temp)
 	else if (split[i] == '?')
 	{
 		i++;
-		add_to_word(temp, ft_itoa(g_vars.exit_code));
+		add_to_word(temp, ft_itoa(g_exitcode));
 	}
 	return (i);
 }
@@ -68,14 +68,15 @@ int	list_outfile(t_node **temp, int i, char *split)
 		{
 			end = i;
 			outfile = ft_substr(split, start, (end - start));
-			(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile);
+			(*temp)->outfile = ft_strdup(outfile);
 			return (i);
 		}
 		i++;
 	}
 	end = i;
 	outfile = ft_substr(split, start, (end - start));
-	(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile);
+	(*temp)->outfile = ft_strdup(outfile);
+	free(outfile);
 	return (i);
 }
 
@@ -95,13 +96,14 @@ int	list_infile(t_node **temp, int i, char *split)
 		{
 			end = i;
 			infile = ft_substr(split, start, (end - start));
-			(*temp)->infile = ft_strjoin((*temp)->infile, infile);
+			(*temp)->infile = ft_strdup(infile);
 			return (i);
 		}
 		i++;
 	}
 	end = i;
 	infile = ft_substr(split, start, (end - start));
-	(*temp)->infile = ft_strjoin((*temp)->infile, infile);
+	(*temp)->infile = ft_strdup(infile);
+	free(infile);
 	return (i);
 }

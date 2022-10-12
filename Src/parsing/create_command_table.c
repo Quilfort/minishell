@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 10:04:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 15:35:03 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec_init(t_node *command_table)
 {
-	if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+	if (command_table->heredoc != NULL)
 	{
 		command_table->words = ft_strjoin(command_table->words, " ");
 		command_table->words = ft_strjoin(command_table->words, "tmpfile");
@@ -23,7 +23,7 @@ void	exec_init(t_node *command_table)
 	while (command_table->next != NULL)
 	{
 		command_table = command_table->next;
-		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		if (command_table->heredoc != NULL)
 		{
 			command_table->words = ft_strjoin(command_table->words, " ");
 			command_table->words = ft_strjoin(command_table->words, "tmpfile");
@@ -66,7 +66,7 @@ int	add_to_list(t_node *node, int i, char *split)
 	return (i);
 }
 
-t_node	*create_command_table_list(char *split, t_envp *env)
+t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
 	t_node			*temp;
@@ -83,17 +83,17 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 	temp = node;
 	while (temp != NULL)
 	{
-		split_pipe(temp->content, temp, env);
+		split_pipe(temp->content, temp, env, vars);
 		temp = temp->next;
 	}
 	return (node);
 }
 
-void	command_table(char *split, t_envp *env)
+void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
 
-	node = create_command_table_list(split, env);
+	node = create_command_table_list(split, env, vars);
 	exec_init(node);
 	if (node->command[0] == NULL)
 	{
@@ -109,8 +109,8 @@ void	command_table(char *split, t_envp *env)
 			ft_putendl_fd("exit", 1);
 			exit(0);
 		}
-		if (builtin(node, env) == 0)
-			q_pipex_start(node);
+		if (builtin(node, env, vars) == 0)
+			q_pipex_start(node, vars);
 		unlink("tmpfile");
 		free_command(node);
 	}

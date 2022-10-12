@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   words.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 11:39:01 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 15:32:51 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	find_word(t_node **temp, int i, char *split, int start)
 	if (split[i - 1] == ' ')
 		space = 1;
 	add_to_word_split(temp, pipe_split, space);
+	free(pipe_split);
 	return (i);
 }
 

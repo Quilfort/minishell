@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 10:26:34 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 15:30:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <limits.h>
 # include <termios.h>
 
+extern int	g_exitcode;
+
 //pipex
 typedef struct s_vars {
 	int		f1;
@@ -44,11 +46,8 @@ typedef struct s_vars {
 	int		com;
 	int		com_count;
 	int		append_open;
-	int		exit_code;
 	pid_t	pid;
 }	t_vars;
-
-extern t_vars	g_vars;
 
 //input to commands
 typedef struct s_node
@@ -73,7 +72,7 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
-void	main_loop(int flag, t_envp *env);
+void	main_loop(int flag, t_envp *env, t_vars *vars);
 void	free_command(t_node *list);
 
 // Commands_build
@@ -81,25 +80,25 @@ void	free_command(t_node *list);
 int		open_folder(t_node *command_table);
 
 		// commands.c
-int		commands_built(t_node *command_table);
-int		builtin(t_node *command_table, t_envp *env);
+int		commands_built(t_node *command_table, t_vars *vars);
+int		builtin(t_node *command_table, t_envp *env, t_vars *vars);
 int		pwd(void);
-int		env(void);
+int		env(t_vars *vars);
 
 		//echo.c
-int		echo(t_node *command_table);
+int		echo(t_node *command_table, t_vars *vars);
 
 		// export.c
-void	export(t_envp *env_list, t_node *command_table);
+void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// unset.c
-void	unset(t_envp *env_list, t_node *command_table);
+void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 // environment
 		// env_to_array.c
 int		lst_size(t_envp *list);
 void	print_array(void);
-void	envp_to_array(t_envp *env);
+void	envp_to_array(t_envp *env, t_vars *vars);
 void	free_envp(t_envp *list);
 
 		// env_var.c
@@ -115,45 +114,45 @@ t_envp	*put_envp_in_list(char **envp);
 
 // executioner
 		// executioner.c
-void	q_preform_cmd(t_node *command_table);
-void	multiple_fork(t_node *command_table);
-void	q_pipex_start(t_node *command_table);
+void	q_preform_cmd(t_node *command_table, t_vars *vars);
+void	multiple_fork(t_node *command_table, t_vars *vars);
+void	q_pipex_start(t_node *command_table, t_vars *vars);
 
 		// child.c
-void	first_child(t_node *command_table, int **fd);
-void	middle_child(t_node *command_table, int **fd);
-void	last_child(t_node *command_table, int **fd);
+void	first_child(t_node *command_table, int **fd, t_vars *vars);
+void	middle_child(t_node *command_table, int **fd, t_vars *vars);
+void	last_child(t_node *command_table, int **fd, t_vars *vars);
 
 		// fork_with_both.c
-void	in_out_file_fork_process(t_node *command_table);
+void	in_out_file_fork_process(t_node *command_table, t_vars *vars);
 
 		// fork_with_infile.c
-void	just_infile_multiple_fork_process(t_node *command_table);
+void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars);
 
 		// fork_with_outfile.c
-void	just_outfile_multiple_fork_process(t_node *command_table);
+void	just_outfile_multiple_fork_process(t_node *command_table, t_vars *vars);
 
 		// get_path.c
-void	right_path(t_node *command_table);
-void	find_path(void);
-char	*q_find_token_infile(t_node *command_table);
-char	*q_find_token_outfile(t_node *command_table);
+void	right_path(t_node *command_table, t_vars *vars);
+void	find_path(t_vars *vars);
+char	*q_find_token_infile(t_node *command_table, t_vars *vars);
+char	*q_find_token_outfile(t_node *command_table, t_vars *vars);
 
 		// init_pipes.c
-int		**malloc_pipes(void);
-void	init_pipes(int **fd);
-void	close_pipes(int **fd);
-void	ft_wait(void);
+int		**malloc_pipes(t_vars *vars);
+void	init_pipes(int **fd, t_vars *vars);
+void	close_pipes(int **fd, t_vars *vars);
+void	ft_wait(t_vars *vars);
 
 		// pipex_error.c
-void	print_error(t_node *command_table);
+void	print_error(t_node *command_table, t_vars *vars);
 void	pexit(char *str, int exit_code);
 
 // parsing
 		// create_command_table.c
 void	exec_init(t_node *command_table);
-t_node	*create_command_table_list(char *split, t_envp *env);
-void	command_table(char *split, t_envp *env);
+t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars);
+void	command_table(char *split, t_envp *env, t_vars *vars);
 int		make_pipes(char *split, int i);
 int		add_to_list(t_node *node, int i, char *split);
 
@@ -170,8 +169,8 @@ int		var_first_char(char *split, int i, t_node **temp);
 void	list_print_command(t_node *list);
 int		redirect_infile(t_node *temp, char *split, int i);
 int		redirect_here_doc(t_node *temp, char *split, int i, t_envp *env);
-int		redirect_outfile(t_node *temp, char *split, int i);
-void	split_pipe(char *split, t_node *temp, t_envp *env);
+int		redirect_outfile(t_node *temp, char *split, int i, t_vars *vars);
+void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars);
 
 		// list.c
 int		lstsize(t_node *list);

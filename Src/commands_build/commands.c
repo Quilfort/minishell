@@ -6,19 +6,19 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 14:48:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 15:25:14 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin(t_node *command_table, t_envp *env)
+int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 {
 	if ((ft_strncmp("export", command_table->command[0], 6) == 0) && \
 		(command_table->command[1] != NULL) \
 		&& ft_strlen("export") == ft_strlen(command_table->command[0]))
 	{
-		export(env, command_table);
+		export(env, command_table, vars);
 		return (1);
 	}
 	if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
@@ -31,13 +31,13 @@ int	builtin(t_node *command_table, t_envp *env)
 		&& (command_table->command[1] != NULL) \
 	&& ft_strlen("unset") == ft_strlen(command_table->command[0]))
 	{
-		unset(env, command_table);
+		unset(env, command_table, vars);
 		return (1);
 	}
 	return (0);
 }
 
-int	commands_built(t_node *command_table)
+int	commands_built(t_node *command_table, t_vars *vars)
 {
 	if ((ft_strncmp("pwd", command_table->command[0], 3) == 0) \
 		&& (command_table->command[1] == NULL) \
@@ -45,11 +45,11 @@ int	commands_built(t_node *command_table)
 		return (pwd());
 	if ((ft_strncmp("echo", command_table->content, 4) == 0) \
 		&& ft_strlen("echo") == ft_strlen(command_table->command[0]))
-		return (echo(command_table));
+		return (echo(command_table, vars));
 	if ((ft_strncmp("env", command_table->command[0], 3) == 0) \
 		&& (command_table->command[1] == NULL) \
 		&& ft_strlen("env") == ft_strlen(command_table->command[0]))
-		return (env());
+		return (env(vars));
 	return (0);
 }
 
@@ -62,14 +62,14 @@ int	pwd(void)
 	return (1);
 }
 
-int	env(void)
+int	env(t_vars *vars)
 {
 	int	i;
 
 	i = 0;
-	while (i < g_vars.env_count)
+	while (i < vars->env_count)
 	{
-		ft_putendl_fd(g_vars.enviroment[i], 1);
+		ft_putendl_fd(vars->enviroment[i], 1);
 		i++;
 	}
 	return (1);

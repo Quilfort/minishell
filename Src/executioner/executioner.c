@@ -6,87 +6,87 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/11 15:19:10 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 15:17:38 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
 
-void	q_preform_cmd(t_node *command_table)
+void	q_preform_cmd(t_node *command_table, t_vars *vars)
 {
-	if ((commands_built(command_table) == 0))
+	if ((commands_built(command_table, vars) == 0))
 	{
 		if (!command_table->command)
-			print_error(command_table);
-		right_path(command_table);
-		if (!g_vars.my_path)
-			print_error(command_table);
-		if (execve(g_vars.my_path, command_table->command, \
-			g_vars.enviroment) < 0)
-			print_error(command_table);
+			print_error(command_table, vars);
+		right_path(command_table, vars);
+		if (!vars->my_path)
+			print_error(command_table, vars);
+		if (execve(vars->my_path, command_table->command, \
+			vars->enviroment) < 0)
+			print_error(command_table, vars);
 	}
 	else
 		exit(0);
 }
 
-void	multiple_fork(t_node *command_table)
+void	multiple_fork(t_node *command_table, t_vars *vars)
 {
 	int	**fd;
 
-	fd = malloc_pipes();
-	g_vars.com_count = 1;
-	init_pipes(fd);
-	find_path();
-	first_child(command_table, fd);
+	fd = malloc_pipes(vars);
+	vars->com_count = 1;
+	init_pipes(fd, vars);
+	find_path(vars);
+	first_child(command_table, fd, vars);
 	command_table = command_table->next;
-	while (g_vars.com_count < (g_vars.com - 1))
+	while (vars->com_count < (vars->com - 1))
 	{
-		middle_child(command_table, fd);
-		g_vars.com_count++;
+		middle_child(command_table, fd, vars);
+		vars->com_count++;
 		command_table = command_table->next;
 	}
-	last_child(command_table, fd);
-	close_pipes(fd);
-	ft_wait();
+	last_child(command_table, fd, vars);
+	close_pipes(fd, vars);
+	ft_wait(vars);
 }
 
-static	void	no_inoutfile(t_node *command_table)
+static	void	no_inoutfile(t_node *command_table, t_vars *vars)
 {
 	int	status;
 
-	find_path();
-	g_vars.pid = fork();
-	if (g_vars.pid == -1)
+	find_path(vars);
+	vars->pid = fork();
+	if (vars->pid == -1)
 		perror("fork error\n");
-	if (g_vars.pid == 0)
-		q_preform_cmd(command_table);
+	if (vars->pid == 0)
+		q_preform_cmd(command_table, vars);
 	else
 	{
 		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		if (WIFSIGNALED(status))
-			g_vars.exit_code = 130;
+			g_exitcode = 130;
 		if (WIFEXITED(status))
-			g_vars.exit_code = WEXITSTATUS(status);
+			g_exitcode = WEXITSTATUS(status);
 		signals();
 	}
 }
 
-void	q_pipex_start(t_node *command_table)
+void	q_pipex_start(t_node *command_table, t_vars *vars)
 {
-	g_vars.string_infile = q_find_token_infile(command_table);
-	g_vars.string_outfile = q_find_token_outfile(command_table);
-	g_vars.com = lstsize(command_table);
-	if (g_vars.no_infile == 1 && g_vars.no_outfile == 1 && g_vars.com == 1)
-		no_inoutfile(command_table);
-	if (g_vars.no_infile == 1 && g_vars.no_outfile == 1 && g_vars.com > 1)
-		multiple_fork(command_table);
-	if (g_vars.no_infile == 0 && g_vars.no_outfile == 1)
-		just_infile_multiple_fork_process(command_table);
-	if (g_vars.no_infile == 1 && g_vars.no_outfile == 0)
-		just_outfile_multiple_fork_process(command_table);
-	if (g_vars.no_infile == 0 && g_vars.no_outfile == 0)
-		in_out_file_fork_process(command_table);
+	vars->string_infile = q_find_token_infile(command_table, vars);
+	vars->string_outfile = q_find_token_outfile(command_table, vars);
+	vars->com = lstsize(command_table);
+	if (vars->no_infile == 1 && vars->no_outfile == 1 && vars->com == 1)
+		no_inoutfile(command_table, vars);
+	if (vars->no_infile == 1 && vars->no_outfile == 1 && vars->com > 1)
+		multiple_fork(command_table, vars);
+	if (vars->no_infile == 0 && vars->no_outfile == 1)
+		just_infile_multiple_fork_process(command_table, vars);
+	if (vars->no_infile == 1 && vars->no_outfile == 0)
+		just_outfile_multiple_fork_process(command_table, vars);
+	if (vars->no_infile == 0 && vars->no_outfile == 0)
+		in_out_file_fork_process(command_table, vars);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/11 14:37:51 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 15:25:06 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	redirect_infile(t_node *temp, char *split, int i)
 	return (i);
 }
 
-int	redirect_outfile(t_node *temp, char *split, int i)
+int	redirect_outfile(t_node *temp, char *split, int i, t_vars *vars)
 {
 	char	*word;
 
-	g_vars.append_open = 0;
+	vars->append_open = 0;
 	if (split[i + 2] == '\0')
 	{
 		word = ft_substr(split, i, 2);
@@ -63,7 +63,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	}
 	else if (split[i] == '>' && split[i + 1] == '>')
 	{
-		g_vars.append_open = 1;
+		vars->append_open = 1;
 		i++;
 		i = list_outfile(&temp, i, split);
 	}
@@ -72,7 +72,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	return (i);
 }
 
-void	split_pipe(char *split, t_node *temp, t_envp *env)
+void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars)
 {
 	int		i;
 
@@ -94,7 +94,7 @@ void	split_pipe(char *split, t_node *temp, t_envp *env)
 		else if (split[i] == '<' && split[i + 1] == '<')
 			i = redirect_here_doc(temp, split, i, env);
 		else if (split[i] == '>')
-			i = redirect_outfile(temp, split, i);
+			i = redirect_outfile(temp, split, i, vars);
 		else if (split[i] == '<')
 			i = redirect_infile(temp, split, i);
 	}

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 10:57:09 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 15:29:48 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*rl_history(void)
 	return (input);
 }
 
-void	main_loop(int flag, t_envp *env)
+void	main_loop(int flag, t_envp *env, t_vars	*vars)
 {
 	char			*input;
 
@@ -70,21 +70,28 @@ void	main_loop(int flag, t_envp *env)
 			write(2, "exit", 4);
 		}
 		else if (input != NULL)
-			command_table(input, env);
+			command_table(input, env, vars);
 	}
 	free_envp(env);
 }
 
-t_vars	g_vars;
+int	g_exitcode;
 
 int	main(int argc, char *argv[], char **envp)
 {
 	t_envp	*env;
+	t_vars	*vars;
 
+	vars = (t_vars *)malloc(sizeof(t_vars));
+	if (vars == NULL)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
 	env = put_envp_in_list(envp);
-	envp_to_array(env);
+	envp_to_array(env, vars);
 	signals();
 	init_shell();
-	main_loop(0, env);
+	main_loop(0, env, vars);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 14:51:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 15:15:41 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static	void	unset_utils(t_envp *env_list, t_envp *temp, \
 	}
 }
 
-void	unset(t_envp *env_list, t_node *command_table)
+void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 {
 	t_envp	*temp;
 	t_envp	*del;
@@ -61,6 +61,6 @@ void	unset(t_envp *env_list, t_node *command_table)
 	temp = env_list;
 	position = get_pos(env_list, command_table);
 	unset_utils(env_list, temp, del, position);
-	free(g_vars.enviroment);
-	envp_to_array(env_list);
+	free(vars->enviroment);
+	envp_to_array(env_list, vars);
 }

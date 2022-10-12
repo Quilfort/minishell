@@ -6,47 +6,47 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/11 15:19:37 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 15:23:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	in_out_file_one_command(t_node *command_table)
+static void	in_out_file_one_command(t_node *command_table, t_vars *vars)
 {
-	find_path();
-	g_vars.pid = fork();
-	if (g_vars.pid == -1)
+	find_path(vars);
+	vars->pid = fork();
+	if (vars->pid == -1)
 		perror("fork error\n");
-	if (g_vars.pid == 0)
+	if (vars->pid == 0)
 	{
-		if (dup2(g_vars.f1, STDIN_FILENO) == -1)
-			print_error(command_table);
-		if (dup2(g_vars.f2, STDOUT_FILENO) == -1)
-			print_error(command_table);
-		q_preform_cmd(command_table);
+		if (dup2(vars->f1, STDIN_FILENO) == -1)
+			print_error(command_table, vars);
+		if (dup2(vars->f2, STDOUT_FILENO) == -1)
+			print_error(command_table, vars);
+		q_preform_cmd(command_table, vars);
 	}
 	else
-		wait(&g_vars.pid);
+		wait(&vars->pid);
 }
 
 // is er een infile en outfile en meerdere commands open allebei en multiplefork
-void	in_out_file_fork_process(t_node *command_table)
+void	in_out_file_fork_process(t_node *command_table, t_vars *vars)
 {
-	g_vars.f1 = open(g_vars.string_infile, O_RDONLY, 0644);
-	if (g_vars.f1 < 0)
-		perror(g_vars.string_infile);
-	if (g_vars.append_open == 1)
-		g_vars.f2 = open(g_vars.string_outfile, O_RDWR | O_APPEND);
+	vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
+	if (vars->f1 < 0)
+		perror(vars->string_infile);
+	if (vars->append_open == 1)
+		vars->f2 = open(vars->string_outfile, O_RDWR | O_APPEND);
 	else
-		g_vars.f2 = open(g_vars.string_outfile, \
+		vars->f2 = open(vars->string_outfile, \
 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (g_vars.f2 < 0)
-		perror(g_vars.string_outfile);
-	if (g_vars.com == 1)
-		in_out_file_one_command(command_table);
+	if (vars->f2 < 0)
+		perror(vars->string_outfile);
+	if (vars->com == 1)
+		in_out_file_one_command(command_table, vars);
 	else
-		multiple_fork(command_table);
-	close(g_vars.f1);
-	close(g_vars.f2);
+		multiple_fork(command_table, vars);
+	close(vars->f1);
+	close(vars->f2);
 }
