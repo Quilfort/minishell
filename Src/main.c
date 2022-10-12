@@ -3,14 +3,26 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/10 16:52:00 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 10:41:11 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_command(t_node *list)
+{
+	t_node	*temp;
+
+	while (list != NULL)
+	{
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
+}
 
 static void	init_shell(void)
 {
@@ -60,6 +72,7 @@ void	main_loop(int flag, t_envp *env)
 		else if (input != NULL)
 			command_table(input, env);
 	}
+	free_envp(env);
 }
 
 t_vars	g_vars;
@@ -70,6 +83,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	env = put_envp_in_list(envp);
 	envp_to_array(env);
+	init_shell();
 	signals();
 	main_loop(0, env);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/11 14:38:03 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 10:04:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	command_table(char *split, t_envp *env)
 		if (builtin(node, env) == 0)
 			q_pipex_start(node);
 		unlink("tmpfile");
+		free_command(node);
 	}
 }

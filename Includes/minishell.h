@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/11 14:31:40 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/12 10:26:34 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_envp
 }	t_envp;
 
 void	main_loop(int flag, t_envp *env);
+void	free_command(t_node *list);
 
 // Commands_build
 		// cd.c
@@ -99,6 +100,7 @@ void	unset(t_envp *env_list, t_node *command_table);
 int		lst_size(t_envp *list);
 void	print_array(void);
 void	envp_to_array(t_envp *env);
+void	free_envp(t_envp *list);
 
 		// env_var.c
 void	print_envp(t_envp *list);
