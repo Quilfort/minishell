@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 19:02:46 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 16:12:26 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exec_init(t_node *command_table)
 			// printf("8\n\n");
 		}
 		// printf("9\n\n");
+		
 		command_table->command = ft_split(command_table->words, ' ');
 		// printf("10\n\n");
 	}
@@ -73,8 +74,8 @@ int	add_to_list(t_node *node, int i, char *split)
 	i = make_pipes(split, i);
 	content = ft_substr(split, start, (i - start));
 	lstadd_back(&node, content);
+	// free(content);
 	i++;
-	free(content);
 	return (i);
 }
 
@@ -89,7 +90,6 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 	i = make_pipes(split, i);
 	string = ft_substr(split, 0, i);
 	node = create_head(string);
-	free(string);
 	i++;
 	while (split[i] != '\0')
 	{
@@ -101,6 +101,7 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 		split_pipe(temp->content, temp, env, vars);
 		temp = temp->next;
 	}
+	// free(string);
 	return (node);
 }
 
@@ -128,7 +129,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 			q_pipex_start(node, vars);
 		unlink("tmpfile");
 		// list_print_command(node);
-		free_command(node);
+		// free_command(node);
 
 	}
 }

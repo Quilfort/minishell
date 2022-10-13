@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 13:40:15 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 16:11:12 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	free_envp(t_envp *list)
 	{
 		temp = list;
 		list = list->next;
+		free(temp->content);
+		free(temp->key);
+		free(temp->output);
 		free(temp);
 	}
 }
@@ -44,7 +47,7 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 
 	count = lst_size(env);
 	i = 0;
-	vars->enviroment = malloc((count) * sizeof(char *));
+	vars->enviroment = malloc((count + 1) * sizeof(char *));
 	if (vars->enviroment == NULL)
 		pexit("error", 1);
 	while (i < count)

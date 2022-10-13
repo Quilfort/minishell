@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 19:00:30 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 16:12:18 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,24 @@
 void	free_command(t_node *list)
 {
 	t_node	*temp;
+	size_t	i;
 
+	i = 0;
 	while (list != NULL)
 	{
 		temp = list;
 		list = list->next;
+		free(temp->words);
+		free(temp->content);
+		free(temp->heredoc);
+		free(temp->infile);
+		free(temp->outfile);
+		while (temp->command[i] != NULL)
+		{
+			free(temp->command[i]);
+			i++;
+		}
+		free(temp->command);
 		free(temp);
 	}
 }
@@ -68,13 +81,15 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		{
 			flag = EOF;
 			write(2, "exit", 4);
+			// free_envp(env);
+			// exit(0);
 		}
 		else if (input != NULL)
 		{
 			input[ft_strlen(input) + 1] = '\0';
 			command_table(input, env, vars);
 		}
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 	free_envp(env);
 }

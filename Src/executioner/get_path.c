@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 16:56:40 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 11:10:35 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	find_path(t_vars *vars)
 	vars->path = ft_split(temp, ':');
 	if (!vars->path)
 		perror("nopath");
-	free(temp);
 }
 
 void	right_path(t_node *commands_table, t_vars *vars)

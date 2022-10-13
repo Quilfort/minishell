@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/12 15:44:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/12 19:42:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,19 @@ void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars)
 
 	i = 0;
 	fill_in(temp);
+	// printf("this is split[i] = %s\n\n", split);
+	// printf("this is split[0] = %c\n\n", split[0]);
 	while (split[i] != '\0')
 	{
 		i = split_word(&temp, i, split, env);
-		if (split[i] == 39)
+		// printf("Do you work\n\n");
+		// printf("[i] = %d\n\n", i);
+		// printf("dit is split: %s\n\n", split);
+		// printf("this is split[i] = %c\n\n", split[i]);
+		// printf("this is split[0] = %c\n\n", split[0]);
+		// printf("this is split[1] = %c\n\n", split[1]);
+		// printf("this is split[2] = %c\n\n", split[2]);
+		if (split[i] == '\'')
 		{
 			i++;
 			i = list_single_quote(&temp, i, split, env);
