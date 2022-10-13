@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:38:53 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 19:29:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	find_path(t_vars *vars)
 		i++;
 	temp = ft_strtrim(vars->enviroment[i], "PATH=");
 	vars->path = ft_split(temp, ':');
+	free(temp);
 	if (!vars->path)
 		perror("nopath");
 }

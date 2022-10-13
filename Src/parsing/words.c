@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:42:03 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 19:11:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 void	add_space(t_node **temp, char *split, int start)
 {
-	char	*space;
-
 	if (start != 0 && split[start] == ' ')
+		add_to_word(temp, " ");
+}
+
+void	freesplit(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != NULL)
 	{
-		space = ft_substr(split, start, 1);
-		add_to_word(temp, space);
+		free(split[i]);
+		i++;
 	}
+	free(split);
 }
 
 void	add_to_word_split(t_node **temp, char *word, int space)
@@ -32,16 +40,17 @@ void	add_to_word_split(t_node **temp, char *word, int space)
 	i = 0;
 	while (split[i] != NULL)
 	{
-		(*temp)->words = ft_strjoin((*temp)->words, split[i]);
+		(*temp)->words = ft_strjoin_free((*temp)->words, split[i]);
 		if (split[i + 1] != NULL)
-				(*temp)->words = ft_strjoin((*temp)->words, " ");
+				(*temp)->words = ft_strjoin_free((*temp)->words, " ");
 		else
 		{
 			if (space == 1)
-				(*temp)->words = ft_strjoin((*temp)->words, " ");
+				(*temp)->words = ft_strjoin_free((*temp)->words, " ");
 		}
 		i++;
 	}
+	freesplit(split);
 }
 
 int	find_word(t_node **temp, int i, char *split, int start)
@@ -56,6 +65,7 @@ int	find_word(t_node **temp, int i, char *split, int start)
 	if (split[i - 1] == ' ')
 		space = 1;
 	add_to_word_split(temp, pipe_split, space);
+	free(pipe_split);
 	return (i);
 }
 

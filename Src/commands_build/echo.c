@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:33:12 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 19:18:59 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,13 @@ static	int	echo_n(t_node *command_table, int i)
 {
 	char	*str_to_print;
 
-	while (command_table->command[i] != '\0')
-	{
-		if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
-			ft_putstr_fd("", 1);
-		i++;
-	}
-	if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+	if (command_table->heredoc != NULL)
 	{
 		str_to_print = ft_substr(command_table->words, 7, \
 		(ft_strlen(command_table->words) - 14));
 	}
 	else
-		str_to_print = ft_substr(command_table->words, 7, \
+		str_to_print = ft_substr(command_table->words, 8, \
 		ft_strlen(command_table->words));
 	ft_putstr_fd(str_to_print, 1);
 	free(str_to_print);
@@ -54,7 +48,7 @@ static int	echo_with_outfile(t_node *command_table, t_vars *vars)
 	if (vars->no_outfile == 0)
 	{
 		open_files(command_table, vars);
-		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		if (command_table->heredoc != NULL)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
 			(ft_strlen(command_table->words) - 12));
@@ -74,17 +68,11 @@ static int	echo_with_outfile(t_node *command_table, t_vars *vars)
 static int	echo_print(t_node *command_table, int i, \
 							char *str_to_print, t_vars *vars)
 {
-	while (command_table->command[i] != '\0')
-	{
-		if (ft_strncmp(command_table->command[i], "<<", 2) == 0)
-			ft_putstr_fd("", 1);
-		i++;
-	}
 	if (echo_with_outfile(command_table, vars) == 1)
 		return (1);
 	else
 	{
-		if (ft_strncmp(command_table->heredoc, "active", 6) == 0)
+		if (command_table->heredoc != NULL)
 		{
 			str_to_print = ft_substr(command_table->words, 5, \
 			(ft_strlen(command_table->words) - 12));

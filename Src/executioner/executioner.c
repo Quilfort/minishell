@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:52:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 19:42:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	q_preform_cmd(t_node *command_table, t_vars *vars)
 		exit(0);
 }
 
+void	freepipes(int **fd, t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (i < vars->com - 1)
+	{
+		free(fd[i]);
+		i++;
+	}
+	free(fd);
+}
+
 void	multiple_fork(t_node *command_table, t_vars *vars)
 {
 	int	**fd;
@@ -48,6 +61,7 @@ void	multiple_fork(t_node *command_table, t_vars *vars)
 	last_child(command_table, fd, vars);
 	close_pipes(fd, vars);
 	ft_wait(vars);
+	freepipes(fd, vars);
 }
 
 static	void	no_inoutfile(t_node *command_table, t_vars *vars)

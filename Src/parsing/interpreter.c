@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:51:42 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 19:55:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	fill_in(t_node *temp)
 	temp->words = ft_strdup("");
 	temp->infile = NULL;
 	temp->outfile = NULL;
-	temp->heredoc = ft_strdup("");
+	temp->heredoc = NULL;
 }
 
 int	redirect_here_doc(t_node *temp, char *split, int i, t_envp *env)
@@ -29,6 +29,7 @@ int	redirect_here_doc(t_node *temp, char *split, int i, t_envp *env)
 		word = ft_substr(split, i, 2);
 		add_to_word(&temp, word);
 		i = i + 2;
+		free(word);
 	}
 	else
 		i = list_heredoc(&temp, split, i, env);

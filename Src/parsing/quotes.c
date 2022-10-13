@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   quotes.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/05 13:43:42 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 19:22:40 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	add_to_word(t_node **temp, char *word)
 {
-	(*temp)->words = ft_strjoin((*temp)->words, word);
+	(*temp)->words = ft_strjoin_free((*temp)->words, word);
 }
 
 int	find_quote(t_node **temp, int i, char *split, int start)
@@ -25,6 +25,7 @@ int	find_quote(t_node **temp, int i, char *split, int start)
 	end = i;
 	pipe_split = ft_substr(split, start, (end - start));
 	add_to_word(temp, pipe_split);
+	free(pipe_split);
 	return (i);
 }
 

@@ -3,14 +3,27 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/09/28 18:25:53 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 20:01:21 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	freesplit3(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] != NULL)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
 
 static char	*env_var_here_doc(char *input, t_envp *env)
 {
@@ -28,13 +41,16 @@ static char	*env_var_here_doc(char *input, t_envp *env)
 		{
 			var = ft_substr(split[i], 1, ft_strlen(split[i]));
 			var = env_var(env, var);
-			output = ft_strjoin(output, var);
+			output = ft_strjoin_free(output, var);
+			free(var);
 		}
 		else
-			output = ft_strjoin(output, split[i]);
-			output = ft_strjoin(output, " ");
+			output = ft_strjoin_free(output, split[i]);
+			output = ft_strjoin_free(output, " ");
 		i++;
 	}
+	freesplit3(split);
+	free(input);
 	return (output);
 }
 
@@ -58,6 +74,7 @@ static void	write_in_file(int fd, char *delimiter, t_envp *env)
 			write(fd, input, ft_strlen(input));
 			write(fd, "\n", 1);
 		}
+		free(input);
 	}
 }
 
@@ -81,10 +98,11 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 		i++;
 	delimiter = ft_substr(split, start, (i - start));
 	fd = open("tmpfile", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "active");
+	(*temp)->heredoc = ft_strdup("active");
 	write_in_file(fd, delimiter, env);
 	if (split[i] == ' ')
 			i++;
 	close(fd);
+	free(delimiter);
 	return (i);
 }
