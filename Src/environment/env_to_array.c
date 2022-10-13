@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:11:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:34:29 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,18 @@ int	lst_size(t_envp *list)
 	return (i);
 }
 
-void	free_envp(t_envp *list)
-{
-	t_envp	*temp;
+// alleen nodig bij testen.
+// void	print_array(t_vars *vars)
+// {
+// 	int	i;
 
-	while (list != NULL)
-	{
-		temp = list;
-		list = list->next;
-		free(temp->content);
-		free(temp->key);
-		free(temp->output);
-		free(temp);
-	}
-}
+// 	i = 0;
+// 	while (i < vars->env_count)
+// 	{
+// 		printf("%s\n", vars->enviroment[i]);
+// 		i++;
+// 	}
+// }
 
 void	envp_to_array(t_envp *env, t_vars *vars)
 {

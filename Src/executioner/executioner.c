@@ -3,14 +3,14 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 16:12:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:52:31 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/minishell.h"
+#include "minishell.h"
 
 void	q_preform_cmd(t_node *command_table, t_vars *vars)
 {
@@ -19,9 +19,6 @@ void	q_preform_cmd(t_node *command_table, t_vars *vars)
 		if (!command_table->command)
 			print_error(command_table, vars);
 		right_path(command_table, vars);
-		// printf("this is my path = %s\n\n", vars->my_path);
-		// printf("this is my command = %s\n\n", command_table->command[0]);
-		// printf("this is my env = %s\n\n", vars->enviroment[0]);
 		if (!vars->my_path)
 			print_error(command_table, vars);
 		if (execve(vars->my_path, command_table->command, \

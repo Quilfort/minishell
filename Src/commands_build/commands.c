@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 18:59:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:31:26 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int	commands_built(t_node *command_table, t_vars *vars)
 		return (pwd());
 	if ((ft_strncmp("echo", command_table->content, 4) == 0) \
 		&& ft_strlen("echo") == ft_strlen(command_table->command[0]))
-	{
 		return (echo(command_table, vars));
-	}
 	if ((ft_strncmp("env", command_table->command[0], 3) == 0) \
 		&& (command_table->command[1] == NULL) \
 		&& ft_strlen("env") == ft_strlen(command_table->command[0]))

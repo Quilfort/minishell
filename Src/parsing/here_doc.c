@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 15:32:34 by rharing       ########   odam.nl         */
+/*   Updated: 2022/09/28 18:25:53 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ static void	write_in_file(int fd, char *delimiter, t_envp *env)
 			input = env_var_here_doc(input, env);
 			write(fd, input, ft_strlen(input));
 			write(fd, "\n", 1);
-			free(input);
 		}
 	}
-	free(input);
 }
 
 int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
@@ -83,11 +81,10 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 		i++;
 	delimiter = ft_substr(split, start, (i - start));
 	fd = open("tmpfile", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-	(*temp)->heredoc = ft_strdup("active");
+	(*temp)->heredoc = ft_strjoin((*temp)->heredoc, "active");
 	write_in_file(fd, delimiter, env);
 	if (split[i] == ' ')
 			i++;
 	close(fd);
-	free(delimiter);
 	return (i);
 }

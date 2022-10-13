@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strjoin.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/13 16:39:40 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 12:41:10 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/09/20 16:53:38 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 15:33:33 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/13 17:41:06 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ int	list_outfile(t_node **temp, int i, char *split)
 		{
 			end = i;
 			outfile = ft_substr(split, start, (end - start));
-			(*temp)->outfile = ft_strdup(outfile);
+			(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile);
 			return (i);
 		}
 		i++;
 	}
 	end = i;
 	outfile = ft_substr(split, start, (end - start));
-	(*temp)->outfile = ft_strdup(outfile);
-	free(outfile);
+	(*temp)->outfile = ft_strjoin((*temp)->outfile, outfile);
 	return (i);
 }
 
@@ -96,14 +95,13 @@ int	list_infile(t_node **temp, int i, char *split)
 		{
 			end = i;
 			infile = ft_substr(split, start, (end - start));
-			(*temp)->infile = ft_strdup(infile);
+			(*temp)->infile = ft_strjoin((*temp)->infile, infile);
 			return (i);
 		}
 		i++;
 	}
 	end = i;
 	infile = ft_substr(split, start, (end - start));
-	(*temp)->infile = ft_strdup(infile);
-	free(infile);
+	(*temp)->infile = ft_strjoin((*temp)->infile, infile);
 	return (i);
 }

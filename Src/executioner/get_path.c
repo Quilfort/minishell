@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_path.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/07 14:29:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 11:10:35 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:38:53 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

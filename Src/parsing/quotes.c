@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 19:20:01 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:43:42 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	add_to_word(t_node **temp, char *word)
 {
-	if ((*temp)->words == NULL)
-		(*temp)->words = ft_strdup(word);
-	else
-		(*temp)->words = ft_strjoin((*temp)->words, word);
+	(*temp)->words = ft_strjoin((*temp)->words, word);
 }
 
 int	find_quote(t_node **temp, int i, char *split, int start)

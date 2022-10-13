@@ -6,11 +6,30 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/12 15:38:30 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/11 14:58:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// alleen nodig voor testen
+void	print_envp(t_envp *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
+		printf("\nkey %d:  ", i);
+		printf("%s", list->key);
+		printf("\noutput %d:  ", i);
+		printf("%s\n", list->output);
+		list = list->next;
+		i++;
+	}
+}
 
 char	*env_var(t_envp *list, char *var)
 {
@@ -27,14 +46,10 @@ char	*env_var(t_envp *list, char *var)
 		(ft_strlen(var_string) == ft_strlen(list->key)))
 	{
 		output = list->output;
-		free(var_string);
 		return (output);
 	}	
 	else
-	{
-		free(var_string);
 		return ("");
-	}
 }
 
 void	key_output(char *split, t_envp **temp)
@@ -45,19 +60,19 @@ void	key_output(char *split, t_envp **temp)
 	char	*output;
 
 	i = 0;
+	(*temp)->key = ft_strdup("");
+	(*temp)->output = ft_strdup("");
 	if (split != NULL)
 	{
 		while (split[i] != '=')
 			i++;
 		key = ft_substr(split, 0, i);
-		(*temp)->key = ft_strdup(key);
-		free(key);
+		(*temp)->key = ft_strjoin((*temp)->key, key);
 		i++;
 		start = i;
 		while (split[i] != '\0')
 			i++;
 		output = ft_substr(split, start, (i - start));
-		(*temp)->output = ft_strdup(output);
-		free(output);
+		(*temp)->output = ft_strjoin((*temp)->output, output);
 	}
 }
