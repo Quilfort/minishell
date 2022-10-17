@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 11:13:25 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 13:06:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,17 +102,18 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	else
 	{
 		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-			&& (node->command[1] == NULL) \
 			&& ft_strlen("exit") == ft_strlen(node->command[0]))
 		{
 			ft_putendl_fd("exit", 1);
 			exit(0);
 		}
 		if (builtin(node, env, vars) == 0)
+		{
 			q_pipex_start(node, vars);
+			freesplit(vars->path);
+		}
 		unlink("tmpfile");
 		free_command(node);
-		freesplit(vars->path);
 	}
 }
 

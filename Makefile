@@ -1,10 +1,6 @@
 NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-# BREW_DIR = $(shell brew --prefix)
-# LIB_READLINE = $(BREW_DIR)/opt/readline/lib
-# INCLUDE_READLINE = -I $(BREW_DIR)/opt/readline/include
-# READLINE_DIRS = -L $(LIB_READLINE) $(READLINE)
 FLAGS = -Wall -Wextra -Werror -lreadline 
 INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
