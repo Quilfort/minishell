@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   envp_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 14:15:10 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 18:07:17 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_envp	*lstnew_envp(char *split)
 	newcontent = (t_envp *)malloc(sizeof(t_envp));
 	if (!newcontent)
 		return (NULL);
-	newcontent->content = split;
+	newcontent->content = ft_strdup(split);
 	newcontent->key = NULL;
 	newcontent->output = NULL;
 	newcontent->next = NULL;

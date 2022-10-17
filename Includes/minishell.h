@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 11:10:50 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 17:44:31 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 16:35:13 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 18:18:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,24 @@ int	lst_size(t_envp *list)
 
 void	envp_to_array(t_envp *env, t_vars *vars)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	char	*temp;
 
 	count = lst_size(env);
+	printf("dit is lstcount: %d\n", count);
 	i = 0;
 	vars->enviroment = malloc((count + 1) * sizeof(char *));
 	if (vars->enviroment == NULL)
 		pexit("error", 1);
 	while (i < count)
 	{
-		vars->enviroment[i] = ft_strdup(env->content);
+		vars->enviroment[i] = env->content;
+		printf("dit is listconten: %s", env->content);
+		printf("dis is i: %d\n", i);
 		i++;
 		env = env->next;
 	}
 	vars->enviroment[i + 1] = "\0";
-	vars->env_count = i;
+	vars->env_count = count;
 }

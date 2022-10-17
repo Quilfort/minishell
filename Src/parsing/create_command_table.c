@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 16:39:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 18:26:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
