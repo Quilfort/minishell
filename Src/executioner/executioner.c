@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 19:42:55 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 11:12:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ void	q_preform_cmd(t_node *command_table, t_vars *vars)
 	}
 	else
 		exit(0);
-}
-
-void	freepipes(int **fd, t_vars *vars)
-{
-	int	i;
-
-	i = 0;
-	while (i < vars->com - 1)
-	{
-		free(fd[i]);
-		i++;
-	}
-	free(fd);
 }
 
 void	multiple_fork(t_node *command_table, t_vars *vars)

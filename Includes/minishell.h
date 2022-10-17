@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:28:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 11:10:50 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,10 @@ void	add_space(t_node **temp, char *split, int start);
 
 // signals
 void	signals(void);
+
+//free
+void	freesplit(char **split);
+void	free_command(t_node *list);
+void	freepipes(int **fd, t_vars *vars);
 
 #endif

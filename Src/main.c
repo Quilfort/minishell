@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 19:21:45 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 11:15:07 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
-		system("leaks minishell");
 	}
 }
 
@@ -81,7 +80,7 @@ int	main(int argc, char *argv[], char **envp)
 	env = put_envp_in_list(envp);
 	envp_to_array(env, vars);
 	signals();
-	// init_shell();
+	init_shell();
 	main_loop(0, env, vars);
 	return (0);
 }

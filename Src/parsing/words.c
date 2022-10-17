@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   words.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 19:11:45 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 11:04:38 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,6 @@ void	add_space(t_node **temp, char *split, int start)
 {
 	if (start != 0 && split[start] == ' ')
 		add_to_word(temp, " ");
-}
-
-void	freesplit(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
 }
 
 void	add_to_word_split(t_node **temp, char *word, int space)

@@ -3,27 +3,14 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 20:01:21 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 11:09:54 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	freesplit3(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
 
 static char	*env_var_here_doc(char *input, t_envp *env)
 {
@@ -49,7 +36,7 @@ static char	*env_var_here_doc(char *input, t_envp *env)
 			output = ft_strjoin_free(output, " ");
 		i++;
 	}
-	freesplit3(split);
+	freesplit(split);
 	free(input);
 	return (output);
 }

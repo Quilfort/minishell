@@ -13,6 +13,7 @@ EXEC_FOLDER = ./src/executioner/
 COMMANDS_FOLDER = ./src/commands_build/
 ENVIRONMENT_FOLDER = ./src/environment/
 SRC = ./src/main.c \
+	./src/free.c \
 	$(SIGNAL_FOLDER)signals.c \
 	$(PARSING_FOLDER)here_doc.c \
 	$(PARSING_FOLDER)create_command_table.c \
