@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   list.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 12:11:17 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 19:33:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 14:16:01 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static t_node	*lstnew(char *split)
 	if (!newcontent)
 		return (NULL);
 	newcontent->content = ft_strdup(split);
+	newcontent->words = NULL;
+	newcontent->infile = NULL;
+	newcontent->outfile = NULL;
+	newcontent->heredoc = NULL;
+	newcontent->command = NULL;
 	newcontent->next = NULL;
 	free(split);
 	return (newcontent);
@@ -78,6 +83,11 @@ t_node	*create_head(char *first)
 		exit(1);
 	}
 	head->content = ft_strdup(first);
+	head->words = NULL;
+	head->infile = NULL;
+	head->outfile = NULL;
+	head->heredoc = NULL;
+	head->command = NULL;
 	head->next = NULL;
 	free(first);
 	return (head);

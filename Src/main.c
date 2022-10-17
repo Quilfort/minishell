@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 12:53:29 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 16:36:02 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ static void	init_shell(void)
 	printf("\n");
 	sleep(2);
 	printf("\033[H\033[J");
+}
+
+static void	init_vars(t_vars *vars)
+{
+	vars->f1 = 0;
+	vars->f2 = 0;
+	vars->no_infile = 0;
+	vars->no_outfile = 0;
+	vars->env_count = 0;
+	vars->enviroment = NULL;
+	vars->cmd = NULL;
+	vars->path = NULL;
+	vars->path_cmd = NULL;
+	vars->my_path = NULL;
+	vars->string_infile = NULL;
+	vars->string_outfile = NULL;
+	vars->com = 0;
+	vars->com_count = 0;
+	vars->append_open = 0;
 }
 
 char	*rl_history(void)
@@ -78,10 +97,10 @@ int	main(int argc, char *argv[], char **envp)
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
+	init_vars(vars);
 	env = put_envp_in_list(envp);
 	envp_to_array(env, vars);
 	signals();
-	// init_shell();
 	main_loop(0, env, vars);
 	return (0);
 }

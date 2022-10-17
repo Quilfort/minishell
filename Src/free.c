@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 11:03:47 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 12:52:27 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/17 15:51:35 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	freesplit(char **split)
 	i = 0;
 	while (split[i] != NULL)
 	{
+		// printf("\nThis is i = %d\n\n", i);
 		free(split[i]);
 		i++;
 	}

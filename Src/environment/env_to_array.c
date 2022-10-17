@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:34:29 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/17 16:35:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

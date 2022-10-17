@@ -1,7 +1,7 @@
 NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-FLAGS = -Wall -Wextra -Werror -lreadline 
+FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
 PARSING_FOLDER = ./src/parsing/
