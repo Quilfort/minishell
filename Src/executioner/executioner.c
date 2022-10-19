@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/17 11:12:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 19:40:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars)
 	{
 		signal(SIGINT, SIG_IGN);
 		wait(&status);
-		if (WIFSIGNALED(status))
-			g_exitcode = 130;
 		if (WIFEXITED(status))
 			g_exitcode = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			if (g_exitcode != 258)
+				g_exitcode = 130;
 		signals();
 	}
 }

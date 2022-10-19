@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:56:09 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 19:40:29 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	node = create_command_table_list(split, env, vars);
 	exec_init(node);
 	if (node->command[0] == NULL)
-	{
 		wait(NULL);
-		free(node);
-	}
 	else
 	{
 		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
@@ -113,6 +110,6 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 			freesplit(vars->path);
 		}
 		unlink("tmpfile");
-		free_command(node);
 	}
+		free_command(node);
 }
