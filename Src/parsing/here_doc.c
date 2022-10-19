@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 11:09:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 13:29:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	char	*delimiter;
 	int		fd;
 	int		start;
+	int		end;
 
 	i = i + 2;
 	if (split[i] != ' ')
@@ -82,8 +83,27 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	else
 		return (i);
 	while (split[i] != ' ' && split[i] != '\0')
-		i++;
-	delimiter = ft_substr(split, start, (i - start));
+	{
+		if (split[i] == 34)
+		{
+			i++;
+			while (split[i] != '\0' && split[i] != 34)
+				i++;
+		}
+		else if (split[i] == 39)
+		{
+			i++;
+			while (split[i] != '\0' && split[i] != 39)
+				i++;
+		}
+		else
+			i++;
+	}
+	end = i;
+	if (split[i - 1] == ' ')
+		end = end - 1;
+	delimiter = ft_substr(split, start, (end - start));
+	delimiter = delimiter_without_quotes(delimiter);
 	fd = open("tmpfile", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	(*temp)->heredoc = ft_strdup("active");
 	write_in_file(fd, delimiter, env);

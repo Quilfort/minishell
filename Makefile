@@ -1,7 +1,7 @@
 NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
-FLAGS = -Wall -Wextra -Werror -lreadline -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
 PARSING_FOLDER = ./src/parsing/
@@ -12,6 +12,7 @@ SRC = ./src/main.c \
 	./src/free.c \
 	$(SIGNAL_FOLDER)signals.c \
 	$(PARSING_FOLDER)here_doc.c \
+	$(PARSING_FOLDER)here_doc_utils.c \
 	$(PARSING_FOLDER)create_command_table.c \
 	$(PARSING_FOLDER)interpreter_utils.c \
 	$(PARSING_FOLDER)interpreter.c \
