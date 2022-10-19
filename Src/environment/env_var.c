@@ -3,33 +3,14 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 17:26:46 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/19 13:38:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// alleen nodig voor testen
-void	print_envp(t_envp *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("\ncontent %d:  ", i);
-		printf("%s", list->content);
-		printf("\nkey %d:  ", i);
-		printf("%s", list->key);
-		printf("\noutput %d:  ", i);
-		printf("%s\n", list->output);
-		list = list->next;
-		i++;
-	}
-}
 
 char	*env_var(t_envp *list, char *var)
 {

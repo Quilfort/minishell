@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 13:25:38 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:29:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:18:13 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoin_free_both(char *s1, char *s2)
+static char	*ft_strjoin_free_both(char *s1, char *s2)
 {
 	size_t	i;
 	char	*join;
@@ -38,6 +38,17 @@ char	*ft_strjoin_free_both(char *s1, char *s2)
 	return (join);
 }
 
+static char	*find_output_here_doc(char *delimiter, \
+			char *output, int i, int start)
+{
+	if (output == NULL)
+		output = ft_substr(delimiter, start, (i - start));
+	else
+		output = ft_strjoin_free_both(output, \
+					(ft_substr(delimiter, start, (i - start))));
+	return (output);
+}
+
 char	*delimiter_without_quotes(char *delimiter)
 {
 	char	*output;
@@ -46,33 +57,23 @@ char	*delimiter_without_quotes(char *delimiter)
 
 	i = 0;
 	output = NULL;
-	if (delimiter[0] != 39 && delimiter[0] != 34)
-		start = i;
-	else
+	if (delimiter[0] == 39 && delimiter[0] == 34)
 	{
 		i++;
 		while (delimiter[i] == 39 && delimiter[i] == 34 && delimiter[i] != '\0')
 			i++;
-		start = i;
 	}
+	start = i;
 	while (delimiter[i] != '\0')
 	{
 		if (delimiter[i] == 39 || delimiter[i] == 34)
 		{
-			if (output == NULL)
-				output = ft_substr(delimiter, start, (i - start));
-			else
-			output = ft_strjoin_free_both(output, \
-						(ft_substr(delimiter, start, (i - start))));
+			output = find_output_here_doc(delimiter, output, i, start);
 			start = i + 1;
 		}
 		i++;
 	}
-	if (output == NULL)
-		output = ft_substr(delimiter, start, (i - start));
-	else
-		output = ft_strjoin_free_both(output, \
-						(ft_substr(delimiter, start, (i - start))));
+	output = find_output_here_doc(delimiter, output, i, start);
 	free(delimiter);
 	return (output);
 }

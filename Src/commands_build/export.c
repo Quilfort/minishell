@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:23:43 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/19 13:51:59 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	envp_to_array(env_list, vars);
 	temp = lstlast_envp(env_list);
 	key_output(command_table->command[1], &temp);
-	print_envp(env_list);
 }

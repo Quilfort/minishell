@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:30:22 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:01:03 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ int		add_to_list(t_node *node, int i, char *split);
 int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 
 		// here_doc_utils.c
-char	*ft_strjoin_free_both(char *s1, char *s2);
 char	*delimiter_without_quotes(char *delimiter);
 
 		// interpreter_util.c

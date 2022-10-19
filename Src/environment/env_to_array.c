@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:18:44 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/19 13:40:14 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ int	lst_size(t_envp *list)
 	return (i);
 }
 
-// alleen nodig bij testen.
-// void	print_array(t_vars *vars)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < vars->env_count)
-// 	{
-// 		printf("%s\n", vars->enviroment[i]);
-// 		i++;
-// 	}
-// }
-
 void	envp_to_array(t_envp *env, t_vars *vars)
 {
 	int		i;
@@ -45,7 +32,6 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 	char	*temp;
 
 	count = lst_size(env);
-	printf("dit is lstcount: %d\n", count);
 	i = 0;
 	vars->enviroment = malloc((count + 1) * sizeof(char *));
 	if (vars->enviroment == NULL)
@@ -53,8 +39,6 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 	while (i < count)
 	{
 		vars->enviroment[i] = env->content;
-		printf("dit is listconten: %s", env->content);
-		printf("dis is i: %d\n", i);
 		i++;
 		env = env->next;
 	}

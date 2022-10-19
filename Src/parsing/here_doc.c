@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:29:49 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:18:23 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,8 @@ static void	write_in_file(int fd, char *delimiter, t_envp *env)
 	}
 }
 
-int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
+static int	find_end(char *split, int i)
 {
-	char	*delimiter;
-	int		fd;
-	int		start;
-	int		end;
-
-	i = i + 2;
-	if (split[i] != ' ')
-		start = i;
-	else if (split[i] == ' ')
-	{
-		i++;
-		start = i;
-	}
-	else
-		return (i);
 	while (split[i] != ' ' && split[i] != '\0')
 	{
 		if (split[i] == 34)
@@ -99,11 +84,26 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 		else
 			i++;
 	}
-	end = i;
+	return (i);
+}
+
+int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
+{
+	char	*delimiter;
+	int		fd;
+	int		start;
+	int		nd;
+
+	while (split[i] == ' ')
+		i++;
+	if (split[i] == '\0')
+		return (i);
+	start = i;
+	i = find_end(split, i);
+	nd = i;
 	if (split[i - 1] == ' ')
-		end = end - 1;
-	delimiter = ft_substr(split, start, (end - start));
-	delimiter = delimiter_without_quotes(delimiter);
+		nd = nd - 1;
+	delimiter = delimiter_without_quotes(ft_substr(split, start, (nd - start)));
 	fd = open("tmpfile", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	(*temp)->heredoc = ft_strdup("active");
 	write_in_file(fd, delimiter, env);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:26:55 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/19 13:38:48 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,30 +114,5 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 		}
 		unlink("tmpfile");
 		free_command(node);
-	}
-}
-
-void	list_print_command(t_node *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("\ncontent %d:  ", i);
-		printf("%s", list->content);
-		printf("\nwords %d:  ", i);
-		printf("%s\n", list->words);
-		printf("\ninfile %d:  ", i);
-		printf("%s\n", list->infile);
-		printf("\noutfile %d:  ", i);
-		printf("%s\n", list->outfile);
-		// printf("\nheredoc %d:  ", i);
-		// printf("%s\n", list->heredoc);
-		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[0]);
-		printf("end of node!!\n");
-		list = list->next;
-		i++;
 	}
 }

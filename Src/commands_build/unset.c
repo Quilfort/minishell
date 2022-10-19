@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:41:33 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 13:39:58 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 		unset_utils(temp, del, position, 0);
 		free(vars->enviroment);
 		envp_to_array(env_list, vars);
-		print_envp(env_list);
 	}
 }
