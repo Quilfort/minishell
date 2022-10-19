@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:34:42 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 19:43:07 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ static void	write_in_file(int fd, char *delimiter, t_envp *env)
 			flag = 1;
 		else if (ft_strncmp(input, delimiter, ft_strlen(input)) == 0 && \
 			ft_strlen(input) != 0 && ft_strlen(delimiter) == ft_strlen(input))
+			flag = 1;
+		else if ((ft_strncmp(input, "", ft_strlen(input)) == 0) && \
+				ft_strncmp(delimiter, "", ft_strlen(delimiter)) == 0)
 			flag = 1;
 		else
 		{
