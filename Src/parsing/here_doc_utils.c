@@ -6,13 +6,13 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 13:25:38 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:18:13 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/19 15:03:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_strjoin_free_both(char *s1, char *s2)
+char	*ft_strjoin_free_both(char *s1, char *s2)
 {
 	size_t	i;
 	char	*join;
