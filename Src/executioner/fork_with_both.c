@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fork_with_both.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:37:24 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/20 12:02:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	in_out_file_one_command(t_node *command_table, t_vars *vars)
 		wait(&vars->pid);
 }
 
-// is er een infile en outfile en meerdere commands open allebei en multiplefork
 void	in_out_file_fork_process(t_node *command_table, t_vars *vars)
 {
 	vars->f1 = open(vars->string_infile, O_RDONLY, 0644);

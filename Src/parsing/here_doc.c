@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 19:43:07 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/20 11:57:49 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,6 @@ int	list_heredoc(t_node **temp, char *split, int i, t_envp *env)
 	int		start;
 	int		nd;
 
-	while (split[i] == ' ')
-		i++;
-	if (split[i] == '\0')
-		return (i);
 	start = i;
 	i = find_end(split, i);
 	nd = i;

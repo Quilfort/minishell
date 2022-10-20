@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/19 14:32:47 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 11:57:41 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,15 @@ int	redirect_here_doc(t_node *temp, char *split, int i, t_envp *env)
 	else
 	{
 		i = i + 2;
-		i = list_heredoc(&temp, split, i, env);
+		while (split[i] == ' ')
+			i++;
+		if (split[i] == '\0')
+		{
+			(*temp).words = ft_strjoin_free((*temp).words, "<<");
+			return (i);
+		}
+		else
+			i = list_heredoc(&temp, split, i, env);
 	}
 	return (i);
 }

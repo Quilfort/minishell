@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/19 19:40:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/20 12:02:44 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,3 @@ void	q_pipex_start(t_node *command_table, t_vars *vars)
 	if (vars->no_infile == 0 && vars->no_outfile == 0)
 		in_out_file_fork_process(command_table, vars);
 }
-
-/*
-	de logica:
-		-	is er een infile en 1 command dan  open en justinfilefunctie
-		- 	is er een infile en meerdere commands dan open en multiplefork
-		- 	is er een outfile en 1 command dan open en justoutfilefunctie
-		- 	is er een outfile en meerdere commands dan open en multiplefork
-		-	is er een infile en outfile en meerdere commands open allebei en multiplefork
-		-	is er een infile en outfile en een command open en wat dan??
-		-	is er geen outfile en infile en een command dan no_inoutfile functie
-		- 	is er geen outfile en infile en meerdere commands dan multiplefork
-*/
