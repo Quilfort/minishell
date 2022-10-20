@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 20:04:36 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/20 17:49:02 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	sig_handler(int sig)
 		tcsetattr(0, TCSANOW, &t);
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	signal(SIGQUIT, SIG_IGN);

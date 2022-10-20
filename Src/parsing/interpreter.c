@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interpreter.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/20 11:57:41 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:43:30 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars)
 		if (split[i] == 39)
 		{
 			i++;
-			i = list_single_quote(&temp, i, split, env);
+			i = list_single_quote(&temp, i, split);
 		}
 		else if (split[i] == 34)
 		{

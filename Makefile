@@ -3,7 +3,7 @@ LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 READLINE_LIB = -L /Users/$(USER)/.brew/opt/readline/lib
 READLINE_INC = -I/Users/$(USER)/.brew/opt/readline/include
-FLAGS = -Wall -Wextra -Werror -lreadline
+FLAGS = -Wall -Wextra -Werror
 INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
 PARSING_FOLDER = ./src/parsing/
@@ -42,10 +42,10 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(OBJ) $(LIBFT) $(FLAGS) $(READLINE_LIB) $(READLINE_INC)  -o $(NAME)
+	gcc $(OBJ) $(LIBFT) -lreadline $(READLINE_LIB) $(READLINE_INC) -o  $(NAME)
 
 %.o: %.c
-	gcc $(INC) -c $< -o $@
+	gcc $(INC) $(FLAGS) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

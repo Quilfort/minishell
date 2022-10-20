@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/03 12:02:35 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:45:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static	void	open_folder_utils(t_node *command_table, char *last_dir)
 int	open_folder(t_node *command_table)
 {
 	DIR				*dir;
-	struct dirent	*entry;
 	char			*last_dir;
 	char			temp[PATH_MAX];
 
+	last_dir = NULL;
 	getcwd(temp, sizeof(temp));
 	open_folder_utils(command_table, last_dir);
 	if (command_table->command[1] != NULL)

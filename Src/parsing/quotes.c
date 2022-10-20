@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   quotes.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 13:54:02 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 15:06:08 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:42:38 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	list_double_quote(t_node **temp, int i, char *split, t_envp *env)
 	return (i);
 }
 
-int	list_single_quote(t_node **temp, int i, char *split, t_envp *env)
+int	list_single_quote(t_node **temp, int i, char *split)
 {
 	int		start;
 

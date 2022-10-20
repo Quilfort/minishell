@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 15:03:27 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:42:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ t_node	*create_head(char *first);
 void	add_to_word(t_node **temp, char *word);
 int		find_quote(t_node **temp, int i, char *split, int start);
 int		list_double_quote(t_node **temp, int i, char *split, t_envp *env);
-int		list_single_quote(t_node **temp, int i, char *split, t_envp *env);
+int		list_single_quote(t_node **temp, int i, char *split);
 int		var_in_double_quotes(t_node **temp, int i, char *split, t_envp *env);
 
 		// words.c

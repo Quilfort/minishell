@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:40:14 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:43:56 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 {
 	int		i;
 	int		count;
-	char	*temp;
 
 	count = lst_size(env);
 	i = 0;

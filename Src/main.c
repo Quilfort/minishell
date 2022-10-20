@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/20 12:04:38 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/20 17:39:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,19 @@ int	main(int argc, char *argv[], char **envp)
 	t_envp	*env;
 	t_vars	*vars;
 
-	vars = (t_vars *)malloc(sizeof(t_vars));
-	if (vars == NULL)
+	if (argc == 1 && argv[0] != NULL)
 	{
-		ft_putstr_fd("Error\n", 2);
-		exit(1);
+		vars = (t_vars *)malloc(sizeof(t_vars));
+		if (vars == NULL)
+		{
+			ft_putstr_fd("Error\n", 2);
+			exit(1);
+		}
+		init_vars(vars);
+		env = put_envp_in_list(envp);
+		envp_to_array(env, vars);
+		signals();
+		main_loop(0, env, vars);
 	}
-	init_vars(vars);
-	env = put_envp_in_list(envp);
-	envp_to_array(env, vars);
-	signals();
-	main_loop(0, env, vars);
 	return (0);
 }
