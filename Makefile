@@ -1,6 +1,8 @@
 NAME = minishell
 LIBFT_DIR = ./Libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
+READLINE_LIB = -L /Users/$(USER)/.brew/opt/readline/lib
+READLINE_INC = -I/Users/$(USER)/.brew/opt/readline/include
 FLAGS = -Wall -Wextra -Werror -lreadline
 INC = -I ./Includes
 SIGNAL_FOLDER = ./src/signals/
@@ -40,7 +42,7 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(OBJ) $(LIBFT) $(FLAGS) -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
+	gcc $(OBJ) $(LIBFT) $(FLAGS) $(READLINE_LIB) $(READLINE_INC)  -o $(NAME)
 
 %.o: %.c
 	gcc $(INC) -c $< -o $@
