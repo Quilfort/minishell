@@ -49,7 +49,13 @@ void	middle_child(t_node *command_table, int **fd, t_vars *vars)
 		print_error(command_table, vars);
 	if (pid == 0)
 	{
-		dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
+		// if (vars->no_infile == 0)
+		// {
+		// 	if (dup2(vars->f1, STDIN_FILENO) == -1)
+		// 		print_error(command_table, vars);
+		// }
+		// else 
+			dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
 		dup2(fd[vars->com_count][1], STDOUT_FILENO);
 		if (!command_table->command[0])
 		{

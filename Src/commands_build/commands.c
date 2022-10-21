@@ -21,15 +21,15 @@ int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 		export(env, command_table, vars);
 		return (1);
 	}
-	if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
+	else if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
 		&& ft_strlen("cd") == ft_strlen(command_table->command[0]))
 	{
 		open_folder(command_table);
 		return (1);
 	}
-	if ((ft_strncmp("unset", command_table->command[0], 3) == 0) \
+	else if ((ft_strncmp("unset", command_table->command[0], 3) == 0) \
 		&& (command_table->command[1] != NULL) \
-	&& ft_strlen("unset") == ft_strlen(command_table->command[0]))
+		&& ft_strlen("unset") == ft_strlen(command_table->command[0]))
 	{
 		unset(env, command_table, vars);
 		return (1);
@@ -43,10 +43,10 @@ int	commands_built(t_node *command_table, t_vars *vars)
 		&& (command_table->command[1] == NULL) \
 		&& ft_strlen("pwd") == ft_strlen(command_table->command[0]))
 		return (pwd());
-	if ((ft_strncmp("echo", command_table->command[0], 4) == 0) \
+	else if ((ft_strncmp("echo", command_table->command[0], 4) == 0) \
 		&& ft_strlen("echo") == ft_strlen(command_table->command[0]))
 		return (echo(command_table, vars));
-	if ((ft_strncmp("env", command_table->command[0], 3) == 0) \
+	else if ((ft_strncmp("env", command_table->command[0], 3) == 0) \
 		&& (command_table->command[1] == NULL) \
 		&& ft_strlen("env") == ft_strlen(command_table->command[0]))
 		return (env(vars));

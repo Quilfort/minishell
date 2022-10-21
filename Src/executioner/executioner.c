@@ -14,7 +14,10 @@
 
 void	q_preform_cmd(t_node *command_table, t_vars *vars)
 {
-	if ((commands_built(command_table, vars) == 0))
+	if ((ft_strncmp("exit", command_table->command[0], 4) == 0) \
+		&& ft_strlen("exit") == ft_strlen(command_table->command[0]))
+		exit_program(command_table);
+	else if ((commands_built(command_table, vars) == 0))
 	{
 		if (!command_table->command)
 			print_error(command_table, vars);
@@ -67,7 +70,7 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars)
 		wait(&status);
 		if (WIFEXITED(status))
 			g_exitcode = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
+		else if (WIFSIGNALED(status))
 			if (g_exitcode != 258)
 				g_exitcode = 130;
 		signals();

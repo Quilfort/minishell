@@ -99,12 +99,10 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	else
 	{
 		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-			&& ft_strlen("exit") == ft_strlen(node->command[0]))
-		{
-			ft_putendl_fd("exit", 1);
-			exit(0);
-		}
-		if (builtin(node, env, vars) == 0)
+			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
+			&& node->next == NULL)
+			exit_program(node);
+		else if (builtin(node, env, vars) == 0)
 		{
 			q_pipex_start(node, vars);
 			freesplit(vars->path);

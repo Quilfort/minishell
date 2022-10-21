@@ -88,6 +88,9 @@ int		env(t_vars *vars);
 		//echo.c
 int		echo(t_node *command_table, t_vars *vars);
 
+		// exit.c
+void	exit_program(t_node *command_table);
+
 		// export.c
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 

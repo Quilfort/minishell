@@ -66,8 +66,8 @@ void	ft_wait(t_vars *vars)
 		wait(&status);
 		x++;
 	}
-	if (WIFSIGNALED(status))
-		g_exitcode = 130;
-	else if (WIFEXITED(status))
+	if (WIFEXITED(status))
 		g_exitcode = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_exitcode = 130;
 }

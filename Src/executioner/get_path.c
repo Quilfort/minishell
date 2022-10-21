@@ -38,7 +38,7 @@ void	right_path(t_node *commands_table, t_vars *vars)
 	if (access(commands_table->command[0], X_OK) == 0)
 		vars->my_path = ft_strdup(commands_table->command[0]);
 	i = 0;
-	while (vars->path[i] != '\0')
+	while (vars->path[i] != NULL)
 	{
 		slash = ft_strjoin(vars->path[i], "/");
 		if (!slash)

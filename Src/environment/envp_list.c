@@ -80,7 +80,7 @@ t_envp	*put_envp_in_list(char **envp)
 
 	envi = create_head_envp(envp[0]);
 	i = 1;
-	while (envp[i] != '\0')
+	while (envp[i] != NULL)
 	{
 		lstadd_back_envp(&envi, envp[i]);
 		i++;

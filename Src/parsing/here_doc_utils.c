@@ -57,10 +57,10 @@ char	*delimiter_without_quotes(char *delimiter)
 
 	i = 0;
 	output = NULL;
-	if (delimiter[0] == 39 && delimiter[0] == 34)
+	if (delimiter[0] == 39 || delimiter[0] == 34)
 	{
 		i++;
-		while (delimiter[i] == 39 && delimiter[i] == 34 && delimiter[i] != '\0')
+		while ((delimiter[i] == 39 || delimiter[i] == 34) && delimiter[i] != '\0')
 			i++;
 	}
 	start = i;

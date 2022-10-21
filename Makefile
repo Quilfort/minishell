@@ -27,6 +27,7 @@ SRC = ./src/main.c \
 	$(COMMANDS_FOLDER)cd.c \
 	$(COMMANDS_FOLDER)commands.c \
 	$(COMMANDS_FOLDER)echo.c \
+	$(COMMANDS_FOLDER)exit.c \
 	$(COMMANDS_FOLDER)export.c \
 	$(COMMANDS_FOLDER)unset.c \
 	$(EXEC_FOLDER)child.c \
@@ -42,7 +43,7 @@ OBJ = $(SRC:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	gcc $(OBJ) $(LIBFT) -lreadline $(READLINE_LIB)  -o  $(NAME)
+	gcc $(OBJ) $(LIBFT) -lreadline $(READLINE_LIB) -o $(NAME)
 
 %.o: %.c
 	gcc $(INC) $(READLINE_INC) $(FLAGS) -c $< -o $@
