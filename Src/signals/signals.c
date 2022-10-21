@@ -26,7 +26,6 @@ static void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signals(void)
@@ -36,6 +35,5 @@ void	signals(void)
 	act.sa_handler = &sig_handler;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		pexit("sigaction", EXIT_FAILURE);
-	if (sigaction(SIGQUIT, &act, NULL) == -1)
-		pexit("sigaction", EXIT_FAILURE);
+	signal(SIGQUIT, SIG_IGN);
 }
