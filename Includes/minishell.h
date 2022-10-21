@@ -92,6 +92,7 @@ int		echo(t_node *command_table, t_vars *vars);
 void	exit_program(t_node *command_table);
 
 		// export.c
+void	export_array(t_vars *vars);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// unset.c
@@ -100,7 +101,6 @@ void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);
 // environment
 		// env_to_array.c
 int		lst_size(t_envp *list);
-void	print_array(void);
 void	envp_to_array(t_envp *env, t_vars *vars);
 void	free_envp(t_envp *list);
 

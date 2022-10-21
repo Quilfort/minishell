@@ -62,6 +62,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
+		system("leaks minishell");
 	}
 }
 

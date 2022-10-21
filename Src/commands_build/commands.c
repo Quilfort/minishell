@@ -14,12 +14,15 @@
 
 int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 {
-	if ((ft_strncmp("export", command_table->command[0], 6) == 0) && \
-		(command_table->command[1] != NULL) \
+	if ((ft_strncmp("export", command_table->command[0], 6) == 0) \
 		&& ft_strlen("export") == ft_strlen(command_table->command[0]))
 	{
-		export(env, command_table, vars);
-		return (1);
+		if (command_table->command[1] != NULL)
+			export(env, command_table, vars);
+		else
+			export_array(vars);
+		return(1);
+
 	}
 	else if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
 		&& ft_strlen("cd") == ft_strlen(command_table->command[0]))
