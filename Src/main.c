@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 17:48:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 19:00:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 	}
 }
 
-t_global g_global;
-int	g_exitcode;
+t_vars2 g_vars2;
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -88,7 +87,6 @@ int	main(int argc, char *argv[], char **envp)
 		envp_to_array(env, vars);
 		export_array(vars);
 		signals();
-		signal(SIGQUIT, SIG_IGN);
 		main_loop(0, env, vars);
 	}
 	return (0);

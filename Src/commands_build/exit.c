@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/20 17:48:01 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 19:01:21 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	digits_only(char *string)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (string[i])
 	{
@@ -28,7 +28,7 @@ static int	digits_only(char *string)
 
 static int	exit_argument_check(char **arguments)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arguments[i])
@@ -59,7 +59,7 @@ static void	exit_program_error(char **arguments)
 
 void	exit_program(t_node *command_table)
 {
-    int exitcode;
+	int	exitcode;
 
 	if (command_table->command[1] == NULL)
 		exit(0);

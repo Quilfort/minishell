@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/24 17:02:08 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 17:56:02 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	sig_handler(int sig)
 {
-	struct termios	t;
+	// struct termios	t;
 
 	if (sig == SIGINT)
 	{
-		tcgetattr(0, &t);
-		t.c_lflag &= ~ECHOCTL;
-		tcsetattr(0, TCSANOW, &t);
+		// tcgetattr(0, &t);
+		// t.c_lflag &= ~ECHOCTL;
+		// tcsetattr(0, TCSANOW, &t);
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -37,4 +37,5 @@ void	signals(void)
 		pexit("sigaction", EXIT_FAILURE);
 	if (sigaction(SIGQUIT, &act, NULL) == -1)
 		pexit("sigaction", EXIT_FAILURE);
+	signal(SIGQUIT, SIG_IGN);
 }

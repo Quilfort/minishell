@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/24 16:56:24 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 18:58:42 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,11 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars)
 		signal(SIGINT, SIG_IGN);
 		wait(&status);
 		if (WIFEXITED(status))
-			g_exitcode = WEXITSTATUS(status);
+			g_vars2.exitcode = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			if (g_exitcode != 258)
-				g_exitcode = 130;
+			if (g_vars2.exitcode != 258)
+				g_vars2.exitcode = 130;
 		signals();
-		signal(SIGQUIT, SIG_IGN);
 	}
 }
 

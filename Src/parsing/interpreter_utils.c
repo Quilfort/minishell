@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interpreter_utils.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 15:09:24 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:59:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	var_first_char(char *split, int i, t_node **temp)
 {
 	char	*tempo;
 
-	tempo = ft_itoa(g_exitcode);
+	tempo = ft_itoa(g_vars2.exitcode);
 	if ((ft_isdigit(split[i]) == 1))
 		i++;
 	else if (split[i] == '?')

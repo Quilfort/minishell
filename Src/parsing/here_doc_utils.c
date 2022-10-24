@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 13:25:38 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 15:03:49 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/24 19:02:12 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

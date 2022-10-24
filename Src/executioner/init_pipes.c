@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:39:34 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 18:58:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_wait(t_vars *vars)
 		x++;
 	}
 	if (WIFEXITED(status))
-		g_exitcode = WEXITSTATUS(status);
+		g_vars2.exitcode = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_exitcode = 130;
+		g_vars2.exitcode = 130;
 }

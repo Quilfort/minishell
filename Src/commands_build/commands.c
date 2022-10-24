@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 16:30:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 19:01:32 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 			export(env, command_table, vars);
 		else
 			print_array(vars->export_env);
-		return(1);
-
+		return (1);
 	}
 	else if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
 		&& ft_strlen("cd") == ft_strlen(command_table->command[0]))
