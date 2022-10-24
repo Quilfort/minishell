@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/20 17:39:45 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 17:48:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	init_vars(t_vars *vars)
 	vars->com = 0;
 	vars->com_count = 0;
 	vars->append_open = 0;
+	vars->export_env = NULL;
 }
 
 char	*rl_history(void)
@@ -62,10 +63,11 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }
 
+t_global g_global;
 int	g_exitcode;
 
 int	main(int argc, char *argv[], char **envp)
@@ -84,7 +86,9 @@ int	main(int argc, char *argv[], char **envp)
 		init_vars(vars);
 		env = put_envp_in_list(envp);
 		envp_to_array(env, vars);
+		export_array(vars);
 		signals();
+		signal(SIGQUIT, SIG_IGN);
 		main_loop(0, env, vars);
 	}
 	return (0);

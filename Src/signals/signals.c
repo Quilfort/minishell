@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/20 17:50:43 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 17:02:08 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	signals(void)
 	act.sa_handler = &sig_handler;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		pexit("sigaction", EXIT_FAILURE);
-	signal(SIGQUIT, SIG_IGN);
+	if (sigaction(SIGQUIT, &act, NULL) == -1)
+		pexit("sigaction", EXIT_FAILURE);
 }

@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:51:59 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/24 16:37:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **copy_env(char **array, t_vars *vars)
+char	**copy_env(char **array, t_vars *vars)
 {
 	int		i;
 
@@ -26,68 +26,62 @@ char **copy_env(char **array, t_vars *vars)
 		i++;
 	}
 	array[i + 1] = "\0";
-	return(array);
+	return (array);
 }
 
 int	arrlenght(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
-	{
 		i++;
-	}
-	return(i);
+	return (i);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (-1);
+	while ((s1[i] != '\0') && (s1[i] == s2[i]))
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 void	sort_array(char **array, int arraylength)
 {
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
-	while(i < arraylength)
+	while (i < arraylength)
 	{
 		j = 0;
 		while (j < arraylength - 1 - i)
 		{
-			if(ft_strncmp(array[j], array[j+1], ft_strlen(array[j])) > 0)
+			if (ft_strcmp(array[j], array[j + 1]) > 0)
 			{	
-       	 		temp = array[j];
-       		 	array[j] = array[j + 1];
-       		 	array[j+1] = temp;
-      		}
+				temp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
-void	print_array(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		printf("declare -x %s\n", array[i]);
-		i++;
-	}
-}
-
 void	export_array(t_vars *vars)
 {
-	char **array;
-	int arraylength;
+	int		arraylength;
 
-	array = NULL;
-	array = copy_env(array, vars);
-	arraylength = arrlenght(array);
-	sort_array(array, arraylength);
-	print_array(array);
-	free(array);
+	vars->export_env = copy_env(vars->export_env, vars);
+	arraylength = arrlenght(vars->export_env);
+	sort_array(vars->export_env, arraylength);
 }
 
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
@@ -99,4 +93,5 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	envp_to_array(env_list, vars);
 	temp = lstlast_envp(env_list);
 	key_output(command_table->command[1], &temp);
+	export_array(vars);
 }

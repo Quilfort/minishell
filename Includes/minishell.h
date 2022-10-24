@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/20 17:42:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/24 17:48:03 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@
 extern int	g_exitcode;
 
 //pipex
-typedef struct s_vars {
+typedef struct s_vars 
+{
 	int		f1;
 	int		f2;
 	int		no_infile;
@@ -43,11 +44,20 @@ typedef struct s_vars {
 	char	*my_path;
 	char	*string_infile;
 	char	*string_outfile;
+	char	**export_env;
 	int		com;
 	int		com_count;
 	int		append_open;
 	pid_t	pid;
 }	t_vars;
+
+typedef	struct s_global
+{
+	int		pid;
+	int		exit_code;
+}	t_global;
+
+extern t_global g_global;
 
 //input to commands
 typedef struct s_node
@@ -204,5 +214,7 @@ void	signals(void);
 void	freesplit(char **split);
 void	free_command(t_node *list);
 void	freepipes(int **fd, t_vars *vars);
+
+void	signals_quit(void);
 
 #endif
