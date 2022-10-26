@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 15:35:44 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 18:50:21 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,20 @@ void	key_output(char *split, t_envp **temp)
 	i = 0;
 	if (split != NULL)
 	{
-		while (split[i] != '=')
+		while (split[i] != '=' && split[i] != '\0')
 			i++;
 		key = ft_substr(split, 0, i);
 		(*temp)->key = ft_strdup(key);
 		free(key);
-		i++;
-		start = i;
-		while (split[i] != '\0')
+		if (split[i] != '\0')
+		{
 			i++;
-		output = ft_substr(split, start, (i - start));
-		// printf("output: %s\n", output);
-		(*temp)->output = ft_strdup(output);
-		free(output);
+			start = i;
+			while (split[i] != '\0')
+				i++;
+			output = ft_substr(split, start, (i - start));
+			(*temp)->output = ft_strdup(output);
+			free(output);
+		}
 	}
 }

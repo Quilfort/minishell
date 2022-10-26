@@ -6,30 +6,31 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 15:22:33 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 19:03:56 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**copy_env(char **array, t_envp *env)
+int	copy_env(t_vars *vars, t_envp *env)
 {
 	int		i;
 	int		count;
 
 	i = 0;
 	count = lst_size(env);
-	array = malloc((count + 1) * sizeof(char *));
-	if (array == NULL)
+	vars->export_env = malloc((count + 1) * sizeof(char *));
+	if (vars->export_env == NULL)
 		pexit("error", 1);
 	while (i < count)
 	{
-		array[i] = env->content;
+		vars->export_env[i] = malloc(sizeof(ft_strlen(env->content)));
+		vars->export_env[i] = env->content;
 		i++;
 		env = env->next;
 	}
-	array[i + 1] = "\0";
-	return (array);
+	vars->export_env[i + 1] = 0;
+	return (count);
 }
 
 int	arrlenght(char **array)
@@ -81,11 +82,8 @@ void	sort_array(char **array, int arraylength)
 void	export_array(t_vars *vars, t_envp *env)
 {
 	int		arraylength;
-	char	**array;
 
-	array = NULL;
-	vars->export_env = copy_env(array, env);
-	arraylength = arrlenght(vars->export_env);
+	arraylength = copy_env(vars, env);
 	sort_array(vars->export_env, arraylength);
 }
 

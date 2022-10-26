@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.codam.nl>         +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/13 16:39:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2021/12/13 16:39:30 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/26 18:39:18 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup(const char *s1)
 	{
 		len++;
 	}
-	destination = malloc (len + 1);
+	destination = malloc(len + 1);
 	if (destination == NULL)
 		return (destination);
 	pointer = destination;
