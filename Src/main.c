@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 19:00:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 14:34:02 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[], char **envp)
 		init_vars(vars);
 		env = put_envp_in_list(envp);
 		envp_to_array(env, vars);
-		export_array(vars);
+		export_array(vars, env);
 		signals();
 		main_loop(0, env, vars);
 	}

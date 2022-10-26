@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:59:07 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 14:34:13 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		echo(t_node *command_table, t_vars *vars);
 void	exit_program(t_node *command_table);
 
 		// export.c
-void	export_array(t_vars *vars);
+void	export_array(t_vars *vars, t_envp *env);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// unset.c

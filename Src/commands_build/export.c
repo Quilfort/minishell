@@ -6,24 +6,27 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 16:37:55 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 14:39:29 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**copy_env(char **array, t_vars *vars)
+char	**copy_env(char **array, t_envp *env)
 {
 	int		i;
+	int		count;
 
 	i = 0;
-	array = malloc((vars->env_count + 1) * sizeof(char *));
+	count = lst_size(env);
+	array = malloc((count + 1) * sizeof(char *));
 	if (array == NULL)
 		pexit("error", 1);
-	while (i < vars->env_count)
+	while (i < count)
 	{
-		array[i] = vars->enviroment[i];
+		array[i] = env->content;
 		i++;
+		env = env->next;
 	}
 	array[i + 1] = "\0";
 	return (array);
@@ -75,11 +78,11 @@ void	sort_array(char **array, int arraylength)
 	}
 }
 
-void	export_array(t_vars *vars)
+void	export_array(t_vars *vars, t_envp *env)
 {
 	int		arraylength;
 
-	vars->export_env = copy_env(vars->export_env, vars);
+	vars->export_env = copy_env(vars->export_env, env);
 	arraylength = arrlenght(vars->export_env);
 	sort_array(vars->export_env, arraylength);
 }
@@ -93,5 +96,5 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	envp_to_array(env_list, vars);
 	temp = lstlast_envp(env_list);
 	key_output(command_table->command[1], &temp);
-	export_array(vars);
+	export_array(vars, env_list);
 }
