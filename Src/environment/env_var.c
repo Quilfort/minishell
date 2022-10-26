@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:38:56 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/26 14:43:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	key_output(char *split, t_envp **temp)
 		while (split[i] != '\0')
 			i++;
 		output = ft_substr(split, start, (i - start));
+		// printf("output: %s\n", output);
 		(*temp)->output = ft_strdup(output);
 		free(output);
 	}
