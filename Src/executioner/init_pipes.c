@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/24 18:58:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 15:32:51 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,4 @@ void	ft_wait(t_vars *vars)
 	}
 	if (WIFEXITED(status))
 		g_vars2.exitcode = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_vars2.exitcode = 130;
 }

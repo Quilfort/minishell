@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fork_with_both.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/20 12:02:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/26 15:34:56 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	in_out_file_one_command(t_node *command_table, t_vars *vars)
 {
 	find_path(vars);
-	vars->pid = fork();
-	if (vars->pid == -1)
+	g_vars2.pid = fork();
+	if (g_vars2.pid == -1)
 		perror("fork error\n");
-	if (vars->pid == 0)
+	if (g_vars2.pid == 0)
 	{
 		if (dup2(vars->f1, STDIN_FILENO) == -1)
 			print_error(command_table, vars);
@@ -27,7 +27,7 @@ static void	in_out_file_one_command(t_node *command_table, t_vars *vars)
 		q_preform_cmd(command_table, vars);
 	}
 	else
-		wait(&vars->pid);
+		wait(&g_vars2.pid);
 }
 
 void	in_out_file_fork_process(t_node *command_table, t_vars *vars)

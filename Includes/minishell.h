@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:34:13 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 15:34:37 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_vars
 	int		com;
 	int		com_count;
 	int		append_open;
-	pid_t	pid;
 }	t_vars;
 
 typedef	struct s_vars2

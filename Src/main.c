@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:51:37 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 15:32:12 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 
 	while (flag != EOF)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		input = rl_history();
+		signals();
 		if (input == NULL)
 		{
 			flag = EOF;

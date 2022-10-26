@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:06:14 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/24 19:00:52 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/26 15:33:37 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	first_child(t_node *command_table, int **fd, t_vars *vars)
 {
-	int	pid1;
-
-	pid1 = fork();
-	if (pid1 < 0)
+	g_vars2.pid = fork();
+	if (g_vars2.pid < 0)
 		print_error(command_table, vars);
-	if (pid1 == 0)
+	if (g_vars2.pid == 0)
 	{
 		if (vars->no_infile == 0)
 		{
@@ -42,12 +40,10 @@ void	first_child(t_node *command_table, int **fd, t_vars *vars)
 
 void	middle_child(t_node *command_table, int **fd, t_vars *vars)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid < 0)
+	g_vars2.pid = fork();
+	if (g_vars2.pid < 0)
 		print_error(command_table, vars);
-	if (pid == 0)
+	if (g_vars2.pid == 0)
 	{
 		dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
 		dup2(fd[vars->com_count][1], STDOUT_FILENO);
@@ -66,12 +62,10 @@ void	middle_child(t_node *command_table, int **fd, t_vars *vars)
 
 void	last_child(t_node *command_table, int **fd, t_vars *vars)
 {
-	int	pid3;
-
-	pid3 = fork();
-	if (pid3 < 0)
+	g_vars2.pid = fork();
+	if (g_vars2.pid < 0)
 		print_error(command_table, vars);
-	if (pid3 == 0)
+	if (g_vars2.pid == 0)
 	{
 		if (vars->no_outfile == 0)
 		{
