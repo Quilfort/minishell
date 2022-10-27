@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 16:30:05 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/27 17:38:05 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
 		if (vars->last_dir == NULL)
 			ft_putstr_fd("Minishell: cd: No last directory", 2);
 		else
-			output = ft_strdup(vars->last_dir);
+			output = vars->last_dir;
 	}
 	else
 		output = command_table->command[1];
@@ -79,7 +79,7 @@ int	open_folder(t_node *command_table, t_envp *env, t_vars *vars)
 
 	getcwd(temp, sizeof(temp));
 	path = open_folder_utils(command_table, vars, env);
-	if (command_table->command[1] != NULL)
+	if (path != NULL)
 	{
 		dir = opendir(path);
 		if (dir == NULL)
@@ -89,11 +89,11 @@ int	open_folder(t_node *command_table, t_envp *env, t_vars *vars)
 		}
 		if (dir != NULL)
 			closedir(dir);
+		chdir(path);
+		change_env_pwd(temp, env, vars);
+		if (vars->last_dir != NULL)
+			free(vars->last_dir);
+		vars->last_dir = ft_strdup(temp);
 	}
-	chdir(path);
-	change_env_pwd(temp, env, vars);
-	if (vars->last_dir != NULL)
-		free(vars->last_dir);
-	vars->last_dir = ft_strdup(temp);
 	return (1);
 }

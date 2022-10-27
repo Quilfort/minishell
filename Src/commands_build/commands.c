@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 11:23:56 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/27 17:45:31 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	pwd(void)
 
 	getcwd(string, sizeof(string));
 	ft_putendl_fd(string, 1);
-	return (0);
+	return (1);
 }
 
 int	env(t_vars *vars)

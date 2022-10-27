@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 17:30:29 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/27 17:40:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ int	lst_size(t_envp *list)
 	return (i);
 }
 
+static int	lst_size2(t_envp *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		if (list->output == NULL)
+			i--;
+		list = list->next;
+		i++;
+	}
+	return (i);
+}
+
 void	envp_to_array(t_envp *env, t_vars *vars)
 {
 	int		i;
@@ -32,7 +47,7 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 
 	if (vars->enviroment != NULL)
 		freesplit(vars->enviroment);
-	count = lst_size(env);
+	count = lst_size2(env);
 	i = 0;
 	vars->enviroment = malloc((count + 1) * sizeof(char *));
 	if (vars->enviroment == NULL)
