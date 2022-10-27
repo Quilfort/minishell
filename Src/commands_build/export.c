@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 19:03:56 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/27 16:36:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ int	copy_env(t_vars *vars, t_envp *env)
 		pexit("error", 1);
 	while (i < count)
 	{
-		vars->export_env[i] = malloc(sizeof(ft_strlen(env->content)));
-		vars->export_env[i] = env->content;
+		vars->export_env[i] = ft_strdup(env->content);
 		i++;
 		env = env->next;
 	}
-	vars->export_env[i + 1] = 0;
+	vars->export_env[i] = NULL;
 	return (count);
 }
 

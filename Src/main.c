@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 11:48:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/27 16:12:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	init_vars(t_vars *vars)
 	vars->com_count = 0;
 	vars->append_open = 0;
 	vars->export_env = NULL;
+	vars->last_dir = NULL;
 }
 
 char	*rl_history(void)
@@ -65,7 +66,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
-		// system("leaks minishell");
+		system("leaks minishell");
 	}
 }
 

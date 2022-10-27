@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 18:41:58 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/27 16:37:06 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 		i++;
 		env = env->next;
 	}
-	vars->enviroment[i + 1] = "\0";
+	vars->enviroment[i] = NULL;
 	vars->env_count = count;
 }

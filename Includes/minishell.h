@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 11:24:20 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/27 14:27:12 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // extern int	g_exitcode;
 
 //pipex
-typedef struct s_vars 
+typedef struct s_vars
 {
 	int		f1;
 	int		f2;
@@ -48,9 +48,10 @@ typedef struct s_vars
 	int		com;
 	int		com_count;
 	int		append_open;
+	char	*last_dir;
 }	t_vars;
 
-typedef	struct s_vars2
+typedef struct s_vars2
 {
 	int		pid;
 	int		exitcode;
