@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_to_array.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 16:37:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/27 17:22:49 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	envp_to_array(t_envp *env, t_vars *vars)
 		pexit("error", 1);
 	while (i < count)
 	{
-		vars->enviroment[i] = env->content;
+		vars->enviroment[i] = ft_strdup(env->content);
 		i++;
 		env = env->next;
 	}
