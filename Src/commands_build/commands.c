@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 19:01:32 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/27 11:23:56 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 	else if ((ft_strncmp("cd", command_table->command[0], 2) == 0) \
 		&& ft_strlen("cd") == ft_strlen(command_table->command[0]))
 	{
-		open_folder(command_table);
+		open_folder(command_table, env, vars);
 		return (1);
 	}
 	else if ((ft_strncmp("unset", command_table->command[0], 3) == 0) \
@@ -73,7 +73,7 @@ int	pwd(void)
 
 	getcwd(string, sizeof(string));
 	ft_putendl_fd(string, 1);
-	return (1);
+	return (0);
 }
 
 int	env(t_vars *vars)

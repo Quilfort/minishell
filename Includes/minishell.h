@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 15:34:37 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/27 11:24:20 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	free_command(t_node *list);
 
 // Commands_build
 		// cd.c
-int		open_folder(t_node *command_table);
+int		open_folder(t_node *command_table, t_envp *env, t_vars *vars);
 
 		// commands.c
 int		commands_built(t_node *command_table, t_vars *vars);
