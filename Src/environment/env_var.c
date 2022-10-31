@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:19:04 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/31 18:35:02 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	key_output(char *split, t_envp **temp)
 		key = ft_substr(split, 0, i);
 		(*temp)->key = ft_strdup(key);
 		free(key);
+		i++;
 		if (split[i] != '\0')
 		{
 			i++;
