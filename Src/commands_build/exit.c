@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 19:01:21 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/31 18:02:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	exit_program(t_node *command_table)
 	int	exitcode;
 
 	if (command_table->command[1] == NULL)
-		exit(0);
+		exit(g_vars2.exitcode);
 	exit_program_error(command_table->command);
 	if (digits_only(command_table->command[1]) == 1)
 	{

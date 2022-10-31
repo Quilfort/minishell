@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 14:27:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/10/31 18:11:57 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,7 @@ void	free_command(t_node *list);
 void	freepipes(int **fd, t_vars *vars);
 
 void	signals_quit(void);
+
+void	refill_node(t_envp *node, char *string);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_var.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/26 18:50:21 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/31 18:19:04 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*env_var(t_envp *list, char *var)
 	{
 		output = list->output;
 		free(var);
-		return (output);
+		if (output == NULL)
+			return ("");
+		else
+			return (output);
 	}	
 	else
 	{
