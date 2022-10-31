@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 17:26:03 by rharing       ########   odam.nl         */
+/*   Updated: 2022/10/31 17:01:12 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,63 @@ void	export_array(t_vars *vars, t_envp *env)
 	sort_array(vars->export_env, arraylength);
 }
 
+int		get_key_lenght(char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i] != '=' && string[i] != '\0')
+		i++;
+	return (i);
+}
+
+t_envp	*get_node(t_envp *env_list, char *string)
+{
+	t_envp	*temp;
+	char	*trim;
+	int		key_lenght;
+
+	temp = env_list;
+	key_lenght = get_key_lenght(string);
+	trim = malloc((key_lenght + 1) * sizeof(char *));
+	ft_strlcpy(trim, string, key_lenght + 1);
+	while (temp != NULL)
+	{
+		if ((ft_strncmp(trim, temp->key, ft_strlen(temp->key)) == 0))
+		{
+			free (trim);
+			return (temp);
+		}
+		temp = temp->next;
+	}
+	free(trim);
+	return (temp);
+}
+
+void	refill_node(t_envp *node, char *string)
+{
+	free(node->content);
+	free(node->key);
+	if (node->output)
+		free(node->output);
+	node->content = ft_strdup(string);
+	key_output(string, &node);
+}
+
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 {
 	t_envp	*temp;
+	t_envp	*temp2;
 
-	lstadd_back_envp(&env_list, command_table->command[1]);
-	temp = lstlast_envp(env_list);
-	key_output(command_table->command[1], &temp);
+	temp2 = get_node(env_list, command_table->command[1]);
+	if (temp2)
+		refill_node(temp2, command_table->command[1]);
+	else
+	{
+		lstadd_back_envp(&env_list, command_table->command[1]);
+		temp = lstlast_envp(env_list);
+		key_output(command_table->command[1], &temp);
+	}
 	envp_to_array(env_list, vars);
 	export_array(vars, env_list);
 }
