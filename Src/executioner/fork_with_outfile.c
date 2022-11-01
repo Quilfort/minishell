@@ -32,13 +32,6 @@ static void	just_outfile_fork_process(t_node *command_table, t_vars *vars, \
 void	just_outfile_multiple_fork_process(t_node *command_table, t_vars *vars, \
 											t_envp *env_list)
 {
-	if (vars->append_open == 1)
-		vars->f2 = open(vars->string_outfile, O_RDWR | O_APPEND);
-	else
-		vars->f2 = open(vars->string_outfile, \
-		O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (vars->f2 < 0)
-		perror(vars->string_outfile);
 	if (vars->com == 1)
 		just_outfile_fork_process(command_table, vars, env_list);
 	if (vars->com > 1)

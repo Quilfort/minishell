@@ -40,9 +40,6 @@ static void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
 void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars, \
 											t_envp *env_list)
 {
-	vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
-	if (vars->f1 < 0)
-		perror(vars->string_infile);
 	if (vars->com == 1)
 		just_infile_fork_process(command_table, vars, env_list);
 	if (vars->com > 1)

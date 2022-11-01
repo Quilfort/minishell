@@ -88,12 +88,35 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 	return (node);
 }
 
+void	openfiles(t_node *command_table, t_vars *vars)
+{
+	vars->string_infile = q_find_token_infile(command_table, vars);
+	vars->string_outfile = q_find_token_outfile(command_table, vars);
+	if (vars->no_infile == 0)
+	{
+		vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
+		if (vars->f1 < 0)
+			perror(vars->string_infile);
+	}
+	if (vars->no_outfile == 0)
+	{
+		if (vars->append_open == 1)
+			vars->f2 = open(vars->string_outfile, O_RDWR | O_APPEND);
+		else
+			vars->f2 = open(vars->string_outfile, \
+			O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (vars->f2 < 0)
+			perror(vars->string_outfile);
+	}
+}
+
 void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
 
 	node = create_command_table_list(split, env, vars);
 	exec_init(node);
+	openfiles(node, vars);
 	if (node->command[0] == NULL)
 		wait(NULL);
 	else
