@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/20 17:48:01 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 16:41:03 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int	echo(t_node *command_table, t_vars *vars)
 	{
 		ft_putchar_fd('\n', 1);
 		return (1);
+	}
+	else if (ft_strncmp("~", command_table->command[1], 1) == 0)
+	{
+		
 	}
 	else if (ft_strncmp("-n", command_table->command[1], 2) == 0)
 		return (echo_n(command_table));

@@ -28,6 +28,7 @@ SRC = ./src/main.c \
 	$(COMMANDS_FOLDER)commands.c \
 	$(COMMANDS_FOLDER)echo.c \
 	$(COMMANDS_FOLDER)exit.c \
+	$(COMMANDS_FOLDER)export_array.c \
 	$(COMMANDS_FOLDER)export.c \
 	$(COMMANDS_FOLDER)unset.c \
 	$(EXEC_FOLDER)child.c \

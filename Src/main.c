@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:24:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/01 14:16:18 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,27 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 	}
 }
 
-t_vars2 g_vars2;
+void	set_shlvl(t_envp *env)
+{
+	t_envp	*temp;
+	char	*trim;
+	char	*tempstr;
+	int		lvl;
+
+	temp = get_node(env, "SHLVL");
+	trim = ft_strtrim(temp->content, "SHLVL=");
+	lvl = ft_atoi(trim) + 1;
+	tempstr = ft_itoa(lvl);
+	free(temp->content);
+	temp->content = ft_strjoin("SHLVL=", tempstr);
+	free(tempstr);
+	free(trim);
+	free(temp->key);
+	free(temp->output);
+	key_output(temp->content, &temp);
+}
+
+t_vars2	g_vars2;
 
 int	main(int argc, char *argv[], char **envp)
 {
@@ -87,6 +107,7 @@ int	main(int argc, char *argv[], char **envp)
 		}
 		init_vars(vars);
 		env = put_envp_in_list(envp);
+		set_shlvl(env);
 		envp_to_array(env, vars);
 		export_array(vars, env);
 		signals();

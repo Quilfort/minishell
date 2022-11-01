@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:11:57 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:43:41 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,12 @@ int		echo(t_node *command_table, t_vars *vars);
 		// exit.c
 void	exit_program(t_node *command_table);
 
-		// export.c
+		// export_array.c
 void	export_array(t_vars *vars, t_envp *env);
+
+		// export.c
+void	refill_node(t_envp *node, char *string);
+t_envp	*get_node(t_envp *env_list, char *string);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// unset.c
@@ -216,7 +220,5 @@ void	free_command(t_node *list);
 void	freepipes(int **fd, t_vars *vars);
 
 void	signals_quit(void);
-
-void	refill_node(t_envp *node, char *string);
 
 #endif

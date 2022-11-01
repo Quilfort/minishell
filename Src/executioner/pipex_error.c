@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:28:47 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 13:58:47 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	print_error(t_node *command_table, t_vars *vars)
 		ft_putstr_fd(": Permission denied\n", 2);
 		exit(126);
 	}
-	if (vars->my_path == NULL && (ft_strncmp(command_table->command[0], "cat", 3) != 0))
+	if (vars->my_path == NULL && \
+		(ft_strncmp(command_table->command[0], "cat", 3) != 0))
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(command_table->command[0], 2);
