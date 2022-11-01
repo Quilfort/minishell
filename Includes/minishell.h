@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 17:14:23 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 17:21:27 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 # include <limits.h>
 # include <termios.h>
 
-// extern int	g_exitcode;
-
-//pipex
 typedef struct s_vars
 {
 	int		f1;
@@ -59,7 +56,6 @@ typedef struct s_vars2
 
 extern t_vars2	g_vars2;
 
-//input to commands
 typedef struct s_node
 {
 	char			*content;
@@ -72,7 +68,6 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
-//envp in list
 typedef struct s_envp
 {
 	char			*content;
