@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:30:06 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 18:02:58 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
 {
 	t_envp	*temp;
 
-	if (command_table->command[1] == NULL || \
-		ft_strncmp(command_table->command[1], "~", 1) == 0)
+	if (command_table->command[1] == NULL)
 	{
 		temp = get_node(env, "HOME");
 		if (temp == NULL)
@@ -68,6 +67,8 @@ static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
 		}
 		return (temp->output);
 	}
+	else if (ft_strncmp(command_table->command[1], "~", 1) == 0)
+		return (getenv("HOME"));
 	else if (ft_strncmp(command_table->command[1], "-", 1) == 0)
 	{
 		if (vars->last_dir == NULL)
@@ -75,6 +76,8 @@ static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
 			ft_putstr_fd("Minishell: cd: No last directory\n", 2);
 			g_vars2.exitcode = 1;
 		}
+		else
+			ft_putendl_fd(vars->last_dir, 1);
 		return (vars->last_dir);
 	}
 	return (command_table->command[1]);
