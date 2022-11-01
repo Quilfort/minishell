@@ -96,7 +96,10 @@ void	openfiles(t_node *command_table, t_vars *vars)
 	{
 		vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
 		if (vars->f1 < 0)
+		{
 			perror(vars->string_infile);
+			g_vars2.exitcode = 1;
+		}
 	}
 	if (vars->no_outfile == 0)
 	{
@@ -106,7 +109,10 @@ void	openfiles(t_node *command_table, t_vars *vars)
 			vars->f2 = open(vars->string_outfile, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (vars->f2 < 0)
+		{
 			perror(vars->string_outfile);
+			g_vars2.exitcode = 1;
+		}
 	}
 }
 

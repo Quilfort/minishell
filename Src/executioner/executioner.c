@@ -75,8 +75,6 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars, \
 
 void	q_pipex_start(t_node *command_table, t_vars *vars, t_envp *env_list)
 {
-	vars->string_infile = q_find_token_infile(command_table, vars);
-	vars->string_outfile = q_find_token_outfile(command_table, vars);
 	vars->com = lstsize(command_table);
 	if (vars->no_infile == 1 && vars->no_outfile == 1 && vars->com == 1)
 		no_inoutfile(command_table, vars, env_list);
