@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:43:41 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 17:14:23 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_vars2
 	int		exitcode;
 }	t_vars2;
 
-extern t_vars2 g_vars2;
+extern t_vars2	g_vars2;
 
 //input to commands
 typedef struct s_node
@@ -90,13 +90,13 @@ void	free_command(t_node *list);
 int		open_folder(t_node *command_table, t_envp *env, t_vars *vars);
 
 		// commands.c
-int		commands_built(t_node *command_table, t_vars *vars);
+int		commands_built(t_node *command_table, t_vars *vars, t_envp *env_list);
 int		builtin(t_node *command_table, t_envp *env, t_vars *vars);
 int		pwd(void);
 int		env(t_vars *vars);
 
 		//echo.c
-int		echo(t_node *command_table, t_vars *vars);
+int		echo(t_node *command_table, t_vars *vars, t_envp *env_list);
 
 		// exit.c
 void	exit_program(t_node *command_table);
@@ -131,23 +131,29 @@ t_envp	*put_envp_in_list(char **envp);
 
 // executioner
 		// executioner.c
-void	q_preform_cmd(t_node *command_table, t_vars *vars);
-void	multiple_fork(t_node *command_table, t_vars *vars);
-void	q_pipex_start(t_node *command_table, t_vars *vars);
+void	q_preform_cmd(t_node *command_table, t_vars *vars, t_envp *env_list);
+void	multiple_fork(t_node *command_table, t_vars *vars, t_envp *env_list);
+void	q_pipex_start(t_node *command_table, t_vars *vars, t_envp *env_list);
 
 		// child.c
-void	first_child(t_node *command_table, int **fd, t_vars *vars);
-void	middle_child(t_node *command_table, int **fd, t_vars *vars);
-void	last_child(t_node *command_table, int **fd, t_vars *vars);
+void	first_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list);
+void	middle_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list);
+void	last_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list);
 
 		// fork_with_both.c
-void	in_out_file_fork_process(t_node *command_table, t_vars *vars);
+void	in_out_file_fork_process(t_node *command_table, t_vars *vars, \
+											t_envp *env_list);
 
 		// fork_with_infile.c
-void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars);
+void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars, \
+											t_envp *env_list);
 
 		// fork_with_outfile.c
-void	just_outfile_multiple_fork_process(t_node *command_table, t_vars *vars);
+void	just_outfile_multiple_fork_process(t_node *command_table, t_vars *vars, \
+											t_envp *env_list);
 
 		// get_path.c
 void	right_path(t_node *command_table, t_vars *vars);

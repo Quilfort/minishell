@@ -6,13 +6,14 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:06:14 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/26 15:33:37 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 17:04:55 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	first_child(t_node *command_table, int **fd, t_vars *vars)
+void	first_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list)
 {
 	g_vars2.pid = fork();
 	if (g_vars2.pid < 0)
@@ -33,12 +34,13 @@ void	first_child(t_node *command_table, int **fd, t_vars *vars)
 		{
 			dup2(fd[0][1], STDOUT_FILENO);
 			close_pipes(fd, vars);
-			q_preform_cmd(command_table, vars);
+			q_preform_cmd(command_table, vars, env_list);
 		}
 	}
 }
 
-void	middle_child(t_node *command_table, int **fd, t_vars *vars)
+void	middle_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list)
 {
 	g_vars2.pid = fork();
 	if (g_vars2.pid < 0)
@@ -55,12 +57,13 @@ void	middle_child(t_node *command_table, int **fd, t_vars *vars)
 		else
 		{
 			close_pipes(fd, vars);
-			q_preform_cmd(command_table, vars);
+			q_preform_cmd(command_table, vars, env_list);
 		}
 	}
 }
 
-void	last_child(t_node *command_table, int **fd, t_vars *vars)
+void	last_child(t_node *command_table, int **fd, t_vars *vars, \
+					t_envp *env_list)
 {
 	g_vars2.pid = fork();
 	if (g_vars2.pid < 0)
@@ -81,7 +84,7 @@ void	last_child(t_node *command_table, int **fd, t_vars *vars)
 		{
 			dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
 			close_pipes(fd, vars);
-			q_preform_cmd(command_table, vars);
+			q_preform_cmd(command_table, vars, env_list);
 		}
 	}
 }

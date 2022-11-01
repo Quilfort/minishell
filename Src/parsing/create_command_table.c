@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:09:44 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/01 17:16:09 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
 			&& node->next == NULL)
 			exit_program(node);
-		else if (builtin(node, env, vars) == 0)
-		{
-			q_pipex_start(node, vars);
-			freesplit(vars->path);
-		}
+		// else if (builtin(node, env, vars) == 0)
+		// {
+		q_pipex_start(node, vars, env);
+		freesplit(vars->path);
+		// }
 		unlink("tmpfile");
 	}
 	free_command(node);
