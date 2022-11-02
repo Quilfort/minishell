@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 17:46:37 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/02 19:07:42 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,30 @@ void	openfiles(t_node *command_table, t_vars *vars)
 	}
 }
 
+void	list_print_command(t_node *list)
+{
+	int	i;
+
+	i = 0;
+	while (list)
+	{
+		printf("\ncontent %d:  ", i);
+		printf("%s", list->content);
+		printf("\nwords %d:  ", i);
+		printf("%s\n", list->words);
+		printf("\ninfile %d:  ", i);
+		printf("%s\n", list->infile);
+		printf("\noutfile %d:  ", i);
+		printf("%s\n", list->outfile);
+		printf("\nheredoc %d:  ", i);
+		printf("%s\n", list->heredoc);
+		printf("\ncommand[0] %d:  ", i);
+		printf("%s\n", list->command[0]);
+		list = list->next;
+		i++;
+	}
+}
+
 void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
@@ -123,6 +147,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	node = create_command_table_list(split, env, vars);
 	exec_init(node);
 	openfiles(node, vars);
+	list_print_command(node);
 	if (node->command[0] == NULL)
 		wait(NULL);
 	else
