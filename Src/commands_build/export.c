@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 14:00:09 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/04 14:23:16 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ void	refill_node(t_envp *node, char *string)
 	key_output(string, &node);
 }
 
+int	has_equal(char *string)
+{
+	int i;
+
+	i = 0;
+	while (string[i] != '\0')
+	{
+		if (string[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 {
 	t_envp	*temp;
@@ -47,7 +61,10 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	{
 		temp2 = get_node(env_list, command_table->command[i]);
 		if (temp2)
-			refill_node(temp2, command_table->command[i]);
+		{
+			if (has_equal(command_table->command[i]) == 1)
+				refill_node(temp2, command_table->command[i]);
+		}
 		else
 		{
 			lstadd_back_envp(&env_list, command_table->command[i]);

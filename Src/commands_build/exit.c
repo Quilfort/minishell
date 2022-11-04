@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:02:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/04 14:24:04 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	digits_only(char *string)
 	i = 0;
 	while (string[i])
 	{
+		if (string[i] == '-')
+			i++;
 		if (ft_isdigit((int)string[i]) == 0)
 			return (0);
 		i++;
@@ -61,6 +63,9 @@ void	exit_program(t_node *command_table)
 {
 	int	exitcode;
 
+	// free_command(command_table);
+	// free vars;
+	// free env;
 	if (command_table->command[1] == NULL)
 		exit(g_vars2.exitcode);
 	exit_program_error(command_table->command);
