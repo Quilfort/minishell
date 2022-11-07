@@ -62,11 +62,10 @@ int	redirect_infile(t_node *temp, char *split, int i)
 	return (i);
 }
 
-int	redirect_outfile(t_node *temp, char *split, int i, t_vars *vars)
+int	redirect_outfile(t_node *temp, char *split, int i)
 {
 	char	*word;
 
-	vars->append_open = 0;
 	if (split[i + 2] == '\0')
 	{
 		word = ft_substr(split, i, 2);
@@ -75,7 +74,7 @@ int	redirect_outfile(t_node *temp, char *split, int i, t_vars *vars)
 	}
 	else if (split[i] == '>' && split[i + 1] == '>')
 	{
-		vars->append_open = 1;
+		temp->append = 1;
 		i++;
 		i = list_outfile(&temp, i, split);
 	}
@@ -84,7 +83,7 @@ int	redirect_outfile(t_node *temp, char *split, int i, t_vars *vars)
 	return (i);
 }
 
-void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars)
+void	split_pipe(char *split, t_node *temp, t_envp *env)
 {
 	int		i;
 
@@ -106,7 +105,7 @@ void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars)
 		else if (split[i] == '<' && split[i + 1] == '<')
 			i = redirect_here_doc(temp, split, i, env);
 		else if (split[i] == '>')
-			i = redirect_outfile(temp, split, i, vars);
+			i = redirect_outfile(temp, split, i);
 		else if (split[i] == '<')
 			i = redirect_infile(temp, split, i);
 	}

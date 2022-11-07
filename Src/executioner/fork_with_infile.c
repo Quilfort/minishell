@@ -38,15 +38,3 @@ void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
 			g_vars2.exitcode = WEXITSTATUS(status);
 	}
 }
-
-void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars, \
-											t_envp *env_list)
-{
-	if (vars->com == 1)
-	{
-		just_infile_fork_process(command_table, vars, env_list);
-		close(vars->f1);
-	}
-	if (vars->com > 1)
-		multiple_fork(command_table, vars, env_list);
-}

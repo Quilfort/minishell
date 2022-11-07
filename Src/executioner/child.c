@@ -28,13 +28,16 @@ void	open_infile(t_vars *vars, t_node *command_table)
 	if (vars->f1 < 0)
 	{
 		perror(command_table->infile);
+		// exit(1);
 		g_vars2.exitcode = 1;
 	}
+	if (dup2(vars->f1, STDIN_FILENO) == -1)
+		print_error(command_table, vars);
 }
 
 void	open_outfile(t_vars *vars, t_node *command_table)
 {
-	if (vars->append_open == 1)
+	if (command_table->append == 1)
 		vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);
 	else
 		vars->f2 = open(command_table->outfile, \
@@ -42,8 +45,11 @@ void	open_outfile(t_vars *vars, t_node *command_table)
 	if (vars->f2 < 0)
 	{
 		perror(command_table->outfile);
+		// exit(1);
 		g_vars2.exitcode = 1;
 	}
+	if (dup2(vars->f2, STDOUT_FILENO) == -1)
+		print_error(command_table, vars);
 }
 
 void	close_files(t_vars *vars, t_node *command_table)
@@ -52,6 +58,13 @@ void	close_files(t_vars *vars, t_node *command_table)
 		close(vars->f1);
 	if (command_table->outfile != NULL)
 		close(vars->f2);
+}
+
+void	just_exit(int **fd, t_vars *vars, t_node *command_table)
+{
+	close_pipes(fd, vars);
+	close_files(vars, command_table);
+	exit(0);
 }
 
 
@@ -64,28 +77,16 @@ void	first_child(t_node *command_table, int **fd, t_vars *vars, \
 	if (g_vars2.pid == 0)
 	{
 		if (command_table->infile != NULL)
-		{
 			open_infile(vars, command_table);
-			if (dup2(vars->f1, STDIN_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		if (command_table->outfile != NULL)
-		{
 			open_outfile(vars, command_table);
-			if (dup2(vars->f2, STDOUT_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		else
 		{
 			if (dup2(fd[0][1], STDOUT_FILENO) == -1)
 				print_error(command_table, vars);
 		}
 		if (!command_table->command[0])
-		{
-			close_pipes(fd, vars);
-			close_files(vars, command_table);
-			exit(0);
-		}
+			just_exit(fd, vars, command_table);
 		else
 		{
 			close_pipes(fd, vars);
@@ -104,27 +105,15 @@ void	middle_child(t_node *command_table, int **fd, t_vars *vars, \
 	if (g_vars2.pid == 0)
 	{
 		if (command_table->infile != NULL)
-		{
 			open_infile(vars, command_table);
-			if (dup2(vars->f1, STDIN_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		else
 			dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
 		if (command_table->outfile != NULL)
-		{
 			open_outfile(vars, command_table);
-			if (dup2(vars->f2, STDOUT_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		else
 			dup2(fd[vars->com_count][1], STDOUT_FILENO);
 		if (!command_table->command[0])
-		{
-			close_pipes(fd, vars);
-			close_files(vars, command_table);
-			exit(0);
-		}
+			just_exit(fd, vars, command_table);
 		else
 		{
 			close_pipes(fd, vars);
@@ -143,28 +132,16 @@ void	last_child(t_node *command_table, int **fd, t_vars *vars, \
 	if (g_vars2.pid == 0)
 	{
 		if (command_table->infile != NULL)
-		{
 			open_infile(vars, command_table);
-			if (dup2(vars->f1, STDIN_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		else
 		{
 			if (dup2(fd[vars->com_count - 1][0], STDIN_FILENO) == -1)
 				print_error(command_table, vars);
 		}
 		if (command_table->outfile != NULL)
-		{
 			open_outfile(vars, command_table);
-			if (dup2(vars->f2, STDOUT_FILENO) == -1)
-				print_error(command_table, vars);
-		}
 		if (!command_table->command[0])
-		{
-			close_pipes(fd, vars);
-			close_files(vars, command_table);
-			exit(0);
-		}
+			just_exit(fd, vars, command_table);
 		else
 		{
 			close_pipes(fd, vars);
@@ -173,83 +150,3 @@ void	last_child(t_node *command_table, int **fd, t_vars *vars, \
 		}
 	}
 }
-
-
-
-
-// void	first_child(t_node *command_table, int **fd, t_vars *vars, \
-// 					t_envp *env_list)
-// {
-// 	g_vars2.pid = fork();
-// 	if (g_vars2.pid < 0)
-// 		print_error(command_table, vars);
-// 	if (g_vars2.pid == 0)
-// 	{
-// 		if (vars->no_infile == 0)
-// 		{
-// 			if (dup2(vars->f1, STDIN_FILENO) == -1)
-// 				print_error(command_table, vars);
-// 		}
-// 		if (!command_table->command[0])
-// 		{
-// 			close_pipes(fd, vars);
-// 			exit(0);
-// 		}
-// 		else
-// 		{
-// 			dup2(fd[0][1], STDOUT_FILENO);
-// 			close_pipes(fd, vars);
-// 			q_preform_cmd(command_table, vars, env_list);
-// 		}
-// 	}
-// }
-
-// void	middle_child(t_node *command_table, int **fd, t_vars *vars, \
-// 					t_envp *env_list)
-// {
-// 	g_vars2.pid = fork();
-// 	if (g_vars2.pid < 0)
-// 		print_error(command_table, vars);
-// 	if (g_vars2.pid == 0)
-// 	{
-// 		dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
-// 		dup2(fd[vars->com_count][1], STDOUT_FILENO);
-// 		if (!command_table->command[0])
-// 		{
-// 			close_pipes(fd, vars);
-// 			exit(0);
-// 		}
-// 		else
-// 		{
-// 			close_pipes(fd, vars);
-// 			q_preform_cmd(command_table, vars, env_list);
-// 		}
-// 	}
-// }
-
-// void	last_child(t_node *command_table, int **fd, t_vars *vars, \
-// 					t_envp *env_list)
-// {
-// 	g_vars2.pid = fork();
-// 	if (g_vars2.pid < 0)
-// 		print_error(command_table, vars);
-// 	if (g_vars2.pid == 0)
-// 	{
-// 		if (vars->no_outfile == 0)
-// 		{
-// 			if (dup2(vars->f2, STDOUT_FILENO) == -1)
-// 				print_error(command_table, vars);
-// 		}
-// 		if (!command_table->command[0])
-// 		{
-// 			close_pipes(fd, vars);
-// 			exit(0);
-// 		}
-// 		else
-// 		{
-// 			dup2(fd[vars->com_count - 1][0], STDIN_FILENO);
-// 			close_pipes(fd, vars);
-// 			q_preform_cmd(command_table, vars, env_list);
-// 		}
-// 	}
-// }

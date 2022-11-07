@@ -64,6 +64,7 @@ typedef struct s_node
 	char			*outfile;
 	char			*heredoc;
 	char			**command;
+	int				append;
 
 	struct s_node	*next;
 }	t_node;
@@ -169,7 +170,7 @@ void	pexit(char *str, int exit_code);
 // parsing
 		// create_command_table.c
 void	exec_init(t_node *command_table);
-t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars);
+t_node	*create_command_table_list(char *split, t_envp *env);
 void	command_table(char *split, t_envp *env, t_vars *vars);
 int		make_pipes(char *split, int i);
 int		add_to_list(t_node *node, int i, char *split);
@@ -191,8 +192,8 @@ int		var_first_char(char *split, int i, t_node **temp);
 void	list_print_command(t_node *list);
 int		redirect_infile(t_node *temp, char *split, int i);
 int		redirect_here_doc(t_node *temp, char *split, int i, t_envp *env);
-int		redirect_outfile(t_node *temp, char *split, int i, t_vars *vars);
-void	split_pipe(char *split, t_node *temp, t_envp *env, t_vars *vars);
+int		redirect_outfile(t_node *temp, char *split, int i);
+void	split_pipe(char *split, t_node *temp, t_envp *env);
 
 		// list.c
 int		lstsize(t_node *list);

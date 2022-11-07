@@ -49,6 +49,7 @@ static t_node	*lstnew(char *split)
 	newcontent->outfile = NULL;
 	newcontent->heredoc = NULL;
 	newcontent->command = NULL;
+	newcontent->append = 0;
 	newcontent->next = NULL;
 	free(split);
 	return (newcontent);
@@ -88,6 +89,7 @@ t_node	*create_head(char *first)
 	head->outfile = NULL;
 	head->heredoc = NULL;
 	head->command = NULL;
+	head->append = 0;
 	head->next = NULL;
 	free(first);
 	return (head);

@@ -65,7 +65,7 @@ int	add_to_list(t_node *node, int i, char *split)
 	return (i);
 }
 
-t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
+t_node	*create_command_table_list(char *split, t_envp *env)
 {
 	t_node			*node;
 	t_node			*temp;
@@ -82,7 +82,7 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 	temp = node;
 	while (temp != NULL)
 	{
-		split_pipe(temp->content, temp, env, vars);
+		split_pipe(temp->content, temp, env);
 		temp = temp->next;
 	}
 	return (node);
@@ -91,9 +91,28 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 void	openfiles(t_node *command_table, t_vars *vars)
 {
 	if (command_table->infile != NULL)
-		open_infile(vars, command_table);
+	{
+		vars->f1 = open(command_table->infile, O_RDONLY, 0644);
+		if (vars->f1 < 0)
+		{
+			perror(command_table->infile);
+			g_vars2.exitcode = 1;
+		}
+	}
 	if (command_table->outfile != NULL)
-		open_outfile(vars, command_table);
+	{
+		if (command_table->append == 1)
+			vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);
+		else
+			vars->f2 = open(command_table->outfile, \
+			O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (vars->f2 < 0)
+		{
+			perror(command_table->outfile);
+			// exit(1);
+			g_vars2.exitcode = 1;
+		}
+	}
 }
 
 void	list_print_command(t_node *list)
@@ -124,7 +143,7 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
 
-	node = create_command_table_list(split, env, vars);
+	node = create_command_table_list(split, env);
 	exec_init(node);
 	if (node->next == NULL)
 		openfiles(node, vars);

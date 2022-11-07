@@ -40,16 +40,3 @@ void	in_out_file_one_command(t_node *command_table, t_vars *vars, \
 			g_vars2.exitcode = WEXITSTATUS(status);
 	}
 }
-
-void	in_out_file_fork_process(t_node *command_table, t_vars *vars, \
-								t_envp *env_list)
-{
-	if (vars->com == 1)
-	{
-		in_out_file_one_command(command_table, vars, env_list);
-		close(vars->f1);
-		close(vars->f2);
-	}
-	else
-		multiple_fork(command_table, vars, env_list);
-}
