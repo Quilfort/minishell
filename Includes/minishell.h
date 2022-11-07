@@ -222,4 +222,15 @@ void	freepipes(int **fd, t_vars *vars);
 
 void	signals_quit(void);
 
+void	open_infile(t_vars *vars, t_node *command_table);
+void	open_outfile(t_vars *vars, t_node *command_table);
+
+void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
+									t_envp *env_list);
+									
+void	just_outfile_fork_process(t_node *command_table, t_vars *vars, \
+										t_envp *env_list);
+
+void	in_out_file_one_command(t_node *command_table, t_vars *vars, \
+									t_envp *env_list);
 #endif

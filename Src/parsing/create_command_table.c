@@ -90,30 +90,10 @@ t_node	*create_command_table_list(char *split, t_envp *env, t_vars *vars)
 
 void	openfiles(t_node *command_table, t_vars *vars)
 {
-	vars->string_infile = q_find_token_infile(command_table, vars);
-	vars->string_outfile = q_find_token_outfile(command_table, vars);
-	if (vars->no_infile == 0)
-	{
-		vars->f1 = open(vars->string_infile, O_RDONLY, 0644);
-		if (vars->f1 < 0)
-		{
-			perror(vars->string_infile);
-			g_vars2.exitcode = 1;
-		}
-	}
-	if (vars->no_outfile == 0)
-	{
-		if (vars->append_open == 1)
-			vars->f2 = open(vars->string_outfile, O_RDWR | O_APPEND);
-		else
-			vars->f2 = open(vars->string_outfile, \
-			O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (vars->f2 < 0)
-		{
-			perror(vars->string_outfile);
-			g_vars2.exitcode = 1;
-		}
-	}
+	if (command_table->infile != NULL)
+		open_infile(vars, command_table);
+	if (command_table->outfile != NULL)
+		open_outfile(vars, command_table);
 }
 
 void	list_print_command(t_node *list)
@@ -146,16 +126,25 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 
 	node = create_command_table_list(split, env, vars);
 	exec_init(node);
-	openfiles(node, vars);
-	list_print_command(node);
-	if (node->command[0] == NULL)
-		wait(NULL);
+	if (node->next == NULL)
+		openfiles(node, vars);
+	// list_print_command(node);
+	if (node->command[0] == NULL && node->next == NULL)
+	{
+		if (node->infile != NULL)
+			close(vars->f1);
+		if (node->outfile != NULL)
+			close(vars->f2);
+	}
 	else
 	{
-		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
-			&& node->next == NULL)
-			exit_program(node);
+		if (node->command[0] != NULL)
+		{
+			if ((ft_strncmp("exit", node->command[0], 4) == 0) \
+				&& ft_strlen("exit") == ft_strlen(node->command[0]) \
+				&& node->next == NULL)
+				exit_program(node);
+		}
 		if (node->next == NULL)
 		{
 			if (builtin(node, env, vars) == 0)
