@@ -38,6 +38,7 @@ SRC = ./src/main.c \
 	$(EXEC_FOLDER)fork_with_infile.c \
 	$(EXEC_FOLDER)fork_with_outfile.c \
 	$(EXEC_FOLDER)init_pipes.c \
+	$(EXEC_FOLDER)open_files.c \
 	$(EXEC_FOLDER)pipex_error.c
 OBJ = $(SRC:%.c=%.o)
 

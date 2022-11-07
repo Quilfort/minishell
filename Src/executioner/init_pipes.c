@@ -69,3 +69,10 @@ void	ft_wait(t_vars *vars)
 		x++;
 	}
 }
+
+void	just_exit(int **fd, t_vars *vars, t_node *command_table)
+{
+	close_pipes(fd, vars);
+	close_files(vars, command_table);
+	exit(0);
+}

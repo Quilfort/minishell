@@ -95,6 +95,7 @@ int		env(t_vars *vars);
 int		echo(t_node *command_table);
 
 		// exit.c
+void	exit_now_questionmark(t_node *node);
 void	exit_program(t_node *command_table);
 
 		// export_array.c
@@ -162,6 +163,13 @@ int		**malloc_pipes(t_vars *vars);
 void	init_pipes(int **fd, t_vars *vars);
 void	close_pipes(int **fd, t_vars *vars);
 void	ft_wait(t_vars *vars);
+void	just_exit(int **fd, t_vars *vars, t_node *command_table);
+
+		// open_files.c
+void	openfiles(t_node *command_table, t_vars *vars);
+void	open_infile(t_vars *vars, t_node *command_table);
+void	open_outfile(t_vars *vars, t_node *command_table);
+void	close_files(t_vars *vars, t_node *command_table);
 
 		// pipex_error.c
 void	print_error(t_node *command_table, t_vars *vars);

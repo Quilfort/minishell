@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+void	exit_now_questionmark(t_node *node)
+{
+	if (node->command[0] != NULL)
+	{
+		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
+			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
+			&& node->next == NULL)
+			exit_program(node);
+	}
+}
+
 static int	digits_only(char *string)
 {
 	int	i;
