@@ -30,6 +30,7 @@ SRC = ./src/main.c \
 	$(COMMANDS_FOLDER)echo.c \
 	$(COMMANDS_FOLDER)exit.c \
 	$(COMMANDS_FOLDER)export_array.c \
+	$(COMMANDS_FOLDER)export_command_key.c \
 	$(COMMANDS_FOLDER)export_command_var.c \
 	$(COMMANDS_FOLDER)export_command.c \
 	$(COMMANDS_FOLDER)export.c \

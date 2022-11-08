@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interpreter.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 16:22:48 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/20 17:43:30 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 19:04:36 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	redirect_infile(t_node *temp, char *split, int i)
 	{
 		word = ft_substr(split, i, 1);
 		add_to_word(&temp, word);
+		free(word);
 		i++;
 	}
 	else
@@ -70,6 +71,7 @@ int	redirect_outfile(t_node *temp, char *split, int i)
 	{
 		word = ft_substr(split, i, 2);
 		add_to_word(&temp, word);
+		free(word);
 		i = i + 2;
 	}
 	else if (split[i] == '>' && split[i + 1] == '>')
