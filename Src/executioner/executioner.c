@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/01 17:39:43 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:09:45 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,19 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars, \
 void	q_pipex_start(t_node *command_table, t_vars *vars, t_envp *env_list)
 {
 	vars->com = lstsize(command_table);
-	if (vars->com == 1 && command_table->infile == NULL && command_table->outfile == NULL)
+	if (vars->com == 1 && command_table->infile == NULL \
+		&& command_table->outfile == NULL)
 		no_inoutfile(command_table, vars, env_list);
-	else if (vars->com == 1 && command_table->infile != NULL && command_table->outfile == NULL)
+	else if (vars->com == 1 && command_table->infile != NULL \
+			&& command_table->outfile == NULL)
 		just_infile_fork_process(command_table, vars, env_list);
-	else if (vars->com == 1 && command_table->infile == NULL && command_table->outfile != NULL)
+	else if (vars->com == 1 && command_table->infile == NULL \
+			&& command_table->outfile != NULL)
 		just_outfile_fork_process(command_table, vars, env_list);
-	else if (vars->com == 1 && command_table->infile != NULL && command_table->outfile != NULL)
+	else if (vars->com == 1 && command_table->infile != NULL \
+			&& command_table->outfile != NULL)
 		in_out_file_one_command(command_table, vars, env_list);
 	else
 		multiple_fork(command_table, vars, env_list);
-	// if (vars->no_infile == 1 && vars->no_outfile == 1 && vars->com == 1)
-		// no_inoutfile(command_table, vars, env_list);
-	// if (vars->no_infile == 1 && vars->no_outfile == 1 && vars->com > 1)
-	// 	multiple_fork(command_table, vars, env_list);
-	// if (vars->no_infile == 0 && vars->no_outfile == 1)
-	// 	just_infile_multiple_fork_process(command_table, vars, env_list);
-	// if (vars->no_infile == 1 && vars->no_outfile == 0)
-	// 	just_outfile_multiple_fork_process(command_table, vars, env_list);
-	// if (vars->no_infile == 0 && vars->no_outfile == 0)
-	// 	in_out_file_fork_process(command_table, vars, env_list);
+	freesplit(vars->path);
 }

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/04 13:59:26 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:13:39 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ static void	init_vars(t_vars *vars)
 	vars->path = NULL;
 	vars->path_cmd = NULL;
 	vars->my_path = NULL;
-	vars->string_infile = NULL;
-	vars->string_outfile = NULL;
 	vars->com = 0;
 	vars->com_count = 0;
-	vars->append_open = 0;
 	vars->export_env = NULL;
 	vars->last_dir = NULL;
+	vars->command_export = NULL;
 }
 
 char	*rl_history(void)
@@ -66,7 +64,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
-		// system("leaks -q minishell");
+		system("leaks -q minishell");
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/02 19:29:20 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:13:09 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ typedef struct s_vars
 	char	**path;
 	char	*path_cmd;
 	char	*my_path;
-	char	*string_infile;
-	char	*string_outfile;
 	char	**export_env;
 	int		com;
 	int		com_count;
-	int		append_open;
 	char	*last_dir;
+	char	*command_export;
 }	t_vars;
 
 typedef struct s_vars2
@@ -91,11 +89,14 @@ int		builtin(t_node *command_table, t_envp *env, t_vars *vars);
 int		pwd(void);
 int		env(t_vars *vars);
 
+		// echo_n.c
+int		echo_n(t_node *command_table);
+
 		//echo.c
 int		echo(t_node *command_table);
 
 		// exit.c
-void	exit_now_questionmark(t_node *node);
+void	exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env);
 void	exit_program(t_node *command_table);
 
 		// export_array.c
@@ -105,6 +106,12 @@ void	export_array(t_vars *vars, t_envp *env);
 void	refill_node(t_envp *node, char *string);
 t_envp	*get_node(t_envp *env_list, char *string);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
+
+		// export_command.c
+int		find_command(char *content, int i, t_vars *vars, t_envp *env_list);
+
+		// export_command_var.c
+int		find_var_export(int i, char *content, t_vars *vars, t_envp *env);
 
 		// unset.c
 void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);
@@ -140,17 +147,13 @@ void	middle_child(t_node *command_table, int **fd, t_vars *vars, \
 void	last_child(t_node *command_table, int **fd, t_vars *vars, \
 					t_envp *env_list);
 
-		// fork_with_both.c
-void	in_out_file_fork_process(t_node *command_table, t_vars *vars, \
-											t_envp *env_list);
-
-		// fork_with_infile.c
-void	just_infile_multiple_fork_process(t_node *command_table, t_vars *vars, \
-											t_envp *env_list);
-
-		// fork_with_outfile.c
-void	just_outfile_multiple_fork_process(t_node *command_table, t_vars *vars, \
-											t_envp *env_list);
+		// fork_one_com.c
+void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
+									t_envp *env_list);	
+void	just_outfile_fork_process(t_node *command_table, t_vars *vars, \
+										t_envp *env_list);
+void	in_out_file_one_command(t_node *command_table, t_vars *vars, \
+									t_envp *env_list);
 
 		// get_path.c
 void	right_path(t_node *command_table, t_vars *vars);
@@ -223,23 +226,12 @@ void	add_space(t_node **temp, char *split, int start);
 
 // signals
 void	signals(void);
+void	signals_quit(void);
 
 //free
 void	freesplit(char **split);
 void	free_command(t_node *list);
 void	freepipes(int **fd, t_vars *vars);
+void	free_env_list(t_envp *list);
 
-void	signals_quit(void);
-
-void	open_infile(t_vars *vars, t_node *command_table);
-void	open_outfile(t_vars *vars, t_node *command_table);
-
-void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
-									t_envp *env_list);
-									
-void	just_outfile_fork_process(t_node *command_table, t_vars *vars, \
-										t_envp *env_list);
-
-void	in_out_file_one_command(t_node *command_table, t_vars *vars, \
-									t_envp *env_list);
 #endif

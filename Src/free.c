@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 11:03:47 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/27 17:21:28 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:09:06 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,7 @@ void	free_command(t_node *list)
 		free(temp->heredoc);
 		free(temp->infile);
 		free(temp->outfile);
-		while (temp->command[i] != NULL)
-		{
-			free(temp->command[i]);
-			i++;
-		}
-		free(temp->command);
+		freesplit(temp->command);
 		free(temp);
 		list = list->next;
 	}
@@ -61,4 +56,19 @@ void	freepipes(int **fd, t_vars *vars)
 		i++;
 	}
 	free(fd);
+}
+
+void	free_env_list(t_envp *list)
+{
+	t_envp	*temp;
+
+	while (list != NULL)
+	{
+		temp = list;
+		free(temp->content);
+		free(temp->key);
+		free(temp->output);
+		free(temp);
+		list = list->next;
+	}
 }

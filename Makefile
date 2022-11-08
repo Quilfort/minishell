@@ -26,17 +26,18 @@ SRC = ./src/main.c \
 	$(ENVIRONMENT_FOLDER)env_var.c \
 	$(COMMANDS_FOLDER)cd.c \
 	$(COMMANDS_FOLDER)commands.c \
+	$(COMMANDS_FOLDER)echo_n.c \
 	$(COMMANDS_FOLDER)echo.c \
 	$(COMMANDS_FOLDER)exit.c \
 	$(COMMANDS_FOLDER)export_array.c \
+	$(COMMANDS_FOLDER)export_command_var.c \
+	$(COMMANDS_FOLDER)export_command.c \
 	$(COMMANDS_FOLDER)export.c \
 	$(COMMANDS_FOLDER)unset.c \
 	$(EXEC_FOLDER)child.c \
 	$(EXEC_FOLDER)executioner.c \
 	$(EXEC_FOLDER)get_path.c \
-	$(EXEC_FOLDER)fork_with_both.c \
-	$(EXEC_FOLDER)fork_with_infile.c \
-	$(EXEC_FOLDER)fork_with_outfile.c \
+	$(EXEC_FOLDER)fork_one_com.c \
 	$(EXEC_FOLDER)init_pipes.c \
 	$(EXEC_FOLDER)open_files.c \
 	$(EXEC_FOLDER)pipex_error.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_pipes.c                                       :+:    :+:            */
+/*   open_files.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/01 18:59:15 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 13:38:27 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	open_infile(t_vars *vars, t_node *command_table)
 	{
 		perror(command_table->infile);
 		exit(1);
-		// g_vars2.exitcode = 1;
 	}
 	if (dup2(vars->f1, STDIN_FILENO) == -1)
 		print_error(command_table, vars);
@@ -62,7 +61,6 @@ void	open_outfile(t_vars *vars, t_node *command_table)
 	{
 		perror(command_table->outfile);
 		exit(1);
-		// g_vars2.exitcode = 1;
 	}
 	if (dup2(vars->f2, STDOUT_FILENO) == -1)
 		print_error(command_table, vars);

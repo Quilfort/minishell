@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:02:58 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 13:03:11 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,25 @@ static void	change_env_pwd(char *old, t_envp *list, t_vars *vars)
 	free(old_content);
 }
 
-static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
-									t_envp *env)
+static char	*its_home(t_envp *env)
 {
 	t_envp	*temp;
 
-	if (command_table->command[1] == NULL)
+	temp = get_node(env, "HOME");
+	if (temp == NULL)
 	{
-		temp = get_node(env, "HOME");
-		if (temp == NULL)
-		{
-			ft_putendl_fd("Minishell: cd: Home not set", 2);
-			g_vars2.exitcode = 1;
-			return (NULL);
-		}
-		return (temp->output);
+		ft_putendl_fd("Minishell: cd: Home not set", 2);
+		g_vars2.exitcode = 1;
+		return (NULL);
 	}
+	return (temp->output);
+}
+
+static	char	*open_folder_utils(t_node *command_table, t_vars *vars, \
+									t_envp *env)
+{
+	if (command_table->command[1] == NULL)
+		return (its_home(env));
 	else if (ft_strncmp(command_table->command[1], "~", 1) == 0)
 		return (getenv("HOME"));
 	else if (ft_strncmp(command_table->command[1], "-", 1) == 0)

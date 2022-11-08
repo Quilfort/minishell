@@ -6,22 +6,11 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/04 14:24:04 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:09:09 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	exit_now_questionmark(t_node *node)
-{
-	if (node->command[0] != NULL)
-	{
-		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
-			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
-			&& node->next == NULL)
-			exit_program(node);
-	}
-}
 
 static int	digits_only(char *string)
 {
@@ -74,9 +63,6 @@ void	exit_program(t_node *command_table)
 {
 	int	exitcode;
 
-	// free_command(command_table);
-	// free vars;
-	// free env;
 	if (command_table->command[1] == NULL)
 		exit(g_vars2.exitcode);
 	exit_program_error(command_table->command);
@@ -86,5 +72,33 @@ void	exit_program(t_node *command_table)
 		if (exitcode > 255)
 			exitcode -= 256;
 		exit(exitcode);
+	}
+}
+
+void	exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env)
+{
+	int	exitcode;
+
+	if (node->command[0] != NULL)
+	{
+		if ((ft_strncmp("exit", node->command[0], 4) == 0) \
+			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
+			&& node->next == NULL)
+		{
+			if (node->command[1] == NULL)
+				exit(g_vars2.exitcode);
+			exit_program_error(node->command);
+			if (digits_only(node->command[1]) == 1)
+			{
+				exitcode = ft_atoi(node->command[1]);
+				if (exitcode > 255)
+					exitcode -= 256;
+				free(node);
+				freesplit(vars->enviroment);
+				freesplit(vars->export_env);
+				free_env_list(env);
+				exit(exitcode);
+			}
+		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/04 14:02:51 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:08:02 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,30 +88,6 @@ t_node	*create_command_table_list(char *split, t_envp *env)
 	return (node);
 }
 
-void	list_print_command(t_node *list)
-{
-	int	i;
-
-	i = 0;
-	while (list)
-	{
-		printf("\ncontent %d:  ", i);
-		printf("%s", list->content);
-		printf("\nwords %d:  ", i);
-		printf("%s\n", list->words);
-		printf("\ninfile %d:  ", i);
-		printf("%s\n", list->infile);
-		printf("\noutfile %d:  ", i);
-		printf("%s\n", list->outfile);
-		printf("\nheredoc %d:  ", i);
-		printf("%s\n", list->heredoc);
-		printf("\ncommand[0] %d:  ", i);
-		printf("%s\n", list->command[0]);
-		list = list->next;
-		i++;
-	}
-}
-
 void	command_table(char *split, t_envp *env, t_vars *vars)
 {
 	t_node			*node;
@@ -120,22 +96,18 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 	exec_init(node);
 	if (node->next == NULL)
 		openfiles(node, vars);
-	// list_print_command(node);
 	if (node->command[0] == NULL && node->next == NULL)
 		close_files(vars, node);
 	else
 	{
-		exit_now_questionmark(node);
+		exit_now_questionmark(node, vars, env);
 		if (node->next == NULL)
 		{
 			if (builtin(node, env, vars) == 0)
 				q_pipex_start(node, vars, env);
 		}
 		else
-		{	
 			q_pipex_start(node, vars, env);
-			freesplit(vars->path);
-		}
 		unlink("tmpfile");
 	}
 	free_command(node);

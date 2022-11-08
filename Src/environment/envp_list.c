@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:35:29 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:07:17 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/08 16:08:20 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_envp	*create_head_envp(char *first)
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
-	head->content = first;
+	head->content = ft_strdup(first);
 	head->key = NULL;
 	head->output = NULL;
 	head->next = NULL;
