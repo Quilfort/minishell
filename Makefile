@@ -16,6 +16,7 @@ SRC = ./src/main.c \
 	$(PARSING_FOLDER)here_doc.c \
 	$(PARSING_FOLDER)here_doc_utils.c \
 	$(PARSING_FOLDER)create_command_table.c \
+	$(PARSING_FOLDER)interpreter_files.c \
 	$(PARSING_FOLDER)interpreter_utils.c \
 	$(PARSING_FOLDER)interpreter.c \
 	$(PARSING_FOLDER)list.c \

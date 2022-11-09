@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 18:24:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/09 13:45:46 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,9 +198,11 @@ int		list_heredoc(t_node **temp, char *split, int i, t_envp *env);
 char	*delimiter_without_quotes(char *delimiter);
 char	*ft_strjoin_free_both(char *s1, char *s2);
 
-		// interpreter_util.c
+		// interpreter_file.c
 int		list_outfile(t_node **temp, int i, char *split);
 int		list_infile(t_node **temp, int i, char *split);
+
+		// interpreter_util.c
 int		find_var(t_node **temp, int i, char *split, t_envp *env);
 int		var_first_char(char *split, int i, t_node **temp);
 

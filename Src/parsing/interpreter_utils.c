@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:59:00 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/09 13:46:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,63 +53,5 @@ int	find_var(t_node **temp, int i, char *split, t_envp *env)
 		i++;
 		i = find_var(temp, i, split, env);
 	}
-	return (i);
-}
-
-int	list_outfile(t_node **temp, int i, char *split)
-{
-	char	*outfile;
-	int		start;
-	int		end;
-
-	i++;
-	while (split[i] == ' ')
-		i++;
-	start = i;
-	while (split[i] != '\0')
-	{
-		if (split[i] == ' ')
-		{
-			end = i;
-			outfile = ft_substr(split, start, (end - start));
-			(*temp)->outfile = ft_strdup(outfile);
-			free(outfile);
-			return (i);
-		}
-		i++;
-	}
-	end = i;
-	outfile = ft_substr(split, start, (end - start));
-	(*temp)->outfile = ft_strdup(outfile);
-	free(outfile);
-	return (i);
-}
-
-int	list_infile(t_node **temp, int i, char *split)
-{
-	char	*infile;
-	int		start;
-	int		end;
-
-	i++;
-	while (split[i] == ' ')
-		i++;
-	start = i;
-	while (split[i] != '\0')
-	{
-		if (split[i] == ' ')
-		{
-			end = i;
-			infile = ft_substr(split, start, (end - start));
-			(*temp)->infile = ft_strdup(infile);
-			free(infile);
-			return (i);
-		}
-		i++;
-	}
-	end = i;
-	infile = ft_substr(split, start, (end - start));
-	(*temp)->infile = ft_strdup(infile);
-	free(infile);
 	return (i);
 }

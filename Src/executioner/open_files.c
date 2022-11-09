@@ -6,13 +6,13 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/08 13:38:27 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/09 14:01:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	openfiles(t_node *command_table, t_vars *vars)
+static void	openfile_utils(t_node *command_table, t_vars *vars)
 {
 	if (command_table->infile != NULL)
 	{
@@ -23,10 +23,20 @@ void	openfiles(t_node *command_table, t_vars *vars)
 			g_vars2.exitcode = 1;
 		}
 	}
+}
+
+void	openfiles(t_node *command_table, t_vars *vars)
+{
+	openfile_utils(command_table, vars);
 	if (command_table->outfile != NULL)
 	{
 		if (command_table->append == 1)
+		{
 			vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);
+			if (vars->f2 < 0)
+				vars->f2 = open(command_table->outfile, \
+				O_RDWR | O_APPEND | O_CREAT, 0644);
+		}
 		else
 			vars->f2 = open(command_table->outfile, \
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -53,7 +63,12 @@ void	open_infile(t_vars *vars, t_node *command_table)
 void	open_outfile(t_vars *vars, t_node *command_table)
 {
 	if (command_table->append == 1)
+	{
 		vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);
+		if (vars->f2 < 0)
+			vars->f2 = open(command_table->outfile, \
+				O_RDWR | O_APPEND | O_CREAT, 0644);
+	}
 	else
 		vars->f2 = open(command_table->outfile, \
 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
