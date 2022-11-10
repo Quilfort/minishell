@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipex_error.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:38:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/10 10:56:28 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,18 @@ void	pexit(char *str, int exit_code)
 	exit(exit_code);
 }
 
+static void	print_error_dir(t_node *command_table, DIR *dir)
+{
+	ft_putstr_fd(command_table->command[0], 2);
+	ft_putstr_fd(": is a directory\n", 2);
+	closedir(dir);
+	exit(126);
+}
+
 void	print_error(t_node *command_table, t_vars *vars)
 {
+	DIR		*dir;
+
 	if (access(command_table->command[0], X_OK) != 0 \
 				&& command_table->command[0][0] == '.' \
 				&& command_table->command[0][1] == '/')
@@ -37,5 +47,8 @@ void	print_error(t_node *command_table, t_vars *vars)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
+	dir = opendir(command_table->command[0]);
+	if (dir)
+		print_error_dir(command_table, dir);
 	exit(1);
 }
