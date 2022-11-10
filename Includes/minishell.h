@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/09 13:45:46 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/10 12:44:18 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		find_key_var_export(int i, char *content, t_vars *vars, t_envp *env);
 		// export_command_key.c
 int		export_key_var(char *content, int i, t_vars *vars, t_envp *env_list);
 int		export_key_no_var(char *content, int i, t_vars *vars);
+int		has_space(char *string);
 
 		// unset.c
 void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);

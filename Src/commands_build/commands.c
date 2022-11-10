@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/09 16:07:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/10 12:45:10 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 	if ((ft_strncmp("export", command_table->command[0], 6) == 0) \
 		&& ft_strlen("export") == ft_strlen(command_table->command[0]))
 	{
-		if (command_table->command[1] != '\0')
+		if (has_space(command_table->content) == 1)
 			export(env, command_table, vars);
 		else
 			print_array(vars->export_env);

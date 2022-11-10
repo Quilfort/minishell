@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 18:15:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 18:21:30 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/10 12:43:54 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,18 @@ int	export_key_no_var(char *content, int i, t_vars *vars)
 	}
 	vars->command_export = ft_substr(content, start, i - start);
 	return (i);
+}
+
+int	has_space(char *string)
+{
+	int	i;
+
+	i = 6;
+	while (string[i] != '\0')
+	{
+		if (string[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }
