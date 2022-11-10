@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/09 16:32:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/10 17:13:11 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,24 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	while (command_table->content[i] != '\0')
 	{
 		i = find_command(command_table->content, i, vars, env_list);
-		temp2 = get_node(env_list, vars->command_export);
-		if (temp2)
-		{
-			if (has_equal(vars->command_export) > 0)
-				refill_node(temp2, vars->command_export);
+		if (ft_isdigit(vars->command_export[0]) == 0)
+		{	
+			temp2 = get_node(env_list, vars->command_export);
+			if (temp2)
+			{
+				if (has_equal(vars->command_export) > 0)
+					refill_node(temp2, vars->command_export);
+			}
+			else
+				export_add_back(env_list, vars);
 		}
 		else
-			export_add_back(env_list, vars);
+		{
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(vars->command_export, 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
+			g_vars2.exitcode = 1;
+		}
 		free(vars->command_export);
 		if (command_table->content[i] == '\0')
 			break ;

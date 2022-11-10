@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 18:15:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 12:43:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/10 17:00:28 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	export_key_no_var(char *content, int i, t_vars *vars)
 	return (i);
 }
 
-int	has_space(char *string)
+int	has_space_num(char *string)
 {
 	int	i;
 
@@ -51,6 +51,11 @@ int	has_space(char *string)
 	while (string[i] != '\0')
 	{
 		if (string[i] != ' ')
+		{
+			if (ft_isdigit(string[i]) == 1)
+				return (2);
+		}
+		else
 			return (1);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 16:09:09 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/10 16:55:04 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env)
 			&& ft_strlen("exit") == ft_strlen(node->command[0]) \
 			&& node->next == NULL)
 		{
+			write(2, "exit", 4);
 			if (node->command[1] == NULL)
 				exit(g_vars2.exitcode);
 			exit_program_error(node->command);
