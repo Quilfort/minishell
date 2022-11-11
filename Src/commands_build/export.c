@@ -71,7 +71,8 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	while (command_table->content[i] != '\0')
 	{
 		i = find_command(command_table->content, i, vars, env_list);
-		if (ft_isdigit(vars->command_export[0]) == 0)
+		if (ft_isalpha(vars->command_export[0]) == 1 || \
+			vars->command_export[0] == '_' || vars->command_export[0] == '\0')
 			export_add_list(env_list, vars);
 		else
 			export_number_identifier(vars);

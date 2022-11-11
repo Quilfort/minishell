@@ -52,7 +52,7 @@ int	has_space_num(char *string)
 	{
 		if (string[i] != ' ')
 		{
-			if (ft_isdigit(string[i]) == 1)
+			if (ft_isdigit(string[i]) == 1 || string[i] == '!')
 				return (2);
 		}
 		else
