@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 11:03:00 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:40:44 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,12 @@ int		echo_n(t_node *command_table);
 int		echo(t_node *command_table);
 
 		// exit.c
-void	exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env);
+int		exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env);
 void	exit_program(t_node *command_table);
+
+		// exit_utils.c
+int		digits_only(char *string);
+int		exit_argument_check(char **arguments);
 
 		// export_array.c
 void	export_array(t_vars *vars, t_envp *env);
@@ -240,11 +244,14 @@ int		find_word(t_node **temp, int i, char *split, int start);
 void	add_to_word_split(t_node **temp, char *word, int space);
 void	add_space(t_node **temp, char *split, int start);
 
-// signals
+		// signals
 void	signals(void);
 void	signals_quit(void);
 
-//free
+		//signals_utils;
+void	check_signals(void);
+
+		//free
 void	freesplit(char **split);
 void	free_command(t_node *list);
 void	freepipes(int **fd, t_vars *vars);

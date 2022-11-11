@@ -3,20 +3,20 @@
 /*                                                        ::::::::            */
 /*   signals.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/01 13:49:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/11 11:53:45 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	sig_int(int sig)
+static void	sig_int(int sign)
 {
 	struct termios	t;
 
-	if (sig == SIGINT)
+	if (sign == SIGINT)
 	{
 		tcgetattr(0, &t);
 		t.c_lflag &= ~ECHOCTL;

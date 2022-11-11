@@ -13,6 +13,7 @@ ENVIRONMENT_FOLDER = ./src/environment/
 SRC = ./src/main.c \
 	./src/free.c \
 	$(SIGNAL_FOLDER)signals.c \
+	$(SIGNAL_FOLDER)signals_utils.c \
 	$(PARSING_FOLDER)here_doc.c \
 	$(PARSING_FOLDER)here_doc_utils.c \
 	$(PARSING_FOLDER)create_command_table.c \
@@ -29,6 +30,7 @@ SRC = ./src/main.c \
 	$(COMMANDS_FOLDER)commands.c \
 	$(COMMANDS_FOLDER)echo_n.c \
 	$(COMMANDS_FOLDER)echo.c \
+	$(COMMANDS_FOLDER)exit_utils.c \
 	$(COMMANDS_FOLDER)exit.c \
 	$(COMMANDS_FOLDER)export_array.c \
 	$(COMMANDS_FOLDER)export_command_key.c \

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 17:11:54 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:09:12 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*rl_history(void)
 		free (input);
 		input = (char *) NULL;
 	}
-	input = readline("Minishell RQ2.0: ");
+	input = readline("Minishell QR3.0: ");
 	if (input != NULL)
 		input[ft_strlen(input) + 1] = '\0';
 	if (input && *input)
@@ -60,7 +60,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 		if (input == NULL)
 		{
 			flag = EOF;
-			write(2, "exit", 4);
+			ft_putstr_fd("exit\n", 2);
 		}
 		else if (input != NULL)
 			command_table(input, env, vars);
@@ -107,6 +107,7 @@ int	main(int argc, char *argv[], char **envp)
 		set_shlvl(env);
 		envp_to_array(env, vars);
 		export_array(vars, env);
+		check_signals();
 		signals();
 		main_loop(0, env, vars);
 	}
