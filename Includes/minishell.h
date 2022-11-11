@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 14:40:13 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 15:50:52 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ void	add_space(t_node **temp, char *split, int start);
 		// signals
 void	signals(void);
 void	signals_quit(void);
+void	sig_handler(int sign);
 
 		//signals_utils;
 void	check_signals(void);

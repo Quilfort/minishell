@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/11 15:08:08 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 16:58:15 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ static void	process_signal(int sign)
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
-		g_vars2.exitcode = 1;
+		g_vars2.exitcode = 0;
 	}
+	else if (sign == SIGQUIT)
+		signal(SIGQUIT, SIG_IGN);
 }
 
-static void	sig_handler(int sign)
+void	sig_handler(int sign)
 {
 	if ((sign == SIGINT || sign == SIGQUIT) \
 		&& g_vars2.pid != 0)

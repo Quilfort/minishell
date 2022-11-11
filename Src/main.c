@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 15:18:45 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 12:09:12 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 16:56:39 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	main_loop(int flag, t_envp *env, t_vars	*vars)
 	while (flag != EOF)
 	{
 		signal(SIGQUIT, SIG_IGN);
+		g_vars2.pid = 0;
 		input = rl_history();
 		signals();
 		if (input == NULL)
