@@ -3,20 +3,44 @@
 /*                                                        ::::::::            */
 /*   interpreter_files.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/09 13:37:38 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/09 13:44:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/11 15:11:35 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	open_close(int fd, t_node *temp)
+{
+	if (temp->append == 1)
+	{
+		fd = open(temp->outfile, O_RDWR | O_APPEND);
+		if (fd < 0)
+			fd = open(temp->outfile, \
+				O_RDWR | O_APPEND | O_CREAT, 0644);
+	}
+	else
+		fd = open(temp->outfile, \
+		O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		perror(temp->outfile);
+		g_vars2.exitcode = 1;
+	}
+	close(fd);
+}
+
 static void	list_outfile_een(t_node *temp, char *outfile)
 {
+	int	fd;
+
+	fd = 0;
 	if (temp->outfile)
 		free(temp->outfile);
 	temp->outfile = ft_strdup(outfile);
+	open_close(fd, temp);
 	free(outfile);
 }
 

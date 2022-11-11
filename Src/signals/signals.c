@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 17:33:32 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/11 11:53:45 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 15:08:08 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	sig_int(int sign)
 	}
 }
 
-static void	process(int sign)
+static void	process_signal(int sign)
 {
 	if (!kill(g_vars2.pid, sign))
 	{
@@ -60,9 +60,9 @@ static void	process(int sign)
 
 static void	sig_handler(int sign)
 {
-	if ((sign == SIGINT || \
-	sign == SIGQUIT) && g_vars2.pid != 0)
-		process(sign);
+	if ((sign == SIGINT || sign == SIGQUIT) \
+		&& g_vars2.pid != 0)
+		process_signal(sign);
 	else if (sign == SIGQUIT)
 		signal(SIGQUIT, SIG_IGN);
 	else if (sign == SIGINT)

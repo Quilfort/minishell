@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fork_one_com.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/08 13:37:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/11 14:40:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
