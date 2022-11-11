@@ -34,6 +34,7 @@ SRC = ./src/main.c \
 	$(COMMANDS_FOLDER)export_command_key.c \
 	$(COMMANDS_FOLDER)export_command_var.c \
 	$(COMMANDS_FOLDER)export_command.c \
+	$(COMMANDS_FOLDER)export_unset_utils.c \
 	$(COMMANDS_FOLDER)export.c \
 	$(COMMANDS_FOLDER)unset.c \
 	$(EXEC_FOLDER)child.c \

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 17:02:06 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 11:03:00 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ void	exit_program(t_node *command_table);
 void	export_array(t_vars *vars, t_envp *env);
 
 		// export.c
+void	export_add_list(t_envp *env_list, t_vars *vars);
 void	refill_node(t_envp *node, char *string);
 t_envp	*get_node(t_envp *env_list, char *string);
+void	export_add_back(t_envp *env_list, t_vars *vars);
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars);
 
 		// export_command.c
@@ -118,6 +120,12 @@ int		find_key_var_export(int i, char *content, t_vars *vars, t_envp *env);
 int		export_key_var(char *content, int i, t_vars *vars, t_envp *env_list);
 int		export_key_no_var(char *content, int i, t_vars *vars);
 int		has_space_num(char *string);
+
+		// export_unset_utils.c
+void	export_unset_array(t_envp *env_list, t_vars *vars);
+void	unset_number_identifier(t_vars *vars);
+void	export_number_identifier(t_vars *vars);
+int		has_equal(char *string);
 
 		// unset.c
 void	unset(t_envp *env_list, t_node *command_table, t_vars *vars);

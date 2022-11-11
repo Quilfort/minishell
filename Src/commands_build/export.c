@@ -6,24 +6,24 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 17:13:11 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/11 10:59:24 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_equal(char *string)
+void	export_add_list(t_envp *env_list, t_vars *vars)
 {
-	int	i;
+	t_envp	*temp2;
 
-	i = 0;
-	while (string[i] != '\0')
+	temp2 = get_node(env_list, vars->command_export);
+	if (temp2)
 	{
-		if (string[i] == '=')
-			return (i);
-		i++;
+		if (has_equal(vars->command_export) > 0)
+			refill_node(temp2, vars->command_export);
 	}
-	return (0);
+	else
+		export_add_back(env_list, vars);
 }
 
 t_envp	*get_node(t_envp *env_list, char *string)
@@ -54,7 +54,7 @@ void	refill_node(t_envp *node, char *string)
 	key_output(string, &node);
 }
 
-static void	export_add_back(t_envp *env_list, t_vars *vars)
+void	export_add_back(t_envp *env_list, t_vars *vars)
 {
 	t_envp	*temp;
 
@@ -65,7 +65,6 @@ static void	export_add_back(t_envp *env_list, t_vars *vars)
 
 void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 {
-	t_envp	*temp2;
 	int		i;
 
 	i = 7;
@@ -73,30 +72,14 @@ void	export(t_envp *env_list, t_node *command_table, t_vars *vars)
 	{
 		i = find_command(command_table->content, i, vars, env_list);
 		if (ft_isdigit(vars->command_export[0]) == 0)
-		{	
-			temp2 = get_node(env_list, vars->command_export);
-			if (temp2)
-			{
-				if (has_equal(vars->command_export) > 0)
-					refill_node(temp2, vars->command_export);
-			}
-			else
-				export_add_back(env_list, vars);
-		}
+			export_add_list(env_list, vars);
 		else
-		{
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(vars->command_export, 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);
-			g_vars2.exitcode = 1;
-		}
+			export_number_identifier(vars);
 		free(vars->command_export);
 		if (command_table->content[i] == '\0')
 			break ;
 		else
 			i++;
 	}
-	envp_to_array(env_list, vars);
-	export_array(vars, env_list);
-	vars->command_export = NULL;
+	export_unset_array(env_list, vars);
 }

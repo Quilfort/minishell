@@ -3,25 +3,25 @@
 /*                                                        ::::::::            */
 /*   unset.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:32:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/11 11:02:31 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int	get_pos(t_envp *env_list, t_node *command_table)
+static	int	get_pos(t_envp *env_list, t_vars *vars)
 {
 	int	i;
 
 	i = 0;
 	while (env_list)
 	{
-		if ((ft_strncmp(env_list->key, command_table->command[1], \
-			ft_strlen(command_table->command[1])) == 0) && \
-			ft_strlen(command_table->command[1]) == ft_strlen(env_list->key))
+		if ((ft_strncmp(env_list->key, vars->command_export, \
+			ft_strlen(vars->command_export)) == 0) && \
+			ft_strlen(vars->command_export) == ft_strlen(env_list->key))
 			return (i);
 		env_list = env_list->next;
 		i++;
@@ -58,16 +58,16 @@ static	void	unset_utils( t_envp *temp, t_envp *del, int position, int i)
 	}
 }
 
-static	int	find_key(t_envp *env_list, t_node *command_table)
+static	int	find_key(t_envp *env_list, t_vars *vars)
 {
 	int	i;
 
 	i = 0;
 	while (env_list)
 	{
-		if ((ft_strncmp(env_list->key, command_table->command[1], \
-			ft_strlen(command_table->command[1])) == 0) && \
-			ft_strlen(command_table->command[1]) == ft_strlen(env_list->key))
+		if ((ft_strncmp(env_list->key, vars->command_export, \
+			ft_strlen(vars->command_export)) == 0) && \
+			ft_strlen(vars->command_export) == ft_strlen(env_list->key))
 			return (1);
 		env_list = env_list->next;
 		i++;
@@ -75,19 +75,36 @@ static	int	find_key(t_envp *env_list, t_node *command_table)
 	return (0);
 }
 
+static void	unset_key(t_envp *env_list, t_vars *vars, \
+				t_envp *temp, t_envp	*del)
+{
+	int		position;
+
+	position = get_pos(env_list, vars);
+	unset_utils(temp, del, position, 0);
+}
+
 void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 {
 	t_envp	*temp;
 	t_envp	*del;
-	int		position;
+	int		i;
 
 	del = NULL;
 	temp = env_list;
-	if (find_key(env_list, command_table) == 1)
+	i = 6;
+	while (command_table->content[i] != '\0')
 	{
-		position = get_pos(env_list, command_table);
-		unset_utils(temp, del, position, 0);
-		envp_to_array(env_list, vars);
-		export_array(vars, env_list);
+		i = find_command(command_table->content, i, vars, env_list);
+		if (ft_isdigit(vars->command_export[0]) != 0)
+			unset_number_identifier(vars);
+		else if (find_key(env_list, vars) == 1)
+			unset_key(env_list, vars, temp, del);
+		free(vars->command_export);
+		if (command_table->content[i] == '\0')
+			break ;
+		else
+			i++;
 	}
+	export_unset_array(env_list, vars);
 }
