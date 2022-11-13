@@ -96,10 +96,13 @@ void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 	while (command_table->content[i] != '\0')
 	{
 		i = find_command(command_table->content, i, vars, env_list);
-		if (ft_isdigit(vars->command_export[0]) != 0)
+		if (ft_isalpha(vars->command_export[0]) == 1 || vars->command_export[0] == '_')
+		{
+			if (find_key(env_list, vars) == 1)
+				unset_key(env_list, vars, temp, del);
+		}
+		else
 			unset_number_identifier(vars);
-		else if (find_key(env_list, vars) == 1)
-			unset_key(env_list, vars, temp, del);
 		free(vars->command_export);
 		if (command_table->content[i] == '\0')
 			break ;
