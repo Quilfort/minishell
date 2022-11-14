@@ -6,15 +6,28 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/14 15:22:47 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/14 17:28:48 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_space(char c)
+int	is_option(char *string, int i)
 {
-	return (c == 'n' || c == '-' || c == ' ');
+	if (string[i] == '-')
+	{
+		i++;
+		if (string[i] != 'n')
+			return (0);
+		else
+		{
+			while (string[i] == 'n')
+				i++;
+			if (string[i] == ' ' || string[i] == '\0')
+				return (i);
+		}
+	}
+	return (0);
 }
 
 static int	pos_check(int k, int p, char *string)
@@ -28,22 +41,21 @@ static int	pos_check(int k, int p, char *string)
 
 static int	str_check(char *string)
 {
-	int	i; 
+	int	i;
 	int	k;
 	int	p;
 
 	p = 0;
 	i = 5;
 	k = i;
-	while (string[i])
+	while (string[i] != '\0')
 	{
-		if (!is_space(string[i]))
+		if (is_option(string, i) == 0)
 		{
-			printf("Are you here = %d\n\n", i);
 			p = 1;
 			break ;
 		}
-		if (string[i] != ' ')
+		while (string[i] != ' ')
 			i++;
 		while (string[i] == ' ')
 		{

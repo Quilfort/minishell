@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/14 11:21:04 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/14 17:24:43 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		env(t_vars *vars);
 
 		// echo_n.c
 int		echo_n(t_node *command_table);
+int		is_option(char *string, int i);
 
 		//echo.c
 int		echo(t_node *command_table);

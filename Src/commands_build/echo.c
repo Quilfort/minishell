@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:33:46 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/14 17:30:04 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	echo(t_node *command_table)
 		ft_putendl_fd(getenv("HOME"), 1);
 		return (1);
 	}
-	else if (ft_strncmp("-n", command_table->command[1], 2) == 0)
+	else if (is_option(command_table->command[1], 0) != 0)
 		return (echo_n(command_table));
 	else
 		return (echo_print(command_table, str_to_print));
