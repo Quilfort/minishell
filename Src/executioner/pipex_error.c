@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 10:56:28 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/14 12:40:33 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_error(t_node *command_table, t_vars *vars)
 		exit(126);
 	}
 	if (vars->my_path == NULL && \
-		(ft_strncmp(command_table->command[0], "cat", 3) != 0))
+		(ft_strncmp(command_table->command[0], "cat", 4) != 0))
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(command_table->command[0], 2);
