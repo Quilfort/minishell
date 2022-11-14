@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 11:02:31 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/14 10:02:10 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 	while (command_table->content[i] != '\0')
 	{
 		i = find_command(command_table->content, i, vars, env_list);
-		if (ft_isalpha(vars->command_export[0]) == 1 || vars->command_export[0] == '_')
+		if (ft_isalpha(vars->command_export[0]) == 1 || \
+			vars->command_export[0] == '_')
 		{
 			if (find_key(env_list, vars) == 1)
 				unset_key(env_list, vars, temp, del);
