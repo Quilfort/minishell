@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo_n.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:33:31 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/14 15:22:47 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	pos_check(int k, int p, char *string)
 
 static int	str_check(char *string)
 {
-	int	i;
+	int	i; 
 	int	k;
 	int	p;
 
@@ -39,18 +39,19 @@ static int	str_check(char *string)
 	{
 		if (!is_space(string[i]))
 		{
+			printf("Are you here = %d\n\n", i);
 			p = 1;
 			break ;
 		}
+		if (string[i] != ' ')
+			i++;
 		while (string[i] == ' ')
 		{
 			i++;
 			k = i;
 		}
-		i++;
 	}
-	k = pos_check(k, p, string);
-	return (k);
+	return (pos_check(k, p, string));
 }
 
 int	echo_n(t_node *command_table)
