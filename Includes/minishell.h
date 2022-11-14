@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 15:50:52 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/14 11:21:04 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		echo(t_node *command_table);
 		// exit.c
 int		exit_now_questionmark(t_node *node, t_vars *vars, t_envp *env);
 void	exit_program(t_node *command_table);
+int		exit_program_error(char **arguments);
 
 		// exit_utils.c
 int		digits_only(char *string);
