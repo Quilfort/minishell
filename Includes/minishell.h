@@ -34,6 +34,8 @@ typedef struct s_vars
 	int		no_infile;
 	int		no_outfile;
 	int		env_count;
+	char	*slash;
+	char	*pipex_path;
 	char	**enviroment;
 	char	**cmd;
 	char	**path;

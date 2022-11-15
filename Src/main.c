@@ -29,6 +29,8 @@ static void	init_vars(t_vars *vars)
 	vars->export_env = NULL;
 	vars->last_dir = NULL;
 	vars->command_export = NULL;
+	vars->slash = NULL;
+	vars->pipex_path = NULL;
 }
 
 char	*rl_history(void)

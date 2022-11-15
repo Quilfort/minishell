@@ -28,32 +28,40 @@ void	find_path(t_vars *vars)
 		perror("nopath");
 }
 
-void	right_path(t_node *commands_table, t_vars *vars)
+static void	right_path_loop(t_node *command_table, t_vars *vars, int i)
 {
-	char	*slash;
-	char	*pipex_path;
+	while (vars->path[i] != NULL)
+	{
+		vars->slash = ft_strjoin(vars->path[i], "/");
+		if (!vars->slash)
+			print_error(command_table, vars);
+		vars->pipex_path = ft_strjoin(vars->slash, command_table->command[0]);
+		if (!vars->pipex_path)
+			print_error(command_table, vars);
+		if (access(vars->pipex_path, X_OK) == 0)
+		{
+			vars->my_path = ft_strdup(vars->pipex_path);
+			free(vars->slash);
+			free(vars->pipex_path);
+			break ;
+		}
+		free(vars->slash);
+		free(vars->pipex_path);
+		i++;
+	}
+}
+
+void	right_path(t_node *command_table, t_vars *vars)
+{
 	int		i;
 
 	vars->my_path = NULL;
-	if (access(commands_table->command[0], X_OK) == 0)
-		vars->my_path = ft_strdup(commands_table->command[0]);
+	if (access(command_table->command[0], X_OK) == 0)
+		vars->my_path = ft_strdup(command_table->command[0]);
 	i = 0;
-	while (vars->path[i] != NULL)
-	{
-		slash = ft_strjoin(vars->path[i], "/");
-		if (!slash)
-			print_error(commands_table, vars);
-		pipex_path = ft_strjoin(slash, commands_table->command[0]);
-		if (!pipex_path)
-			print_error(commands_table, vars);
-		if (access(pipex_path, X_OK) == 0)
-			vars->my_path = ft_strdup(pipex_path);
-		free(slash);
-		free(pipex_path);
-		i++;
-	}
+	right_path_loop(command_table, vars, i);
 	if (vars->my_path == NULL)
-		print_error(commands_table, vars);
+		print_error(command_table, vars);
 }
 
 char	*q_find_token_infile(t_node *command_table, t_vars *vars)
