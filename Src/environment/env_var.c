@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:34:54 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/16 13:47:17 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ char	*env_var(t_envp *list, char *var)
 		(ft_strlen(var) == ft_strlen(list->key)))
 	{
 		output = list->output;
-		free(var);
+		if (var)
+			free(var);
 		if (output == NULL)
-			return ("");
+			return (ft_strdup(""));
 		else
 			return (output);
 	}	
 	else
 	{
-		free(var);
-		return ("");
+		if (var)
+			free(var);
+		return (ft_strdup(""));
 	}
 }
 

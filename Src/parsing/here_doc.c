@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   here_doc.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 10:56:36 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/11 14:12:51 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 13:47:43 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static char	*env_var_here_doc(char *input, t_envp *env)
 	int		i;
 
 	i = 0;
-	output = ft_strdup("");
+	output = ft_strdup(" ");
 	split = ft_split(input, ' ');
 	while (split[i] != NULL)
 	{
-		if (split[i][0] == '$')
+		if (split[i][0] == '$' && split[i][1] != '\0')
 		{
 			var = ft_substr(split[i], 1, ft_strlen(split[i]));
 			var = env_var(env, var);
@@ -64,7 +64,8 @@ static void	write_in_file(int fd, char *delimiter, t_envp *env)
 			write(fd, input, ft_strlen(input));
 			write(fd, "\n", 1);
 		}
-		free(input);
+		if (input)
+			free(input);
 	}
 }
 

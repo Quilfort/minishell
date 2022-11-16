@@ -54,7 +54,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	gcc $(OBJ) $(LIBFT) -lreadline $(READLINE_LIB) -o $(NAME)
 
 %.o: %.c
-	gcc $(INC) $(READLINE_INC) $(FLAGS) -c $< -o $@
+	gcc $(INC) $(READLINE_INC) $(FLAGS)-c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)

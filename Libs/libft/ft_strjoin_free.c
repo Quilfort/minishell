@@ -6,12 +6,19 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/13 18:09:09 by rharing       #+#    #+#                 */
-/*   Updated: 2022/10/13 18:09:29 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/16 13:34:27 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief joins two strings and frees s1
+ * 
+ * @param s1 string to join
+ * @param s2 
+ * @return char* 
+ */
 char	*ft_strjoin_free(char *s1, char const *s2)
 {
 	size_t	s1len;
