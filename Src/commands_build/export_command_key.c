@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export_command_key.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 18:15:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 17:00:28 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 17:01:48 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ int	export_key_var(char *content, int i, t_vars *vars, t_envp *env_list)
 	i++;
 	start = i;
 	i = find_key_var_export(i, content, vars, env_list);
-	if (content[i] == '\0' || content[i] == ' ')
-	{
-		vars->command_export = ft_substr(content, start, i - start);
-		return (i);
-	}
 	return (i);
 }
 

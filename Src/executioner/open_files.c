@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/09 14:01:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/16 18:47:33 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	openfiles(t_node *command_table, t_vars *vars)
 {
 	openfile_utils(command_table, vars);
 	if (command_table->outfile != NULL)
-	{
+	{	
 		if (command_table->append == 1)
 		{
 			vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);
@@ -50,6 +50,7 @@ void	openfiles(t_node *command_table, t_vars *vars)
 
 void	open_infile(t_vars *vars, t_node *command_table)
 {
+	ft_putendl_fd("\ninfile\n", 2);
 	vars->f1 = open(command_table->infile, O_RDONLY, 0644);
 	if (vars->f1 < 0)
 	{
@@ -62,6 +63,7 @@ void	open_infile(t_vars *vars, t_node *command_table)
 
 void	open_outfile(t_vars *vars, t_node *command_table)
 {
+	ft_putendl_fd("jadsjjj\n\n", 2);
 	if (command_table->append == 1)
 	{
 		vars->f2 = open(command_table->outfile, O_RDWR | O_APPEND);

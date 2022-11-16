@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   executioner.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/14 11:24:25 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:39:49 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

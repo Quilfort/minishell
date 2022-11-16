@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export_command_var.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/08 14:09:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 18:25:42 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 17:01:54 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

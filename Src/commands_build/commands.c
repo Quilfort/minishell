@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/10 17:04:17 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 14:36:41 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	builtin(t_node *command_table, t_envp *env, t_vars *vars)
 		return (1);
 	}
 	else if ((ft_strncmp("unset", command_table->command[0], 3) == 0) \
-		&& (command_table->command[1] != NULL) \
 		&& ft_strlen("unset") == ft_strlen(command_table->command[0]))
 	{
-		unset(env, command_table, vars);
+		if ((command_table->command[1] != NULL))
+			unset(env, command_table, vars);
 		return (1);
 	}
 	return (0);

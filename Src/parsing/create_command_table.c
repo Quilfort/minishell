@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   create_command_table.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/10 15:13:19 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/14 11:12:28 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 19:24:53 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,11 @@ void	command_table(char *split, t_envp *env, t_vars *vars)
 
 	node = create_command_table_list(split, env);
 	exec_init(node);
-	if (node->next == NULL)
-		openfiles(node, vars);
 	if (node->command[0] == NULL && node->next == NULL)
+	{
+		openfiles(node, vars);
 		close_files(vars, node);
+	}
 	else
 	{
 		if (node->next == NULL)

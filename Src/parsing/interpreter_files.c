@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interpreter_files.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/09 13:37:38 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/16 10:54:09 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 19:18:05 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	list_outfile_een(t_node *temp, char *outfile)
 	if (temp->outfile)
 		free(temp->outfile);
 	temp->outfile = ft_strdup(outfile);
-	open_close(fd, temp);
+	if (temp->cancel == 0)
+		open_close(fd, temp);
 	free(outfile);
 }
 
@@ -77,6 +78,8 @@ static void	list_infile_een(t_node *temp, char *infile)
 	if (temp->infile)
 		free(temp->infile);
 	temp->infile = ft_strdup(infile);
+	if (access(temp->infile, R_OK) != 0)
+		temp->cancel = 1;
 	free(infile);
 }
 
@@ -86,9 +89,8 @@ int	list_infile(t_node **temp, int i, char *split)
 	int		start;
 	int		end;
 
-	i++;
-	while (split[i] == ' ')
-		i++;
+	while (split[++i] == ' ')
+		;
 	start = i;
 	while (split[i] != '\0')
 	{
@@ -97,6 +99,8 @@ int	list_infile(t_node **temp, int i, char *split)
 			end = i;
 			infile = ft_substr(split, start, (end - start));
 			list_infile_een((*temp), infile);
+			if ((*temp)->cancel == 1)
+				break ;
 			i = another_infile(temp, i, split);
 			return (i);
 		}
