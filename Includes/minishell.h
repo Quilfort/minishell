@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/14 17:24:43 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 10:54:25 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,8 @@ int		list_infile(t_node **temp, int i, char *split);
 		// interpreter_util.c
 int		find_var(t_node **temp, int i, char *split, t_envp *env);
 int		var_first_char(char *split, int i, t_node **temp);
+int		another_outfile(t_node **temp, int i, char *split);
+int		another_infile(t_node **temp, int i, char *split);
 
 		// interpreter.c
 void	list_print_command(t_node *list);

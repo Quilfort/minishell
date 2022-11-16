@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/10/17 11:04:38 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 10:52:08 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_word(t_node **temp, int i, char *split, int start)
 	space = 0;
 	end = i;
 	pipe_split = ft_substr(split, start, (end - start));
-	if (split[i - 1] == ' ')
+	if (split[i - 1] == ' ' && split[i] != '>' && split[i] != '<')
 		space = 1;
 	add_to_word_split(temp, pipe_split, space);
 	free(pipe_split);

@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/09 13:37:38 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/11 15:11:35 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 10:54:09 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	list_outfile(t_node **temp, int i, char *split)
 			end = i;
 			outfile = ft_substr(split, start, (end - start));
 			list_outfile_een((*temp), outfile);
+			i = another_outfile(temp, i, split);
 			return (i);
 		}
 		i++;
@@ -96,6 +97,7 @@ int	list_infile(t_node **temp, int i, char *split)
 			end = i;
 			infile = ft_substr(split, start, (end - start));
 			list_infile_een((*temp), infile);
+			i = another_infile(temp, i, split);
 			return (i);
 		}
 		i++;

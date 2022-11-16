@@ -3,14 +3,34 @@
 /*                                                        ::::::::            */
 /*   interpreter_utils.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rharing <rharing@student.42.fr>              +#+                     */
+/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/15 12:32:33 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/09 13:46:05 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/16 10:56:23 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	another_outfile(t_node **temp, int i, char *split)
+{
+	if (split[i + 1] == '>')
+	{
+		i++;
+		i = redirect_outfile(*temp, split, i);
+	}
+	return (i);
+}
+
+int	another_infile(t_node **temp, int i, char *split)
+{
+	if (split[i + 1] == '<')
+	{
+		i++;
+		i = redirect_infile(*temp, split, i);
+	}
+	return (i);
+}
 
 int	var_first_char(char *split, int i, t_node **temp)
 {
