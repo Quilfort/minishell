@@ -6,7 +6,7 @@
 /*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 11:28:56 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/14 12:40:33 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/16 11:07:47 by qfrederi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	pexit(char *str, int exit_code)
 
 static void	print_error_dir(t_node *command_table, DIR *dir)
 {
+	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(command_table->command[0], 2);
 	ft_putstr_fd(": is a directory\n", 2);
 	closedir(dir);
