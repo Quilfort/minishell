@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:20:46 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/16 18:39:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 19:48:15 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	in_out_file_one_command(t_node *command_table, t_vars *vars, \
 	}
 	else
 	{
-		wait(&status);
+		waitpid(g_vars2.pid, &status, 0);
 		if (vars->f1)
 			close(vars->f1);
 		if (vars->f2)
@@ -60,7 +60,7 @@ void	just_infile_fork_process(t_node *command_table, t_vars *vars, \
 	}
 	else
 	{
-		wait(&status);
+		waitpid(g_vars2.pid, &status, 0);
 		if (vars->f1)
 			close(vars->f1);
 		if (WIFEXITED(status))
@@ -86,7 +86,7 @@ void	just_outfile_fork_process(t_node *command_table, t_vars *vars, \
 	}
 	else
 	{
-		wait(&status);
+		waitpid(g_vars2.pid, &status, 0);
 		if (vars->f2)
 			close(vars->f2);
 		if (WIFEXITED(status))

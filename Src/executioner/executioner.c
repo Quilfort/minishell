@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/17 19:10:58 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 19:47:29 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static	void	no_inoutfile(t_node *command_table, t_vars *vars, \
 		q_preform_cmd(command_table, vars, env_list);
 	else
 	{
-		wait(&status);
+		waitpid(g_vars2.pid, &status, 0);
 		if (WIFEXITED(status))
 			g_vars2.exitcode = WEXITSTATUS(status);
 	}

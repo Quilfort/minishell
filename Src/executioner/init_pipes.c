@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:30:27 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/17 19:14:26 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 19:48:23 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ void	ft_wait(t_vars *vars)
 	x = 0;
 	while (x < vars->com)
 	{
-		wait(&status);
+		waitpid(g_vars2.pid, &status, 0);
 		if (WIFEXITED(status))
 			g_vars2.exitcode = WEXITSTATUS(status);
 		x++;
 	}
-	if (WIFEXITED(status))
-		g_vars2.exitcode = WEXITSTATUS(status);
 }
 
 void	just_exit(int **fd, t_vars *vars, t_node *command_table)
