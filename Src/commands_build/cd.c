@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 13:03:11 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 19:10:00 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	open_folder(t_node *command_table, t_envp *env, t_vars *vars)
 			ft_putstr_fd("Minishell: cd: ", 2);
 			perror(path);
 			g_vars2.exitcode = 1;
+			return (1);
 		}
 		if (dir != NULL)
 			closedir(dir);

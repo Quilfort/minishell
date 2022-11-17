@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 15:33:18 by rharing       #+#    #+#                 */
-/*   Updated: 2022/11/16 18:39:49 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 19:10:58 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	q_preform_cmd(t_node *command_table, t_vars *vars, t_envp *env_list)
 			print_error(command_table, vars);
 	}
 	else
-		exit(0);
+		exit(g_vars2.exitcode);
 }
 
 void	multiple_fork(t_node *command_table, t_vars *vars, t_envp *env_list)

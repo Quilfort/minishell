@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 14:43:32 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:47:17 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 18:36:32 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ char	*env_var(t_envp *list, char *var)
 {
 	char	*output;
 
-	while ((ft_strncmp(var, list->key, ft_strlen(list->key)) != 0) && \
+	while ((ft_strncmp(var, list->key, ft_strlen(var)) != 0) && \
 			list->next != NULL)
-	{
 		list = list->next;
-	}
 	if (ft_strncmp(var, list->key, ft_strlen(list->key)) == 0 && \
 		(ft_strlen(var) == ft_strlen(list->key)))
 	{

@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/17 17:44:13 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 18:15:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	export_add_list(t_envp *env_list, t_vars *vars)
 t_envp	*get_node(t_envp *env_list, char *string)
 {
 	t_envp	*temp;
-	int		lenght;
+	size_t	lenght;
 
 	temp = env_list;
 	lenght = has_equal(string);
@@ -37,7 +37,8 @@ t_envp	*get_node(t_envp *env_list, char *string)
 		lenght = ft_strlen(string);
 	while (temp != NULL)
 	{
-		if (ft_strncmp(temp->key, string, lenght) == 0)
+		if (ft_strncmp(temp->key, string, lenght) == 0 && \
+			(ft_strlen(temp->key) == lenght))
 			return (temp);
 		temp = temp->next;
 	}

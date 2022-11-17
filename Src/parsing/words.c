@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   words.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qfrederi <qfrederi@student.42.fr>            +#+                     */
+/*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/26 12:34:26 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/16 10:52:08 by qfrederi      ########   odam.nl         */
+/*   Updated: 2022/11/17 18:36:44 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
