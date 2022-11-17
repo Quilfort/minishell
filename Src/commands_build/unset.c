@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 13:08:27 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/16 17:02:19 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 17:45:40 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,13 @@ void	unset(t_envp *env_list, t_node *command_table, t_vars *vars)
 	while (command_table->content[i] != '\0')
 	{
 		i = find_command(command_table->content, i, vars, env_list);
-		if (ft_isalpha(vars->command_export[0]) == 1 || \
-			vars->command_export[0] == '_')
-		{
+		if (export_first_char_check(vars->command_export[0]) == 0)
+			unset_number_identifier(vars);
+		else if (string_check_export(vars->command_export) == 1)
+			unset_number_identifier(vars);
+		else
 			if (find_key(env_list, vars) == 1)
 				unset_key(env_list, vars, temp, del);
-		}
-		else
-			unset_number_identifier(vars);
 		free(vars->command_export);
 		if (command_table->content[i] == '\0')
 			break ;

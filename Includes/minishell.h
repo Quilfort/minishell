@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:42:30 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/16 18:52:49 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 17:43:39 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ int		find_key_var_export(int i, char *content, t_vars *vars, t_envp *env);
 int		export_key_var(char *content, int i, t_vars *vars, t_envp *env_list);
 int		export_key_no_var(char *content, int i, t_vars *vars);
 int		has_space_num(char *string);
+int		export_first_char_check(char c);
+int		string_check_export(char *string);
 
 		// export_unset_utils.c
 void	export_unset_array(t_envp *env_list, t_vars *vars);

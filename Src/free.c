@@ -6,7 +6,7 @@
 /*   By: rharing <rharing@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 11:03:47 by qfrederi      #+#    #+#                 */
-/*   Updated: 2022/11/08 16:09:06 by rharing       ########   odam.nl         */
+/*   Updated: 2022/11/17 14:05:32 by rharing       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	freesplit(char **split)
 void	free_command(t_node *list)
 {
 	t_node	*temp;
-	size_t	i;
 
 	while (list != NULL)
 	{
-		i = 0;
 		temp = list;
 		free(temp->words);
 		free(temp->content);
